@@ -1,0 +1,620 @@
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM PORTFOLIO — Avishka Madushan
+   Advanced Animations, Glassmorphism & Premium Effects
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS Variables ── */
+:root {
+  --p-orange:     #F96D00;
+  --p-orange-dim: rgba(249, 109, 0, 0.18);
+  --p-orange-lo:  rgba(249, 109, 0, 0.06);
+  --p-dark:       #08080f;
+}
+
+/* ── Global Smooth Scroll ── */
+html { scroll-behavior: smooth; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CUSTOM CURSOR  (pointer / desktop only)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+.p-cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 9px; height: 9px;
+  background: var(--p-orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100000;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s;
+  box-shadow: 0 0 10px var(--p-orange), 0 0 20px var(--p-orange);
+  will-change: left, top;
+}
+
+.p-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 38px; height: 38px;
+  border: 1.5px solid rgba(249, 109, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width .3s, height .3s, border-color .3s;
+  will-change: left, top;
+}
+
+.p-cursor-dot.hovered {
+  width: 13px; height: 13px;
+  box-shadow: 0 0 14px var(--p-orange), 0 0 28px var(--p-orange);
+}
+
+.p-cursor-ring.hovered {
+  width: 54px; height: 54px;
+  border-color: rgba(249, 109, 0, 0.7);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SCROLL PROGRESS BAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.p-scroll-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--p-orange);
+  z-index: 100001;
+  box-shadow: 0 0 10px var(--p-orange);
+  transition: width .08s linear;
+  pointer-events: none;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PREMIUM NAVBAR — Full Design (Top + Pill)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Smooth base transition */
+.ftco_navbar {
+  transition: top .45s cubic-bezier(.25,.46,.45,.94),
+              padding .45s ease,
+              background .4s ease !important;
+}
+
+/* ════════════════════════════════════════
+   TOP STATE  (before scroll)
+════════════════════════════════════════ */
+.ftco-navbar-light:not(.scrolled) {
+  background: linear-gradient(
+    180deg,
+    rgba(6, 6, 18, 0.78) 0%,
+    rgba(6, 6, 18, 0.30) 70%,
+    transparent 100%
+  ) !important;
+  padding: 1.4rem 0 !important;
+  border-bottom: 1px solid rgba(249, 109, 0, 0.12) !important;
+}
+
+/* Larger brand at top */
+.ftco-navbar-light:not(.scrolled) .navbar-brand {
+  font-size: 1.5rem !important;
+  padding: 0.55rem 0 !important;
+}
+
+/* Larger nav links at top */
+.ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
+  font-size: 1rem !important;
+  padding: 0.55rem 1.1rem !important;
+}
+
+/* ════════════════════════════════════════
+   SCROLLED STATE  (floating pill)
+════════════════════════════════════════ */
+.ftco-navbar-light.scrolled {
+  position: fixed !important;
+  top: 14px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 48px) !important;
+  max-width: 1160px !important;
+  border-radius: 100px !important;
+  background: rgba(8, 8, 16, 0.82) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(249, 109, 0, 0.2) !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(249, 109, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  padding: 0.15rem 1.2rem !important;
+}
+
+/* ════════════════════════════════════════
+   BRAND  (shared — dot always visible)
+════════════════════════════════════════ */
+.ftco-navbar-light .navbar-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 1.05rem !important;   /* scrolled default; top overrides above */
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  color: #fff !important;
+  padding: 0.5rem 0 !important;
+  text-decoration: none !important;
+  transition: opacity .3s, font-size .4s !important;
+}
+
+/* Glowing orange dot */
+.ftco-navbar-light .navbar-brand::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  background: var(--p-orange);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pBrandPulse 2s ease infinite alternate;
+}
+@keyframes pBrandPulse {
+  from { box-shadow: 0 0 4px var(--p-orange), 0 0 8px rgba(249,109,0,0.3); }
+  to   { box-shadow: 0 0 12px var(--p-orange), 0 0 26px rgba(249,109,0,0.55); }
+}
+.ftco-navbar-light .navbar-brand:hover,
+.ftco-navbar-light .navbar-brand:focus { opacity: .8 !important; color: #fff !important; }
+
+/* ════════════════════════════════════════
+   NAV LINKS  (shared pill-hover)
+════════════════════════════════════════ */
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+  font-size: 0.875rem !important;  /* scrolled default; top overrides above */
+  font-weight: 500 !important;
+  letter-spacing: 0.25px !important;
+  padding: 0.42rem 0.95rem !important;
+  border-radius: 50px !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  transition: color .25s, background .25s !important;
+  margin: 0 1px;
+}
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
+  color: #fff !important;
+  background: rgba(249, 109, 0, 0.14) !important;
+}
+
+/* Active page link */
+.ftco-navbar-light.scrolled .nav-item.active > .nav-link,
+.ftco-navbar-light.scrolled .nav-item > .nav-link.active {
+  color: var(--p-orange) !important;
+  background: rgba(249, 109, 0, 0.1) !important;
+}
+
+/* Remove original underline decoration */
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link span::before { display: none !important; }
+.site-navbar-target .nav-link span::after { display: none !important; }
+
+/* ════════════════════════════════════════
+   HAMBURGER TOGGLER
+════════════════════════════════════════ */
+.ftco_navbar .navbar-toggler {
+  border: 1.5px solid rgba(249, 109, 0, 0.45) !important;
+  border-radius: 10px !important;
+  padding: 5px 10px !important;
+  color: rgba(255,255,255,.9) !important;
+  transition: background .3s, border-color .3s, box-shadow .3s !important;
+}
+.ftco_navbar .navbar-toggler:hover {
+  background: rgba(249, 109, 0, 0.1) !important;
+  border-color: var(--p-orange) !important;
+  box-shadow: 0 0 14px rgba(249, 109, 0, 0.25) !important;
+}
+
+/* ════════════════════════════════════════
+   MOBILE  (< 992px)
+════════════════════════════════════════ */
+@media (max-width: 991.98px) {
+  .ftco-navbar-light:not(.scrolled) {
+    padding: 0.8rem 0 !important;
+  }
+  .ftco-navbar-light:not(.scrolled) .navbar-brand {
+    font-size: 1.25rem !important;
+  }
+  .ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.95rem !important;
+  }
+  .ftco-navbar-light.scrolled {
+    border-radius: 20px !important;
+    top: 10px !important;
+    width: calc(100% - 24px) !important;
+    padding: 0.3rem 1rem !important;
+  }
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    border-radius: 10px !important;
+    padding: 0.6rem 1rem !important;
+    margin: 1px 0;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO — Floating Shapes
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.p-float-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.p-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--p-orange);
+  filter: blur(3px);
+  animation: pFloat linear infinite;
+}
+
+.p-shape:nth-child(1) {
+  width: 360px; height: 360px;
+  opacity: 0.06;
+  top: -130px; left: -110px;
+  animation-duration: 22s;
+}
+.p-shape:nth-child(2) {
+  width: 230px; height: 230px;
+  opacity: 0.04;
+  top: 42%; right: -75px;
+  animation-duration: 28s;
+  animation-delay: -9s;
+}
+.p-shape:nth-child(3) {
+  width: 170px; height: 170px;
+  opacity: 0.05;
+  bottom: -60px; left: 38%;
+  animation-duration: 18s;
+  animation-delay: -13s;
+}
+
+@keyframes pFloat {
+  0%   { transform: translateY(0)    rotate(0deg);   }
+  33%  { transform: translateY(-48px) rotate(120deg); }
+  66%  { transform: translateY(24px)  rotate(240deg); }
+  100% { transform: translateY(0)    rotate(360deg); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TYPING CURSOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.p-type-cursor {
+  display: inline-block;
+  width: 2px; height: .85em;
+  background: var(--p-orange);
+  vertical-align: middle;
+  margin-left: 3px;
+  animation: pBlink .75s step-end infinite;
+}
+@keyframes pBlink { 50% { opacity: 0; } }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ABOUT — Image Glow + Info Hover
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.img-about .img {
+  border-radius: 18px !important;
+  box-shadow: 0 0 0 3px var(--p-orange-dim), 0 24px 64px rgba(0,0,0,.45) !important;
+  transition: box-shadow .45s ease !important;
+}
+.img-about:hover .img {
+  box-shadow: 0 0 0 3px rgba(249,109,0,.45), 0 0 45px rgba(249,109,0,.18), 0 24px 64px rgba(0,0,0,.45) !important;
+}
+
+.about-info li {
+  transition: transform .3s ease !important;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  padding: 8px 0;
+}
+.about-info li:hover { transform: translateX(10px) !important; }
+.about-info li > span:first-child {
+  color: var(--p-orange);
+  font-weight: 600;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   COUNTER — Large Orange Number
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.counter-wrap .number {
+  font-size: 6rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: var(--p-orange) !important;
+  filter: drop-shadow(0 0 20px rgba(249,109,0,.35));
+  display: block !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESUME — Timeline Glow + Slide
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.resume-wrap { transition: transform .3s ease !important; }
+.resume-wrap:hover { transform: translateX(8px) !important; }
+.resume-wrap::before {
+  background: var(--p-orange) !important;
+  box-shadow: 0 0 12px rgba(249,109,0,.4) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SERVICES — 3D Hover + Glow + Spotlight
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.services-1 {
+  position: relative !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(249,109,0,.1) !important;
+  transition: transform .4s cubic-bezier(.175,.885,.32,1.275), box-shadow .4s, border-color .4s !important;
+}
+
+/* Spotlight via pseudo-element — does not override original background */
+.services-1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(249,109,0,.08) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.services-1:hover::before { opacity: 1; }
+
+/* Keep text/icon above the pseudo-element */
+.services-1 .icon,
+.services-1 .desc { position: relative; z-index: 1; }
+.services-1:hover {
+  transform: translateY(-14px) scale(1.02) !important;
+  box-shadow: 0 22px 58px rgba(249,109,0,.2), 0 0 0 1px rgba(249,109,0,.32) !important;
+  border-color: rgba(249,109,0,.38) !important;
+}
+.services-1 .icon i { transition: transform .4s ease, filter .4s ease !important; }
+.services-1:hover .icon i {
+  transform: scale(1.25) rotate(8deg) !important;
+  filter: drop-shadow(0 0 12px var(--p-orange)) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SKILLS — Shimmer Progress Bars
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.progress {
+  border-radius: 50px !important;
+  background: rgba(255,255,255,.06) !important;
+  overflow: hidden;
+}
+.progress-bar {
+  border-radius: 50px !important;
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  animation: pShimmer 2.5s ease-in-out infinite;
+}
+@keyframes pShimmer { to { left: 200%; } }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SOFT SKILLS — Bounce Hover
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.soft-skills-list li {
+  transition: transform .3s cubic-bezier(.175,.885,.32,1.275), box-shadow .3s !important;
+}
+.soft-skills-list li:hover {
+  transform: translateY(-8px) scale(1.07) !important;
+  box-shadow: 0 16px 38px rgba(0,0,0,.32) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PROJECT CARDS — 3D Tilt + Spotlight + Image Zoom
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.project-card {
+  border: 1px solid rgba(249,109,0,.1) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: box-shadow .4s ease !important;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(249,109,0,.08) 0%, transparent 60%);
+  will-change: transform;
+}
+.project-card:hover {
+  box-shadow: 0 28px 68px rgba(0,0,0,.55), 0 0 0 1px rgba(249,109,0,.3) !important;
+}
+.project-card .project-img {
+  transition: transform .6s cubic-bezier(.25,.46,.45,.94) !important;
+}
+.project-card:hover .project-img { transform: scale(1.09) !important; }
+
+/* Badge pulse — orange for both types */
+.project-badge.group,
+.project-badge.individual {
+  animation: pBadgePulse 2s ease infinite alternate;
+}
+@keyframes pBadgePulse {
+  from { box-shadow: 0 0 6px rgba(249,109,0,.2); }
+  to   { box-shadow: 0 0 20px rgba(249,109,0,.55); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BLOG ENTRIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.blog-entry {
+  border: 1px solid rgba(255,255,255,.06) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  background: rgba(255,255,255,.02) !important;
+  transition: transform .4s ease, box-shadow .4s, border-color .4s !important;
+}
+.blog-entry:hover {
+  transform: translateY(-11px) !important;
+  box-shadow: 0 22px 52px rgba(249,109,0,.15) !important;
+  border-color: rgba(249,109,0,.22) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BUTTONS — Ripple + Lift
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(249,109,0,.32) !important;
+  transition: transform .3s ease, box-shadow .3s !important;
+  letter-spacing: .4px;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,.2);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: width .55s ease, height .55s ease;
+}
+.btn-primary:hover::after  { width: 300px; height: 300px; }
+.btn-primary:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(249,109,0,.48) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT — Glass Cards Enhanced
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.glass-card {
+  background: rgba(255,255,255,.03) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 20px !important;
+  transition: transform .4s ease, box-shadow .4s, border-color .4s !important;
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -130%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(249,109,0,.05), transparent);
+  transition: left .5s ease;
+}
+.glass-card:hover::before { left: 160%; }
+.glass-card:hover {
+  transform: translateY(-9px) !important;
+  box-shadow: 0 22px 52px rgba(249,109,0,.15), 0 0 0 1px rgba(249,109,0,.2) !important;
+  border-color: rgba(249,109,0,.2) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SOCIAL ICONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ftco-footer-social li a {
+  transition: transform .3s cubic-bezier(.175,.885,.32,1.275), box-shadow .3s !important;
+}
+.ftco-footer-social li a:hover {
+  transform: translateY(-6px) scale(1.15) !important;
+  box-shadow: 0 10px 26px rgba(249,109,0,.32) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ftco-footer {
+  border-top: 1px solid rgba(249,109,0,.12) !important;
+  background: linear-gradient(175deg, rgba(0,0,0,.97), var(--p-dark)) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SCROLL-TO-TOP BUTTON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.p-top-btn {
+  position: fixed;
+  bottom: 30px; right: 30px;
+  width: 48px; height: 48px;
+  background: var(--p-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  opacity: 0;
+  transform: translateY(22px) scale(.8);
+  transition: opacity .3s, transform .3s, box-shadow .3s;
+  box-shadow: 0 4px 20px rgba(249,109,0,.38);
+  color: #fff;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+.p-top-btn.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.p-top-btn:hover {
+  box-shadow: 0 10px 32px rgba(249,109,0,.62);
+  transform: translateY(-4px) scale(1.1);
+  color: #fff;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SPARKLE CLICK EFFECT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.p-sparkle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  animation: pSparkle .6s ease forwards;
+}
+@keyframes pSparkle {
+  0%   { width: 6px;  height: 6px;  opacity: .9; }
+  100% { width: 30px; height: 30px; opacity: 0;  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   AMBIENT RADIAL GLOWS  (orange only)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#about-section    { position: relative; overflow: hidden; }
+#projects-section { position: relative; overflow: hidden; }
+#skills-section   { position: relative; overflow: hidden; }
+
+#about-section::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -10%;
+  width: 580px; height: 580px;
+  background: radial-gradient(circle, rgba(249,109,0,.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+#projects-section::before {
+  content: '';
+  position: absolute;
+  bottom: -22%; left: -8%;
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, rgba(249,109,0,.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+#skills-section::before {
+  content: '';
+  position: absolute;
+  top: 18%; left: -12%;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(249,109,0,.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   COUNTER POP ANIMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@keyframes pCounterPop {
+  0%   { opacity: 0; transform: scale(.7); filter: drop-shadow(0 0 0 rgba(249,109,0,0)); }
+  60%  { transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1);  filter: drop-shadow(0 0 20px rgba(249,109,0,.4)); }
+}
