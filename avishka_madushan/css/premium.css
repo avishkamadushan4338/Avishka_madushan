@@ -95,7 +95,6 @@ html { scroll-behavior: smooth; }
     transparent 100%
   ) !important;
   padding: 1.4rem 0 !important;
-  border-bottom: 1px solid rgba(249, 109, 0, 0.12) !important;
 }
 
 /* Larger brand at top */
@@ -405,7 +404,22 @@ html { scroll-behavior: smooth; }
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SOFT SKILLS — Bounce Hover
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.soft-skills-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
 .soft-skills-list li {
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(60, 60, 120, 0.12);
   transition: transform .3s cubic-bezier(.175,.885,.32,1.275), box-shadow .3s !important;
 }
 .soft-skills-list li:hover {
@@ -581,9 +595,10 @@ html { scroll-behavior: smooth; }
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    AMBIENT RADIAL GLOWS  (orange only)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#about-section    { position: relative; overflow: hidden; }
-#projects-section { position: relative; overflow: hidden; }
-#skills-section   { position: relative; overflow: hidden; }
+#home-section,
+#about-section,
+#projects-section,
+#skills-section { position: relative; overflow: hidden; }
 
 #about-section::before {
   content: '';
@@ -617,4 +632,357 @@ html { scroll-behavior: smooth; }
   0%   { opacity: 0; transform: scale(.7); filter: drop-shadow(0 0 0 rgba(249,109,0,0)); }
   60%  { transform: scale(1.12); }
   100% { opacity: 1; transform: scale(1);  filter: drop-shadow(0 0 20px rgba(249,109,0,.4)); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BLOG IMAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.blog-img {
+  height: 220px;
+  border-radius: 1.2rem;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PROJECT MODAL DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#modal-project-details {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOBILE RESPONSIVE FIXES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+ * NAVBAR — Complete Mobile Fix
+ *
+ * Problem 1 ("two navbars"): style.css uses `position:relative` on mobile,
+ *   so the navbar becomes a separate solid bar above the hero section.
+ *   On desktop it's `position:absolute` so it overlaps the hero seamlessly.
+ *   We force `position:fixed` on all mobile states to match desktop intent.
+ *
+ * Problem 2 (orange dot crash): style.css hardcodes `.container { width:1110px }`
+ *   which overflows the viewport on mobile, pushing the toggler off-screen.
+ *
+ * Problem 3 (toggler alignment): the scrolled pill state (`left:50%`,
+ *   `transform:translateX(-50%)`, `border-radius:100px`) stays active on
+ *   mobile alongside the non-scrolled flat bar, causing conflicting layouts.
+ */
+
+@media (max-width: 991.98px) {
+
+  /* ── Force fixed position on ALL scroll states ── */
+  .ftco-navbar-light,
+  .ftco-navbar-light:not(.scrolled),
+  .ftco-navbar-light.scrolled,
+  .ftco-navbar-light.scrolled.awake,
+  .ftco-navbar-light.scrolled.sleep {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;          /* cancel the scrolled `right:auto` */
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;  /* cancel 100px pill radius */
+    transform: none !important;   /* cancel translateX(-50%) */
+    margin-top: 0 !important;     /* cancel sleep/awake -130px trick */
+    z-index: 9990 !important;
+    padding: 0.6rem 1rem !important;
+    background: rgba(8, 8, 16, 0.96) !important;
+    backdrop-filter: blur(18px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  /* ── Container: reset 1110px fixed width so toggler stays on-screen ── */
+  .ftco-navbar-light .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;   /* wrap allows collapse to go onto its own row */
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  /* ── Brand: keep the orange dot ::before visible, no clipping ── */
+  .ftco-navbar-light .navbar-brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    overflow: visible !important; /* must NOT be hidden — clips the dot */
+    white-space: nowrap !important;
+    max-width: calc(100% - 95px) !important; /* leave room for toggler */
+  }
+
+  /* ── Toggler: pinned right, visible color on dark background ── */
+  .ftco_navbar .navbar-toggler,
+  .ftco-navbar-light .navbar-toggler,
+  .ftco-navbar-light.scrolled .navbar-toggler {
+    flex: 0 0 auto !important;
+    margin-left: 0.5rem !important;
+    color: #F96D00 !important;          /* orange — visible on dark bg */
+    border-color: rgba(249, 109, 0, 0.5) !important;
+  }
+
+  /* style.css sets nav-link text to dark #0F0A1F when scrolled — fix for mobile */
+  .ftco-navbar-light.scrolled .nav-item > .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+  .ftco-navbar-light.scrolled .nav-item.active > .nav-link,
+  .ftco-navbar-light.scrolled .nav-item > .nav-link.active {
+    color: #F96D00 !important;
+  }
+
+  /* ── Expanded nav menu: full-width under the bar ── */
+  .ftco-navbar-light .navbar-collapse {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    background: rgba(8, 8, 16, 0.98) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    padding-bottom: 0.75rem !important;
+    border-top: 1px solid rgba(249, 109, 0, 0.12) !important;
+    margin-top: 0.4rem !important;
+  }
+}
+
+/* ── Extra-small phones: shrink brand text to fit ── */
+@media (max-width: 380px) {
+  .ftco-navbar-light .navbar-brand {
+    font-size: 0.8rem !important;
+    letter-spacing: 0 !important;
+    gap: 5px !important;
+  }
+  .ftco_navbar .navbar-toggler {
+    padding: 4px 7px !important;
+    font-size: 0.76rem !important;
+  }
+}
+
+/* ── Project Modal: proper responsive sizing (overrides inline styles on the div) ── */
+.project-modal-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  overflow-y: auto !important;
+  max-height: 90vh !important;
+  min-height: 220px !important;
+  margin: auto !important;
+  max-width: 560px !important;
+  width: calc(100% - 32px) !important;
+  padding: 2.5rem 2rem 2rem !important;
+  background: rgba(30, 41, 59, 0.98) !important;
+  border-radius: 1.2rem !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+  position: relative !important;
+  text-align: center !important;
+  color: #e0e7ef !important;
+}
+
+@media (max-width: 576px) {
+  .project-modal-content {
+    width: calc(100% - 16px) !important;
+    padding: 2.5rem 1rem 1.5rem !important;
+    max-height: 92vh !important;
+    border-radius: 1rem !important;
+  }
+  .modal-title {
+    font-size: 1.2rem !important;
+    line-height: 1.3 !important;
+  }
+  .modal-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+  }
+  .modal-btn {
+    text-align: center !important;
+    padding: 0.65rem 1rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .modal-features {
+    text-align: left !important;
+    width: 100% !important;
+  }
+  .tech-tag {
+    font-size: 0.82rem !important;
+    padding: 0.22rem 0.7rem !important;
+  }
+  .close-modal {
+    top: 0.6rem !important;
+    right: 0.8rem !important;
+    font-size: 1.7rem !important;
+    color: #38bdf8 !important;
+  }
+}
+
+/* ── Vlog (Blog) Modal: fix tiny 0.3rem horizontal padding on mobile ── */
+@media (max-width: 576px) {
+  .vlog-modal-content {
+    padding: 3rem 1.2rem 1.5rem !important;
+    border-radius: 0.8rem !important;
+    width: 100% !important;
+  }
+  .vlog-modal-content h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+  }
+  .vlog-modal-description {
+    font-size: 0.95rem !important;
+  }
+  #vlog-modal-social {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    margin-top: 1.2rem !important;
+  }
+  #vlog-modal-social a {
+    font-size: 1.4em !important;
+    margin: 0 0.25em !important;
+  }
+  .vlog-modal-close {
+    top: 0.6rem !important;
+    right: 0.8rem !important;
+    font-size: 1.9rem !important;
+  }
+}
+
+/* ── Blog section: cards stack with breathing room ── */
+@media (max-width: 767.98px) {
+  .blog-entry {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* ── Hero section: push text below the fixed navbar ── */
+@media (max-width: 991.98px) {
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+    padding-top: 72px !important; /* clear the fixed navbar height */
+  }
+}
+
+@media (max-width: 576px) {
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+    width: 100% !important;
+    padding: 72px 1rem 1.5rem !important; /* top clears navbar */
+  }
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text h1 {
+    font-size: 1.6rem !important;
+  }
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text h2 {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* ── Soft skills list: wrap cleanly on small screens ── */
+@media (max-width: 576px) {
+  .soft-skills-list {
+    gap: 0.8rem !important;
+  }
+  .soft-skills-list li {
+    font-size: 0.95rem !important;
+    padding: 0.55rem 1.2rem !important;
+  }
+}
+
+/* ── Contact cards: equal spacing on small screens ── */
+@media (max-width: 767.98px) {
+  .premium-contact-row .col-md-6 {
+    margin-bottom: 1rem;
+  }
+  .glass-card {
+    width: 100% !important;
+  }
+
+  /* Center Contact heading on mobile */
+  #contact-section .col-md-7 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  #contact-section .heading-section h2,
+  #contact-section .heading-section p {
+    text-align: center !important;
+    width: 100%;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ABOUT SECTION — FIXES & PREMIUM MOBILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Fix bottom shadow clipping (overflow:hidden + ftco-no-pb) */
+#about-section {
+  padding-bottom: 3rem !important;
+}
+
+@media (max-width: 767.98px) {
+
+  /* ── Mobile heading row ── */
+  #about-section .d-md-none .heading-section {
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+  /* Decorative watermark h1.big doesn't scale to mobile — hide it */
+  #about-section .d-md-none .heading-section h1.big {
+    display: none !important;
+  }
+  #about-section .d-md-none .heading-section h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+  }
+
+  /* ── Premium image on mobile ── */
+  .ftco-about .img-about {
+    min-height: 360px !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow:
+      0 0 0 3px rgba(249, 109, 0, 0.5),
+      0 0 40px rgba(249, 109, 0, 0.2),
+      0 20px 60px rgba(0, 0, 0, 0.5) !important;
+  }
+  .ftco-about .img-about .img {
+    min-height: 360px !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    border-radius: 20px !important;
+  }
+
+  /* ── About-info list: prevent email overflow ── */
+  .about-info li {
+    flex-wrap: wrap !important;
+    gap: 2px 8px !important;
+  }
+  .about-info li > span:last-child {
+    word-break: break-all !important;
+    font-size: 0.88rem !important;
+  }
+
+  /* ── Counter: scale down the giant number ── */
+  .counter-wrap .number {
+    font-size: 4rem !important;
+  }
+  .counter-wrap {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* ── Download CV button: full width ── */
+  .counter-wrap .btn {
+    width: 100% !important;
+    text-align: center !important;
+  }
 }
