@@ -132,7 +132,7 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/image_1.jpg')"></div>
+							style="background-image:url('images/project-5.jpg')"></div>
 						<div class="text p-4">
 							<h3 class="mb-2"><a href="#">How I Built My Portfolio Website</a></h3>
 							<div class="meta mb-2"><span>Feb 2026</span> | <span>Web Development</span></div>
@@ -145,12 +145,11 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/image_2.jpg')"></div>
+							style="background-image:url('images/image_2.jpeg')"></div>
 						<div class="text p-4">
-							<h3 class="mb-2"><a href="#">Top 5 Soft Skills for Developers</a></h3>
-							<div class="meta mb-2"><span>Jan 2026</span> | <span>Career</span></div>
-							<p>Discover the essential soft skills that help developers stand out and succeed in tech
-								teams and interviews.</p>
+							<h3 class="mb-2"><a href="#">Industry Visit to IFS Experience</a></h3>
+							<div class="meta mb-2"><span>March 2026</span> | <span>Career</span></div>
+							<p>Great opportunity to meet industry experts. Learned about real software development environments. Valuable experience for my future IT career. </p>
 							<button class="btn btn-primary py-2 px-4 vlog-readmore" data-index="1">Read More</button>
 						</div>
 					</div>
@@ -834,20 +833,20 @@
 		// Vlog data structure for modal system
 		const vlogArticles = [
 			{
-				image: 'images/image_1.jpg',
+				image: 'images/project-5.jpg',
 				title: 'How I Built My Portfolio Website',
 				date: 'Feb 2026',
 				category: 'Web Development',
 				description: 'Step-by-step guide to designing and launching a modern, recruiter-friendly portfolio using HTML, CSS, and JavaScript.',
-				full: 'In this vlog, I explain the full process of designing and building my personal portfolio website from scratch. I cover UI planning, wireframing, responsive design, animations, deployment, and performance optimization. I also share mistakes I made and lessons learned while building it.'
+				full: 'Building my own portfolio website was one of the most rewarding projects I have undertaken as a Computer Science undergraduate. This site is more than just a webpage — it is a reflection of my skills, personality, and growth as a developer.\n\nI started by planning the structure and sections I wanted to showcase: a hero introduction, blog, about me, resume, services, skills, projects, and a contact section. Each section was designed to give visitors a clear picture of who I am and what I can do.\n\nFor the technology stack, I chose HTML5, CSS3, and JavaScript — the core web technologies I am most comfortable with. I integrated Bootstrap for responsive layout, Owl Carousel for the hero slider, and AOS for scroll animations. I also built a custom premium layer with glassmorphism effects, animated cursor, scroll progress bar, particle network, and typing animation to give the site a modern and polished look.\n\nOne of the biggest challenges was making the site fully responsive across all screen sizes — from large desktop monitors to small mobile screens. I spent a significant amount of time fine-tuning CSS media queries, font sizes, padding, and layout to ensure every section looks great on any device.\n\nThe Projects section features a dynamic modal system that displays detailed information about each project including tech stack, duration, features, and links to GitHub and live demos. The Blog section uses a similar modal approach, allowing visitors to read full articles without leaving the page.\n\nFinally, the site is deployed and hosted on GitHub Pages, making it publicly accessible. This project taught me a great deal about UI/UX design principles, performance optimization, cross-browser compatibility, and the importance of clean, maintainable code.\n\nThis portfolio is a living project — I continue to update it as I complete new projects, earn certifications, and grow as a developer.'
 			},
 			{
-				image: 'images/image_2.jpg',
-				title: 'Top 5 Soft Skills for Developers',
-				date: 'Jan 2026',
+				image: 'images/image_2.jpeg',
+				title: 'Industry Visit to IFS Experience',
+				date: 'March 2026',
 				category: 'Career',
 				description: 'Discover the essential soft skills that help developers stand out and succeed in tech teams and interviews.',
-				full: 'Learn about communication, teamwork, adaptability, problem-solving, and leadership with real-world examples. These skills are crucial for success in tech teams and interviews.'
+				full: 'Today I had the opportunity to participate in an Industry Visit to the IFS office located at Orion City. This visit was organized for students of the Informatics Institute of Technology as part of our professional development exposure to the IT industry.\n\nDuring the session, we had the chance to interact with industry experts, explore the company environment, and learn about real-world software development practices. The professionals shared valuable insights about career paths in the technology sector, industry expectations, and the skills required to succeed in the modern IT workplace.\n\nOne of the most interesting parts of the visit was understanding how a global enterprise software company like IFS operates, including their work culture, innovation process, and the technologies used in modern enterprise solutions.\n\nThis experience helped bridge the gap between academic learning and real industry practices, giving us a clearer vision of how our knowledge and skills can be applied in professional environments.\n\nOverall, it was a valuable and inspiring experience that motivated me to continue improving my technical skills, problem-solving abilities, and professional mindset as I prepare for my future career in the IT industry.'
 			},
 			{
 				image: 'images/image_3.jpg',
@@ -875,7 +874,7 @@
 			modalTitle.textContent = data.title;
 			modalDate.textContent = data.date;
 			modalCategory.textContent = data.category;
-			modalDescription.textContent = data.full;
+			modalDescription.innerHTML = data.full.split('\n\n').map(p => `<p>${p}</p>`).join('');
 			modalExtra.innerHTML = '';
 			modal.style.display = 'flex';
 			modal.setAttribute('aria-modal', 'true');
