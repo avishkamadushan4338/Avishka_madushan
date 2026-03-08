@@ -3,6 +3,175 @@
    Interactive Animations: Cursor · Particles · Tilt · Typing
    ═══════════════════════════════════════════════════════════ */
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SPLASH SCREEN  (7-second welcome)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+(function () {
+  var DURATION = 4000;
+  var splash   = document.getElementById('splash-screen');
+  var bar      = document.getElementById('splash-bar');
+  if (!splash) return;
+
+  document.body.style.overflow = 'hidden';
+
+  /* ── Animated particle background on the splash ── */
+  var pCanvas = document.getElementById('splash-particles');
+  var splashAnimId;
+  if (pCanvas) {
+    var ctx = pCanvas.getContext('2d');
+    function resizePC() {
+      pCanvas.width  = window.innerWidth;
+      pCanvas.height = window.innerHeight;
+    }
+    resizePC();
+    window.addEventListener('resize', resizePC, { passive: true });
+
+    var pts = Array.from({ length: 90 }, function () {
+      return {
+        x:  Math.random() * pCanvas.width,
+        y:  Math.random() * pCanvas.height,
+        r:  Math.random() * 1.8 + 0.4,
+        vx: (Math.random() - 0.5) * 0.55,
+        vy: (Math.random() - 0.5) * 0.55,
+        a:  Math.random() * 0.45 + 0.1
+      };
+    });
+
+    function drawSplash() {
+      ctx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+      pts.forEach(function (p) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > pCanvas.width)  p.vx *= -1;
+        if (p.y < 0 || p.y > pCanvas.height) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#F96D00';
+        ctx.globalAlpha = p.a;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      splashAnimId = requestAnimationFrame(drawSplash);
+    }
+    drawSplash();
+  }
+
+  /* ── Progress bar animates over exactly DURATION ms ── */
+  if (bar) {
+    bar.style.transition = 'width ' + DURATION + 'ms linear';
+    void bar.offsetWidth; /* force reflow so transition fires from 0 */
+    bar.style.width = '100%';
+  }
+
+  /* ── Hide splash after 7 s, then fire confetti ── */
+  setTimeout(function () {
+    splash.classList.add('splash-hide');
+    document.body.style.overflow = '';
+    if (splashAnimId) cancelAnimationFrame(splashAnimId);
+    setTimeout(fireConfetti, 750); /* wait for the CSS fade-out */
+  }, DURATION);
+})();
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RIBBON POPPERS  (fires once after splash)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function fireConfetti() {
+  var canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  var COLORS = ['#F96D00','#ff8c38','#ffe066','#ffffff','#e85d04',
+                '#38ef7d','#6a82fb','#fc5c7d','#ffd200','#00d2ff',
+                '#c471ed','#f64f59','#43e97b','#fa709a'];
+  var ribbons = [];
+
+  function burst(x, y, n, aMin, aMax) {
+    for (var i = 0; i < n; i++) {
+      var angle = (aMin + Math.random() * (aMax - aMin)) * Math.PI / 180;
+      var spd   = Math.random() * 14 + 6;
+      ribbons.push({
+        x: x, y: y,
+        vx: Math.cos(angle) * spd,
+        vy: Math.sin(angle) * spd,
+        len:  Math.random() * 22 + 16,   /* ribbon length */
+        wid:  Math.random() * 3  + 2,    /* ribbon width  */
+        c:    COLORS[Math.floor(Math.random() * COLORS.length)],
+        rot:  Math.random() * 360,
+        rs:   (Math.random() - 0.5) * 7, /* spin speed    */
+        phase:     Math.random() * Math.PI * 2, /* wave phase    */
+        phaseSpd:  0.18 + Math.random() * 0.18, /* wave speed    */
+        flutter:   Math.random() * 0.6 + 0.4,   /* flutter amp   */
+        grav: 0.22,
+        drag: 0.991,
+        life: 1,
+        dec:  Math.random() * 0.010 + 0.006
+      });
+    }
+  }
+
+  var W = canvas.width, H = canvas.height;
+  burst(0,         H,       95, -118, -22);  /* bottom-left  */
+  burst(W,         H,       95, -158, -62);  /* bottom-right */
+  burst(W * 0.5,   0,       65,   42, 138);  /* top-centre   */
+  burst(W * 0.22,  H,       55, -130, -50);  /* extra-left   */
+  burst(W * 0.78,  H,       55, -130, -50);  /* extra-right  */
+
+  /* Draw one ribbon as a curling bezier strip */
+  function drawRibbon(p) {
+    var half   = p.len / 2;
+    var wave   = Math.sin(p.phase) * p.wid * p.flutter;
+    var shadow = Math.cos(p.phase);          /* fake 3-D shading */
+
+    ctx.save();
+    ctx.globalAlpha = Math.max(p.life, 0);
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot * Math.PI / 180);
+
+    /* Front face */
+    ctx.beginPath();
+    ctx.moveTo(-half, 0);
+    ctx.bezierCurveTo(-half / 2, -p.wid + wave,
+                       half / 2,  p.wid - wave,
+                       half, 0);
+    ctx.bezierCurveTo( half / 2,  p.wid - wave + p.wid,
+                      -half / 2, -p.wid + wave + p.wid,
+                      -half, p.wid);
+    ctx.closePath();
+    ctx.fillStyle = p.c;
+    ctx.fill();
+
+    /* Shading overlay to fake twist depth */
+    if (shadow < 0) {
+      ctx.globalAlpha = Math.max(p.life, 0) * Math.abs(shadow) * 0.35;
+      ctx.fillStyle   = '#000';
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var alive = false;
+    ribbons.forEach(function (p) {
+      if (p.life <= 0) return;
+      alive     = true;
+      p.x      += p.vx;
+      p.y      += p.vy;
+      p.vy     += p.grav;
+      p.vx     *= p.drag;
+      p.rot    += p.rs;
+      p.phase  += p.phaseSpd;
+      p.life   -= p.dec;
+      drawRibbon(p);
+    });
+    if (alive) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, W, H);
+  }
+  draw();
+}
+
 (function () {
   'use strict';
 

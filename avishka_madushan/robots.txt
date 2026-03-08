@@ -1,0 +1,16 @@
+# robots.txt – Avishka Madushan Portfolio
+# https://avishkamadushan.github.io/
+
+# Allow all well-behaved crawlers full access
+User-agent: *
+Allow: /
+
+# Block source/build directories that should not be indexed
+Disallow: /scss/
+Disallow: /prepros-6.config
+
+# CV is publicly downloadable but should not be indexed as a page
+Disallow: /cv/
+
+# Sitemap location (submit this URL to Google Search Console)
+Sitemap: https://avishkamadushan.github.io/sitemap.xml
