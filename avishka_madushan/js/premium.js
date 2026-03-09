@@ -12,9 +12,6 @@
   var bar      = document.getElementById('splash-bar');
   if (!splash) return;
 
-  document.body.style.overflow = 'hidden';
-  document.documentElement.style.overflow = 'hidden';
-
   /* ── Animated particle background on the splash ── */
   var pCanvas = document.getElementById('splash-particles');
   var splashAnimId;
@@ -63,13 +60,11 @@
     bar.style.width = '100%';
   }
 
-  /* ── Hide splash after DURATION ms, then restore scroll ── */
+  /* ── Hide splash after DURATION ms ── */
   setTimeout(function () {
     splash.classList.add('splash-hide');
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
     if (splashAnimId) cancelAnimationFrame(splashAnimId);
-    /* Remove from DOM after transition so it can't block mobile touch/scroll */
+    /* Remove from DOM after CSS transition (0.8s) so it can't block mobile touch/scroll */
     setTimeout(function () {
       splash.style.display = 'none';
     }, 900);
