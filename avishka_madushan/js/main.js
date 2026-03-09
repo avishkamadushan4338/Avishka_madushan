@@ -88,6 +88,7 @@
 	
 
 	var carousel = function() {
+		var isMobile = $(window).width() < 992;
 		$('.home-slider').owlCarousel({
 	    loop:true,
 	    autoplay: true,
@@ -97,6 +98,8 @@
 	    nav:false,
 	    autoplayHoverPause: false,
 	    items: 1,
+	    touchDrag: !isMobile,   // disable on mobile so vertical scroll works
+	    mouseDrag: true,
 	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
 	    responsive:{
 	      0:{
