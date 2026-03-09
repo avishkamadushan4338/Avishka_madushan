@@ -22,17 +22,9 @@
 
 
 	var fullHeight = function() {
-		// On mobile, don't force full-window-height on the hero image —
-		// it can push content out of view and conflict with the slider height.
-		if ($(window).width() >= 992) {
-			$('.js-fullheight').css('height', $(window).height());
-		}
+		$('.js-fullheight').css('height', $(window).height());
 		$(window).resize(function(){
-			if ($(window).width() >= 992) {
-				$('.js-fullheight').css('height', $(window).height());
-			} else {
-				$('.js-fullheight').css('height', '');
-			}
+			$('.js-fullheight').css('height', $(window).height());
 		});
 	};
 	fullHeight();
