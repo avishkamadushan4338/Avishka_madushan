@@ -310,7 +310,7 @@ html { scroll-behavior: smooth; }
     padding: 0.8rem 0 !important;
   }
   .ftco-navbar-light:not(.scrolled) .navbar-brand {
-    font-size: 1.25rem !important;
+    font-size: 0.85rem !important;
   }
   .ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
     font-size: 0.95rem !important;
@@ -936,11 +936,13 @@ html { scroll-behavior: smooth; }
 
   /* ── Brand: keep the orange dot ::before visible, no clipping ── */
   .ftco-navbar-light .navbar-brand {
-    flex: 1 1 auto !important;
+    flex: 0 1 auto !important;
     min-width: 0 !important;
     overflow: visible !important; /* must NOT be hidden — clips the dot */
     white-space: nowrap !important;
-    max-width: calc(100% - 95px) !important; /* leave room for toggler */
+    font-size: 0.82rem !important;
+    letter-spacing: 0.2px !important;
+    max-width: calc(100% - 100px) !important; /* leave room for toggler */
   }
 
   /* ── Toggler: pinned right, visible color on dark background ── */
@@ -978,9 +980,9 @@ html { scroll-behavior: smooth; }
 /* ── Extra-small phones: shrink brand text to fit ── */
 @media (max-width: 380px) {
   .ftco-navbar-light .navbar-brand {
-    font-size: 0.8rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0 !important;
-    gap: 5px !important;
+    gap: 4px !important;
   }
   .ftco_navbar .navbar-toggler {
     padding: 4px 7px !important;
