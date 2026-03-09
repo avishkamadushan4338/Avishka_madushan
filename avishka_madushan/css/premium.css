@@ -1234,3 +1234,146 @@ html { scroll-behavior: smooth; }
     text-align: center !important;
   }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PREMIUM MOBILE — ADDITIONAL COMPREHENSIVE FIXES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ── Fix: hero <p> gets 23px on mobile from style.css — far too large ── */
+@media (max-width: 991.98px) {
+  .owl-carousel.home-slider .slider-item .slider-text p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* ── Fix: services heading row has py-5 mt-5 = 6 rem of top space on mobile ── */
+@media (max-width: 767.98px) {
+  #services-section .row.py-5.mt-5 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* ── Fix: contact cards — 3 equal columns at medium screens ── */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .premium-contact-row .col-md-6 {
+    flex: 0 0 calc(33.333% - 1.5rem) !important;
+    max-width: calc(33.333% - 1.5rem) !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .premium-contact-row .col-md-6 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  .premium-contact-row .glass-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+/* ── Fix: footer nav columns — 2-col grid with 3 items leaves orphan at 480–767px ── */
+@media (max-width: 767.98px) {
+  .pf-footer-cols {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+}
+
+/* ── Fix: scroll-to-top button can overlap mobile browser chrome ── */
+@media (max-width: 576px) {
+  .p-top-btn {
+    bottom: 20px !important;
+    right: 16px !important;
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+/* ── Fix: blog card text sizing on small phones ── */
+@media (max-width: 576px) {
+  .blog-entry .text h3 a {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+  .blog-entry .text p {
+    font-size: 0.9rem !important;
+  }
+  .blog-entry .text .meta {
+    font-size: 0.82rem !important;
+  }
+}
+
+/* ── Fix: resume headings too large on very small phones ── */
+@media (max-width: 576px) {
+  .resume-wrap h2 {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.4rem !important;
+    line-height: 1.35 !important;
+  }
+  .resume-wrap .date,
+  .resume-wrap .position {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ── Fix: vlog modal close button position on very small screens ── */
+@media (max-width: 380px) {
+  .vlog-modal-close {
+    top: 0.5rem !important;
+    right: 0.6rem !important;
+    font-size: 1.8rem !important;
+  }
+  .vlog-modal-description {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* ── Fix: project grid gap too large on small phones ── */
+@media (max-width: 576px) {
+  .projects-grid {
+    gap: 1.5rem !important;
+  }
+  .project-card .project-img {
+    height: 180px !important;
+  }
+  .project-title {
+    font-size: 1.05rem !important;
+  }
+}
+
+/* ── Fix: skills progress bars label overflow on mobile ── */
+@media (max-width: 576px) {
+  .progress-wrap h3 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .progress {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* ── Fix: contact section heading center alignment on small phones ── */
+@media (max-width: 575.98px) {
+  #contact-section .heading-section h2 {
+    font-size: 1.7rem !important;
+  }
+}
+
+/* ── Fix: social icons in hero not overflowing on small screens ── */
+@media (max-width: 380px) {
+  .owl-carousel.home-slider .ftco-footer-social {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    padding: 0 !important;
+  }
+  .owl-carousel.home-slider .ftco-footer-social li {
+    margin: 0 !important;
+  }
+}
