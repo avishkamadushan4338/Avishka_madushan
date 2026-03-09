@@ -72,10 +72,16 @@
 	    var href = $.attr(this, 'href');
 
 	    $('html, body').animate({
-	        scrollTop: $($.attr(this, 'href')).offset().top - 70
+	        scrollTop: $(href).offset().top - 70
 	    }, 500, function() {
 	    	// window.location.hash = href;
 	    });
+
+	    // Close mobile nav menu after clicking a link
+	    if ($(window).width() < 992) {
+	    	$('#ftco-nav').collapse('hide');
+	    	$('.js-fh5co-nav-toggle').removeClass('active');
+	    }
 		});
 
 	};
@@ -163,7 +169,10 @@
 			if ( st < 350 ) {
 				if ( navbar.hasClass('awake') ) {
 					navbar.removeClass('awake');
-					navbar.addClass('sleep');
+					// Only apply sleep (hide) on desktop; keep navbar visible on mobile
+					if ($(window).width() >= 992) {
+						navbar.addClass('sleep');
+					}
 				}
 				if(sd.length > 0) {
 					sd.removeClass('sleep');
