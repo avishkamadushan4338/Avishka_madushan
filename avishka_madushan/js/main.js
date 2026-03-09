@@ -7,24 +7,33 @@
 
 	"use strict";
 
-	$(window).stellar({
-    responsive: true,
-    parallaxBackgrounds: true,
-
-    parallaxElements: true,
-    horizontalScrolling: false,
-    hideDistantElements: false,
-    scrollProperty: 'scroll'
-  });
+	// Stellar & Scrollax parallax — desktop only (mobile touch scroll must not be blocked)
+	if ($(window).width() >= 992) {
+		$(window).stellar({
+	    responsive: true,
+	    parallaxBackgrounds: true,
+	    parallaxElements: true,
+	    horizontalScrolling: false,
+	    hideDistantElements: false,
+	    scrollProperty: 'scroll'
+	  });
+	  $.Scrollax();
+	}
 
 
 	var fullHeight = function() {
-
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
+		// On mobile, don't force full-window-height on the hero image —
+		// it can push content out of view and conflict with the slider height.
+		if ($(window).width() >= 992) {
 			$('.js-fullheight').css('height', $(window).height());
+		}
+		$(window).resize(function(){
+			if ($(window).width() >= 992) {
+				$('.js-fullheight').css('height', $(window).height());
+			} else {
+				$('.js-fullheight').css('height', '');
+			}
 		});
-
 	};
 	fullHeight();
 
@@ -36,9 +45,6 @@
 			}
 		}, 500);
 	});
-
-	// Scrollax
-   $.Scrollax();
 
 
 

@@ -825,6 +825,11 @@ html { scroll-behavior: smooth; }
 #projects-section,
 #skills-section { position: relative; overflow: hidden; }
 
+/* On mobile, the hero must never clip or trap scroll */
+@media (max-width: 991.98px) {
+  #home-section { overflow: visible; }
+}
+
 #about-section::before {
   content: '';
   position: absolute;
@@ -880,6 +885,17 @@ html { scroll-behavior: smooth; }
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    MOBILE RESPONSIVE FIXES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Guarantee page is always scrollable on mobile */
+@media (max-width: 991.98px) {
+  html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100%;
+    touch-action: pan-y !important;
+  }
+}
 
 /*
  * NAVBAR — Complete Mobile Fix
