@@ -1209,14 +1209,29 @@ html { scroll-behavior: smooth; }
     border-radius: 20px !important;
   }
 
-  /* ── About-info list: prevent email overflow ── */
-  .about-info li {
-    flex-wrap: wrap !important;
-    gap: 2px 8px !important;
+  /* ── About-info list: fix email wrapping to 2 lines ──
+     Root cause: style.css sets label width:130px and value width:calc(100%-130px).
+     On mobile (~329px ul) value = 199px — email needs ~237px → wraps.
+     Fix: let label use natural width; value gets flex:1 (all remaining space).
+     "Email:" label is ~50px → value gets ~273px → email fits on 1 line. */
+  .ftco-about ul.about-info li {
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
+    gap: 0 6px !important;
   }
-  .about-info li > span:last-child {
-    word-break: break-all !important;
-    font-size: 0.88rem !important;
+  .ftco-about ul.about-info li span:first-child {
+    width: auto !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.83rem !important;
+  }
+  .ftco-about ul.about-info li span:last-child {
+    width: auto !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    font-size: 0.83rem !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
   }
 
   /* ── Counter: scale down the giant number ── */
