@@ -825,10 +825,6 @@ html { scroll-behavior: smooth; }
 #projects-section,
 #skills-section { position: relative; overflow: hidden; }
 
-/* On mobile, the hero must never clip or trap scroll */
-@media (max-width: 991.98px) {
-  #home-section { overflow: visible; }
-}
 
 #about-section::before {
   content: '';
@@ -891,8 +887,17 @@ html { scroll-behavior: smooth; }
   html, body {
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    height: auto !important;
-    min-height: 100%;
+  }
+
+  /* Owl Carousel sets touch-action:none on its inner elements which blocks
+     the browser from handling vertical scroll. Override it so the browser
+     can scroll the page when the user swipes vertically on the hero. */
+  .home-slider,
+  .home-slider .owl-stage-outer,
+  .home-slider .owl-stage,
+  .home-slider .owl-item,
+  .home-slider .slider-item,
+  .home-slider .slider-text {
     touch-action: pan-y !important;
   }
 }
