@@ -1422,7 +1422,7 @@ html { scroll-behavior: smooth; }
   .owl-carousel.home-slider .slider-item .slider-text .one-forth {
     z-index: 2 !important;
     align-items: flex-end !important;
-    padding-bottom: 2.8rem !important;
+    padding-bottom: 6.5rem !important;
   }
 
   /* Left-align text block — premium portfolio look */
