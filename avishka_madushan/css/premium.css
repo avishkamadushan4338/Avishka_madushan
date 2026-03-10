@@ -1391,3 +1391,56 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOBILE HERO — TEXT CLARITY FIX
+   Makes text readable over the portrait background image
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (max-width: 991.98px) {
+
+  /* Darken the overlay that sits on top of the portrait image */
+  .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
+    opacity: 0.72 !important;
+  }
+
+  /* Add a gradient shadow behind the text block for legibility */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    background: linear-gradient(
+      to right,
+      rgba(8, 8, 15, 0.82) 0%,
+      rgba(8, 8, 15, 0.55) 70%,
+      transparent 100%
+    ) !important;
+    padding: 2rem 1.5rem 2rem 2rem !important;
+    border-radius: 0 12px 12px 0 !important;
+  }
+
+  /* Text shadows so each element is crisp against any background */
+  .owl-carousel.home-slider .slider-item .slider-text h1,
+  .owl-carousel.home-slider .slider-item .slider-text h1 span {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 32px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text h2 {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .subheading {
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8) !important;
+  }
+}
+
+/* On portrait phones the text is centered — use a centred radial gradient instead */
+@media (max-width: 767.98px) {
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    background: radial-gradient(
+      ellipse 120% 80% at 50% 50%,
+      rgba(8, 8, 15, 0.80) 0%,
+      rgba(8, 8, 15, 0.45) 65%,
+      transparent 100%
+    ) !important;
+    border-radius: 0 !important;
+    padding: 72px 1.25rem 1.5rem !important;
+  }
+}
+
