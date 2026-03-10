@@ -1392,13 +1392,38 @@ html { scroll-behavior: smooth; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MOBILE HERO — TEXT CLARITY FIX
+   MOBILE HERO — FULL SECTION DARK OVERLAY FIX
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 991.98px) {
 
-  /* Make the dark overlay on the portrait image much heavier */
+  /* Full-coverage dark mask over the entire hero slide — no corner gaps */
+  .owl-carousel.home-slider .slider-item {
+    position: relative !important;
+  }
+
+  .owl-carousel.home-slider .slider-item > .overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: #08080f !important;
+    opacity: 0.82 !important;
+    z-index: 1 !important;
+    display: block !important;
+  }
+
+  /* Hide the partial image-only overlay since the full overlay covers everything */
   .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
-    opacity: 0.88 !important;
+    opacity: 0 !important;
+  }
+
+  /* Keep text and content above the overlay */
+  .owl-carousel.home-slider .slider-item .slider-text {
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   /* Strong text shadows on every text element */
@@ -1406,7 +1431,7 @@ html { scroll-behavior: smooth; }
   .owl-carousel.home-slider .slider-item .slider-text h1 span,
   .owl-carousel.home-slider .slider-item .slider-text h2,
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    text-shadow: 0 2px 8px rgba(0,0,0,1), 0 0 24px rgba(0,0,0,0.9) !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7) !important;
   }
 
   .owl-carousel.home-slider .slider-item .slider-text h2 {
