@@ -1392,70 +1392,47 @@ html { scroll-behavior: smooth; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MOBILE HERO — FULL SECTION DARK OVERLAY FIX
+   MOBILE HERO — CLEAR TEXT & FULL DARK BACKGROUND
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 991.98px) {
 
-  /* Full-coverage dark mask over the entire hero slide — no corner gaps */
+  /* Dark background on slider-item fills corner gaps left by container padding */
   .owl-carousel.home-slider .slider-item {
-    position: relative !important;
+    background-color: #08080f !important;
   }
 
+  /* Hide the unused top-level overlay (it sits behind the container anyway) */
   .owl-carousel.home-slider .slider-item > .overlay {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: #08080f !important;
-    opacity: 0.82 !important;
-    z-index: 1 !important;
-    display: block !important;
+    display: none !important;
   }
 
-  /* Hide the partial image-only overlay since the full overlay covers everything */
+  /* Darken the portrait image overlay so text reads clearly over it */
   .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
-    opacity: 0 !important;
+    opacity: 0.82 !important;
   }
 
-  /* Ensure entire container stack is above the overlay */
-  .owl-carousel.home-slider .slider-item > .container,
-  .owl-carousel.home-slider .slider-item .slider-text,
-  .owl-carousel.home-slider .slider-item .one-forth,
-  .owl-carousel.home-slider .slider-item .one-forth .text {
-    position: relative !important;
+  /* Text div: must sit above the image overlay */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
     z-index: 2 !important;
   }
 
-  /* Pure white text — maximum contrast */
+  /* Pure white headings — maximum legibility */
   .owl-carousel.home-slider .slider-item .slider-text h1,
-  .owl-carousel.home-slider .slider-item .slider-text h1 span,
   .owl-carousel.home-slider .slider-item .slider-text h2,
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
     color: #ffffff !important;
-    text-shadow: none !important;
     font-weight: 700 !important;
-    letter-spacing: 0.02em !important;
+    text-shadow: none !important;
   }
 
-  /* Accent color preserved on h1 span */
+  /* Keep accent colour on name and subheading */
   .owl-carousel.home-slider .slider-item .slider-text h1 span {
     color: #f9a94d !important;
   }
 
-  /* Subheading brightness */
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
     color: #f9a94d !important;
     font-weight: 600 !important;
-  }
-
-  /* Social icons and buttons visible */
-  .owl-carousel.home-slider .slider-item .one-forth .ftco-footer-social a,
-  .owl-carousel.home-slider .slider-item .one-forth .btn {
-    position: relative !important;
-    z-index: 2 !important;
   }
 }
 
