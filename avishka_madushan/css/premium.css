@@ -1416,30 +1416,17 @@ html { scroll-behavior: smooth; }
     z-index: 2 !important;
   }
 
-  /* Bold white text with dark outline shadow — readable over any background without darkening image */
+  /* Dark outline shadow only — no colour changes, just makes text pop over the image */
   .owl-carousel.home-slider .slider-item .slider-text h1,
+  .owl-carousel.home-slider .slider-item .slider-text h1 span,
   .owl-carousel.home-slider .slider-item .slider-text h2,
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    color: #ffffff !important;
-    font-weight: 700 !important;
     text-shadow:
       -1px -1px 0 rgba(0,0,0,0.95),
        1px -1px 0 rgba(0,0,0,0.95),
       -1px  1px 0 rgba(0,0,0,0.95),
        1px  1px 0 rgba(0,0,0,0.95),
-       0 0 10px rgba(0,0,0,1),
-       0 0 20px rgba(0,0,0,0.8) !important;
-  }
-
-  /* Accent colour on name span */
-  .owl-carousel.home-slider .slider-item .slider-text h1 span {
-    color: #f9a94d !important;
-  }
-
-  /* Subheading accent */
-  .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    color: #f9a94d !important;
-    font-weight: 600 !important;
+       0 0 12px rgba(0,0,0,1) !important;
   }
 }
 
