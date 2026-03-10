@@ -1390,3 +1390,246 @@ html { scroll-behavior: smooth; }
     margin: 0 !important;
   }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PREMIUM MOBILE HERO — Full Redesign
+   Portrait-circle layout with glassmorphism text panel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 767.98px) {
+
+  /* 1 ── Full-viewport hero height */
+  .owl-carousel.home-slider {
+    height: 100vh !important;
+    min-height: 580px !important;
+  }
+  .owl-carousel.home-slider .slider-item .slider-text {
+    height: 100vh !important;
+    min-height: 580px !important;
+    position: relative !important;
+  }
+
+  /* 2 ── Rich dark background replaces the flat overlay */
+  .owl-carousel.home-slider .slider-item {
+    background: radial-gradient(
+      ellipse 120% 80% at 50% -10%,
+      rgba(40, 12, 70, 0.98) 0%,
+      #08080f 65%
+    ) !important;
+  }
+
+  /* 3 ── Top-level overlay → subtle warm glow instead of flat dark */
+  .owl-carousel.home-slider .slider-item > .overlay {
+    background: radial-gradient(
+      ellipse 70% 45% at 50% 18%,
+      rgba(249, 109, 0, 0.07) 0%,
+      transparent 70%
+    ) !important;
+    opacity: 1 !important;
+  }
+
+  /* 4 ── Portrait image: shrink to a glowing circle near the top */
+  .owl-carousel.home-slider .slider-item .slider-text .one-third {
+    position: absolute !important;
+    width: 148px !important;
+    height: 148px !important;
+    border-radius: 50% !important;
+    top: 86px !important;           /* clears fixed navbar */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 5 !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    border: 3px solid rgba(249, 109, 0, 0.65) !important;
+    box-shadow:
+      0 0 0 8px rgba(249, 109, 0, 0.13),
+      0 0 48px rgba(249, 109, 0, 0.38),
+      0 22px 60px rgba(0, 0, 0, 0.85) !important;
+    animation: mHeroPortraitGlow 3.2s ease-in-out infinite alternate !important;
+  }
+
+  @keyframes mHeroPortraitGlow {
+    from { box-shadow: 0 0 0 8px rgba(249,109,0,.13), 0 0 36px rgba(249,109,0,.28), 0 22px 60px rgba(0,0,0,.85); }
+    to   { box-shadow: 0 0 0 8px rgba(249,109,0,.24), 0 0 62px rgba(249,109,0,.52), 0 22px 60px rgba(0,0,0,.85); }
+  }
+
+  /* 5 ── Hide the dark overlay that was inside the image circle */
+  .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
+    display: none !important;
+  }
+
+  /* 6 ── Text wrapper: fills the slide, content pinned to bottom */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    z-index: 4 !important;
+  }
+
+  /* 7 ── Glass panel: gradient fade behind the text */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 5rem 1.75rem 2.75rem !important;
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 15, 0.98) 0%,
+      rgba(8, 8, 15, 0.90) 50%,
+      transparent 100%
+    ) !important;
+    position: relative !important;
+    transform: none !important;
+  }
+
+  /* 8 ── "Hello!" label */
+  .owl-carousel.home-slider .slider-item .slider-text .subheading {
+    font-size: 0.72rem !important;
+    letter-spacing: 5px !important;
+    text-transform: uppercase !important;
+    color: #F96D00 !important;
+    display: block !important;
+    margin-bottom: 0.45rem !important;
+    opacity: 0.9 !important;
+  }
+
+  /* 9 ── Name headline */
+  .owl-carousel.home-slider .slider-item .slider-text h1 {
+    font-size: clamp(1.65rem, 6vw, 2rem) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.3rem !important;
+    color: #fff !important;
+  }
+
+  /* 10 ── Role subtitle */
+  .owl-carousel.home-slider .slider-item .slider-text h2 {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.8px !important;
+    color: rgba(255, 255, 255, 0.52) !important;
+    margin-bottom: 1.3rem !important;
+  }
+
+  /* 11 ── CTA button row */
+  .owl-carousel.home-slider .slider-item .slider-text p {
+    display: flex !important;
+    gap: 0.65rem !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 1.3rem !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text p .btn {
+    font-size: 0.78rem !important;
+    padding: 0.55rem 1.6rem !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.4px !important;
+    transition: all 0.28s ease !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-primary {
+    background: #F96D00 !important;
+    border-color: #F96D00 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 20px rgba(249, 109, 0, 0.48) !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-primary:hover,
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-primary:active {
+    background: #d95f00 !important;
+    box-shadow: 0 6px 26px rgba(249, 109, 0, 0.65) !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-white {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.26) !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-white:hover,
+  .owl-carousel.home-slider .slider-item .slider-text p .btn-white:active {
+    background: rgba(255, 255, 255, 0.13) !important;
+    border-color: rgba(249, 109, 0, 0.42) !important;
+    color: #fff !important;
+  }
+
+  /* 12 ── Social icons: glassy pill buttons */
+  .owl-carousel.home-slider .ftco-footer-social {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 0.6rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .owl-carousel.home-slider .ftco-footer-social li {
+    margin: 0 !important;
+  }
+
+  .owl-carousel.home-slider .ftco-footer-social li a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-size: 0.88rem !important;
+    text-decoration: none !important;
+    transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s !important;
+  }
+
+  .owl-carousel.home-slider .ftco-footer-social li a:hover,
+  .owl-carousel.home-slider .ftco-footer-social li a:focus {
+    background: rgba(249, 109, 0, 0.18) !important;
+    border-color: rgba(249, 109, 0, 0.55) !important;
+    color: #F96D00 !important;
+    transform: translateY(-3px) scale(1.1) !important;
+    box-shadow: 0 6px 18px rgba(249, 109, 0, 0.28) !important;
+  }
+
+  /* 13 ── Carousel dots: above bottom safe area */
+  .owl-carousel.home-slider .owl-dots {
+    bottom: 18px !important;
+    z-index: 10 !important;
+  }
+
+  /* 14 ── Cancel earlier padding-top rules for this breakpoint */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+    padding-top: 0 !important;
+  }
+}
+
+/* ── Extra-small phones (< 390px) ── */
+@media (max-width: 389px) {
+  .owl-carousel.home-slider .slider-item .slider-text .one-third {
+    width: 120px !important;
+    height: 120px !important;
+    top: 80px !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    padding: 4rem 1.25rem 2.25rem !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text h1 {
+    font-size: 1.55rem !important;
+  }
+
+  .owl-carousel.home-slider .ftco-footer-social li a {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.82rem !important;
+  }
+}
