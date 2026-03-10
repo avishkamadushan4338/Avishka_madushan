@@ -1392,41 +1392,123 @@ html { scroll-behavior: smooth; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MOBILE HERO — CLEAR TEXT & FULL DARK BACKGROUND
+   MOBILE HERO — PREMIUM UI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 991.98px) {
 
-  /* Dark background on slider-item fills corner gaps left by container padding */
+  /* Fill any corner gap with the same dark base */
   .owl-carousel.home-slider .slider-item {
     background-color: #08080f !important;
   }
 
-  /* Hide the unused top-level overlay (it sits behind the container anyway) */
+  /* Hide unused flat overlay */
   .owl-carousel.home-slider .slider-item > .overlay {
     display: none !important;
   }
 
-  /* Keep image overlay light — image stays clearly visible */
+  /* Premium gradient: image fully visible at top, fades to dark at bottom for text */
   .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
-    opacity: 0.3 !important;
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 15, 0.96) 0%,
+      rgba(8, 8, 15, 0.65) 30%,
+      rgba(8, 8, 15, 0.20) 60%,
+      rgba(8, 8, 15, 0.00) 100%
+    ) !important;
+    opacity: 1 !important;
   }
 
-  /* Text div: must sit above the image */
+  /* Push text to the bottom of the hero where the gradient is darkest */
   .owl-carousel.home-slider .slider-item .slider-text .one-forth {
     z-index: 2 !important;
+    align-items: flex-end !important;
+    padding-bottom: 2.8rem !important;
   }
 
-  /* Dark outline shadow only — no colour changes, just makes text pop over the image */
-  .owl-carousel.home-slider .slider-item .slider-text h1,
-  .owl-carousel.home-slider .slider-item .slider-text h1 span,
-  .owl-carousel.home-slider .slider-item .slider-text h2,
+  /* Left-align text block — premium portfolio look */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
+    text-align: left !important;
+    padding: 0 1.4rem !important;
+    width: 100% !important;
+  }
+
+  /* Subheading: uppercase, wide letter-spacing */
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    text-shadow:
-      -1px -1px 0 rgba(0,0,0,0.95),
-       1px -1px 0 rgba(0,0,0,0.95),
-      -1px  1px 0 rgba(0,0,0,0.95),
-       1px  1px 0 rgba(0,0,0,0.95),
-       0 0 12px rgba(0,0,0,1) !important;
+    display: block !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.28em !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: none !important;
+  }
+
+  /* H1: large, bold, tight */
+  .owl-carousel.home-slider .slider-item .slider-text h1 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 0.4rem !important;
+    text-shadow: none !important;
+  }
+
+  /* H2: softer, elegant */
+  .owl-carousel.home-slider .slider-item .slider-text h2 {
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 1.2rem !important;
+    opacity: 0.88 !important;
+    text-shadow: none !important;
+  }
+
+  /* Buttons: compact and clean */
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text p {
+    margin-bottom: 1rem !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .one-forth .btn {
+    padding: 0.5rem 1.3rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    border-radius: 4px !important;
+  }
+
+  /* Social icons: circular glass-style */
+  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.6rem !important;
+    margin-top: 0.8rem !important;
+    padding-left: 0 !important;
+    justify-content: flex-start !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social li {
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.8rem !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    transition: background 0.25s, border-color 0.25s !important;
+  }
+
+  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
   }
 }
 
