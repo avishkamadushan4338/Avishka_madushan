@@ -1420,22 +1420,42 @@ html { scroll-behavior: smooth; }
     opacity: 0 !important;
   }
 
-  /* Keep text and content above the overlay */
-  .owl-carousel.home-slider .slider-item .slider-text {
+  /* Ensure entire container stack is above the overlay */
+  .owl-carousel.home-slider .slider-item > .container,
+  .owl-carousel.home-slider .slider-item .slider-text,
+  .owl-carousel.home-slider .slider-item .one-forth,
+  .owl-carousel.home-slider .slider-item .one-forth .text {
     position: relative !important;
     z-index: 2 !important;
   }
 
-  /* Strong text shadows on every text element */
+  /* Pure white text — maximum contrast */
   .owl-carousel.home-slider .slider-item .slider-text h1,
   .owl-carousel.home-slider .slider-item .slider-text h1 span,
   .owl-carousel.home-slider .slider-item .slider-text h2,
   .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7) !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
   }
 
-  .owl-carousel.home-slider .slider-item .slider-text h2 {
-    color: rgba(255, 255, 255, 0.92) !important;
+  /* Accent color preserved on h1 span */
+  .owl-carousel.home-slider .slider-item .slider-text h1 span {
+    color: #f9a94d !important;
+  }
+
+  /* Subheading brightness */
+  .owl-carousel.home-slider .slider-item .slider-text .subheading {
+    color: #f9a94d !important;
+    font-weight: 600 !important;
+  }
+
+  /* Social icons and buttons visible */
+  .owl-carousel.home-slider .slider-item .one-forth .ftco-footer-social a,
+  .owl-carousel.home-slider .slider-item .one-forth .btn {
+    position: relative !important;
+    z-index: 2 !important;
   }
 }
 
