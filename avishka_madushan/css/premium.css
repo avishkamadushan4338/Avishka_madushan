@@ -1492,15 +1492,15 @@ html { scroll-behavior: smooth; }
   }
 
   .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a {
-    width: 34px !important;
-    height: 34px !important;
+    width: 44px !important;
+    height: 44px !important;
     border-radius: 50% !important;
     background: rgba(255, 255, 255, 0.10) !important;
     border: 1px solid rgba(255, 255, 255, 0.22) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    font-size: 0.8rem !important;
+    font-size: 1rem !important;
     backdrop-filter: blur(6px) !important;
     -webkit-backdrop-filter: blur(6px) !important;
     transition: background 0.25s, border-color 0.25s !important;
