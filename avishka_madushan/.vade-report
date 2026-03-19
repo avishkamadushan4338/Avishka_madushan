@@ -1,0 +1,37 @@
+Implemented Vercel Speed Insights for Static HTML Website
+
+## Changes Made
+
+### Modified:
+- `index.html` - Added Vercel Speed Insights tracking scripts
+
+## Implementation Details
+
+This project is a static HTML website, so I implemented the HTML version of Vercel Speed Insights as per the official documentation.
+
+### What was added:
+Added two script tags before the closing `</body>` tag:
+1. Initialization script that creates the `window.si` function and `window.siq` queue
+2. Deferred script that loads the Speed Insights tracking from `/_vercel/speed-insights/script.js`
+
+### Location:
+The scripts were added at line 990-995 in index.html, right after the existing JavaScript files (main.js and premium.js) and before the closing body tag.
+
+### Why this approach:
+- For static HTML sites, no npm package installation is required
+- The scripts are loaded with `defer` attribute for better performance
+- The tracking script will be served by Vercel's CDN once the site is deployed to Vercel
+- This follows the exact pattern specified in the Vercel Speed Insights documentation for HTML projects
+
+### Next Steps:
+Once this is deployed to Vercel:
+1. Enable Speed Insights in the Vercel dashboard under the project's Speed Insights tab
+2. The `/_vercel/speed-insights/script.js` route will be automatically available after deployment
+3. Performance metrics will start being collected from visitors
+4. Data will be viewable in the Vercel dashboard under the Speed Insights tab
+
+### Notes:
+- No dependencies were added (HTML implementation doesn't require @vercel/speed-insights package)
+- No build process changes needed
+- The implementation is lightweight and won't affect page load performance
+- The script uses the defer attribute to ensure it doesn't block page rendering
