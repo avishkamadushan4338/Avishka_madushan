@@ -33,6 +33,15 @@ html { scroll-behavior: smooth; }
   visibility: hidden;
   pointer-events: none;
 }
+
+/* Hide old ftco-loader when splash is active */
+#ftco-loader {
+  display: none !important;
+}
+
+#ftco-loader.show {
+  display: none !important;
+}
 #splash-particles {
   position: absolute;
   inset: 0;
