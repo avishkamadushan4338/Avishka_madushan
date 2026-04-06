@@ -246,13 +246,12 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/image_3.jpg')"
-							role="img" aria-label="Getting started with MongoDB – database tutorial cover"></div>
+							style="background-image:url('images/image_3.png')"
+							role="img" aria-label="IIT Career Day 2026 – A Step Towards My Professional Journey"></div>
 						<div class="text p-4">
-							<h3 class="mb-2"><a href="#">Getting Started with MongoDB</a></h3>
-							<div class="meta mb-2"><span>Dec 2025</span> | <span>Database</span></div>
-							<p>A beginner-friendly introduction to MongoDB, its features, and how to integrate it into
-								your web projects.</p>
+							<h3 class="mb-2"><a href="#">IIT Career Day 2026</a></h3>
+							<div class="meta mb-2"><span>Apr 2026</span> | <span>Career</span> | <span>Experience</span></div>
+							<p>Stepping into the IIT Career Day 2026 was more than just attending an event it was a defining moment in my journey.</p>
 							<button class="btn btn-primary py-2 px-4 vlog-readmore" data-index="2">Read More</button>
 						</div>
 					</div>
@@ -339,7 +338,7 @@
 								<span class="number">3</span>
 								<span>Project complete</span>
 							</p>
-							<p><a href="cv/Avishka_Madushan_CV.pdf" class="btn btn-primary py-4 px-5" download>Download
+							<p><a href="cv/W.G.Avishka_Madushan.pdf" class="btn btn-primary py-4 px-5" download>Download
 									CV</a></p>
 						</div>
 					</div>
@@ -397,7 +396,7 @@
 			</div>
 			<div class="row justify-content-center mt-5">
 				<div class="col-md-6 text-center ftco-animate">
-					<p><a href="cv/Avishka_Madushan_CV.pdf" class="btn btn-primary py-4 px-5" download>Download CV</a>
+					<p><a href="cv/W.G.Avishka_Madushan.pdf" class="btn btn-primary py-4 px-5" download>Download CV</a>
 					</p>
 				</div>
 			</div>
@@ -645,49 +644,49 @@
 				title: 'Ravana 2.0 – Lakwedha',
 				type: 'Group Project',
 				badgeClass: 'group',
-				duration: '09/2025 – Present',
+				duration: '2025/9 – 2026/3',
 				image: 'images/project-4.jpg',
 				tech: ['Flutter', 'React', 'Node.js', 'MongoDB'],
 				description: `Led a 6-member team in developing Sri Lanka\'s first integrated Ayurvedic healthcare platform. Engineered verified practitioner booking, QR-authenticated herbal marketplace, and encrypted electronic medical records system. Delivered a full-stack solution enhancing trust and digital access in traditional healthcare.`,
 				features: [
-					'✔ Verified Doctor Booking',
-					'✔ QR Authenticated Marketplace',
-					'✔ Encrypted EMR System',
-					'✔ Admin Dashboard'
+					'Verified Doctor Booking',
+					'QR Authenticated Marketplace',
+					'Encrypted EMR System',
+					'Admin Dashboard'
 				],
-				github: 'https://github.com/',
-				demo: '#'
+				github: 'https://github.com/GovinduDandeniya/Lakwedha.git',
+				demo: 'https://www.youtube.com/watch?v=WdzU5EfEHGE&feature=youtu.be'
 			},
 			portfolio: {
 				title: 'Personal Portfolio Website',
 				type: 'Individual Project',
 				badgeClass: 'individual',
-				duration: '01/2026 – Present',
+				duration: '2026/1 – 2026/2',
 				image: 'images/project-5.jpg',
 				tech: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
 				description: `A modern, responsive portfolio website to showcase my skills, projects, and experience. Developed using HTML, CSS, JavaScript, and deployed on GitHub Pages.`,
 				features: [
-					'✔ Responsive Design',
-					'✔ Animated Sections',
-					'✔ Contact Form',
-					'✔ SEO Optimized'
+					'Responsive Design',
+					'Animated Sections',
+					'Contact Form',
+					'SEO Optimized'
 				],
-				github: 'https://github.com/',
-				demo: '#'
+				github: 'https://github.com/avishkamadushan4338/Avishka_madushan.git',
+				host: 'https://www.avishkamadushan.lk'
 			},
 			mathgenios: {
 				title: 'MathGenios – Kids Multiplication Game',
 				type: 'Individual Project',
 				badgeClass: 'individual',
-				duration: '02/2026 – Present',
+				duration: '2026/2 – Present',
 				image: 'images/project-3.jpg',
 				tech: ['JavaScript', 'HTML5', 'CSS3'],
 				description: `An interactive educational math game designed to help kids improve their multiplication skills in a fun and engaging way. Features include timed quizzes, score tracking, and difficulty levels to enhance learning.`,
 				features: [
-					'✔ Interactive Multiplication Quizzes',
-					'✔ Timer & Score Tracking System',
-					'✔ Multiple Difficulty Levels',
-					'✔ Kid-Friendly UI Design'
+					'Interactive Multiplication Quizzes',
+					'Timer & Score Tracking System',
+					'Multiple Difficulty Levels',
+					'Kid-Friendly UI Design'
 				],
 				github: 'https://github.com/',
 				demo: '#'
@@ -707,7 +706,8 @@
 			<ul class='modal-features' style='padding-left:1.2rem;margin-bottom:0.7rem;'>${features}</ul>
 			<div class='modal-actions' style='display:flex;gap:0.7rem;justify-content:center;'>
 				<a href='${p.github}' target='_blank' class='modal-btn github'>View Code</a>
-				<a href='${p.demo}' target='_blank' class='modal-btn demo'>Live Demo</a>
+				${p.host ? `<a href='${p.host}' target='_blank' class='modal-btn demo'>Visit Site</a>` : ''}
+				${p.demo ? `<a href='${p.demo}' target='_blank' class='modal-btn demo'>Live Demo</a>` : ''}
 			</div>
 		`;
 			document.getElementById('modal-project-details').innerHTML = modalHtml;
@@ -929,12 +929,12 @@
 				full: 'Today I had the opportunity to participate in an Industry Visit to the IFS office located at Orion City. This visit was organized for students of the Informatics Institute of Technology as part of our professional development exposure to the IT industry.\n\nDuring the session, we had the chance to interact with industry experts, explore the company environment, and learn about real-world software development practices. The professionals shared valuable insights about career paths in the technology sector, industry expectations, and the skills required to succeed in the modern IT workplace.\n\nOne of the most interesting parts of the visit was understanding how a global enterprise software company like IFS operates, including their work culture, innovation process, and the technologies used in modern enterprise solutions.\n\nThis experience helped bridge the gap between academic learning and real industry practices, giving us a clearer vision of how our knowledge and skills can be applied in professional environments.\n\nOverall, it was a valuable and inspiring experience that motivated me to continue improving my technical skills, problem-solving abilities, and professional mindset as I prepare for my future career in the IT industry.'
 			},
 			{
-				image: 'images/image_3.jpg',
-				title: 'Getting Started with MongoDB',
-				date: 'Dec 2025',
-				category: 'Database',
-				description: 'A beginner-friendly introduction to MongoDB, its features, and how to integrate it into your web projects.',
-				full: 'Covers setup, CRUD operations, and best practices for scalable database design. Includes code samples and integration tips for web developers.'
+				image: 'images/image_3.png',
+				title: 'IIT Career Day 2026',
+				date: 'Apr 2026',
+				category: 'Career',
+				description: 'Stepping into the IIT Career Day 2026 was more than just attending an event it was a defining moment in my journey as an aspiring software engineer.',
+				full: 'Stepping into the IIT Career Day 2026 was more than just attending an event it was a defining moment in my journey as an aspiring software engineer.\n\nThis event brought together leading companies, industry professionals, and ambitious students under one roof, creating an environment filled with opportunities, innovation, and inspiration.\n\n💼 My Experience\n\nDuring the career day, I had the opportunity to:\n• Engage directly with industry professionals\n• Showcase my skills and academic projects\n• Understand real-world expectations in the tech industry\n• Experience real interview scenarios\n\nOne of the most exciting moments was being interviewed by the Amana Bank hiring team for a Project Management Intern role. This experience gave me valuable insight into how professional interviews are conducted and what companies expect from candidates.'
 			}
 		];
 

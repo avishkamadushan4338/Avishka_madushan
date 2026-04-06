@@ -713,6 +713,7 @@ body,
   margin-bottom: 1.2rem;
   padding-left: 1.2rem;
   color: #38bdf8;
+  list-style: none;
 }
 
 .modal-features li {
@@ -720,7 +721,8 @@ body,
   margin-bottom: 0.3rem;
   list-style: none;
   position: relative;
-  padding-left: 1.2em;
+  padding-left: 1.3em;
+  line-height: 1.55;
 }
 
 .modal-features li:before {
@@ -728,6 +730,7 @@ body,
   color: #38bdf8;
   position: absolute;
   left: 0;
+  top: 0.05em;
 }
 
 .modal-actions {
