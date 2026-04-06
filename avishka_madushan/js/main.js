@@ -29,13 +29,117 @@
 	};
 	fullHeight();
 
-	// loader
-	$(document).ready(function() {
-		setTimeout(function() {
-			if($('#ftco-loader').length > 0) {
-				$('#ftco-loader').removeClass('show');
+	// ─── ENHANCED LOADING SCREEN ───
+	var initLoadingScreen = function() {
+		var splashScreen = $('#splash-screen');
+		var progressBar = $('#splash-bar');
+		var loadingComplete = false;
+		var minLoadTime = 1500; // Minimum time to show splash (ms)
+		var startTime = Date.now();
+
+		// Particle animation on canvas
+		var canvas = document.getElementById('splash-particles');
+		if (canvas) {
+			var ctx = canvas.getContext('2d');
+			var particles = [];
+			
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+
+			var Particle = function(x, y) {
+				this.x = x;
+				this.y = y;
+				this.size = Math.random() * 2 + 0.5;
+				this.speedX = (Math.random() - 0.5) * 0.5;
+				this.speedY = (Math.random() - 0.5) * 0.5;
+				this.opacity = Math.random() * 0.5 + 0.2;
+			};
+
+			for (var i = 0; i < 50; i++) {
+				particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
 			}
-		}, 500);
+
+			var animateParticles = function() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = 'rgba(249, 109, 0, 0.3)';
+
+				particles.forEach(function(p) {
+					p.x += p.speedX;
+					p.y += p.speedY;
+
+					if (p.x < 0) p.x = canvas.width;
+					if (p.x > canvas.width) p.x = 0;
+					if (p.y < 0) p.y = canvas.height;
+					if (p.y > canvas.height) p.y = 0;
+
+					ctx.globalAlpha = p.opacity;
+					ctx.beginPath();
+					ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+					ctx.fill();
+				});
+				ctx.globalAlpha = 1;
+
+				if (!loadingComplete || Date.now() - startTime < minLoadTime) {
+					requestAnimationFrame(animateParticles);
+				}
+			};
+
+			animateParticles();
+
+			window.addEventListener('resize', function() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			});
+		}
+
+		// Simulate progress
+		var simulateProgress = function() {
+			var progress = 0;
+			var progressInterval = setInterval(function() {
+				if (progress < 90) {
+					progress += Math.random() * 30;
+					progressBar.css('width', progress + '%');
+				}
+				if (loadingComplete) {
+					clearInterval(progressInterval);
+					progressBar.css('width', '100%');
+				}
+			}, 300);
+		};
+
+		// Hide splash screen
+		var hideSplash = function() {
+			var elapsed = Date.now() - startTime;
+			var delay = Math.max(0, minLoadTime - elapsed);
+
+			setTimeout(function() {
+				splashScreen.addClass('splash-hide');
+				// Hide old ftco-loader too
+				if ($('#ftco-loader').length > 0) {
+					$('#ftco-loader').removeClass('show');
+				}
+			}, delay);
+		};
+
+		simulateProgress();
+
+		// Wait for page load
+		$(window).on('load', function() {
+			loadingComplete = true;
+			hideSplash();
+		});
+
+		// Fallback timeout
+		setTimeout(function() {
+			if (!loadingComplete) {
+				loadingComplete = true;
+				hideSplash();
+			}
+		}, 5000);
+	};
+
+	$(document).ready(function() {
+		initLoadingScreen();
 	});
 
 
