@@ -22244,9 +22244,14 @@ h5,
 }
 
 .ftco-navbar-light .container {
-  width: 1110px;
+  max-width: 1110px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 15px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .ftco-navbar-light .navbar-brand {
@@ -22268,20 +22273,37 @@ h5,
 
 @media (max-width: 991.98px) {
   .ftco-navbar-light .navbar-nav {
+    flex-wrap: wrap;
+    flex-direction: column;
     padding-bottom: 20px;
     margin-right: 0;
   }
+  .ftco-navbar-light .navbar-nav>.nav-item {
+    white-space: normal;
+  }
+}
+
+.ftco-navbar-light .navbar-nav {
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ftco-navbar-light .navbar-nav>.nav-item {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
-  font-size: 16px;
+  font-size: 14px;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
   color: #F8F6FB;
   font-weight: 400;
   opacity: 1 !important;
+  white-space: nowrap;
 }
 
 .ftco-navbar-light .navbar-nav>.nav-item>.nav-link span {
@@ -22293,6 +22315,17 @@ h5,
 @media (max-width: 1199.98px) {
   .ftco-navbar-light .navbar-nav>.nav-item>.nav-link span {
     display: inline-block;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+    font-size: 12.5px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .ftco-navbar-light .navbar-brand {
+    font-size: 15px;
   }
 }
 

@@ -349,6 +349,116 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* ════════════════════════════════════════
+   MEDIUM DESKTOP  (992px – 1199px)
+   8 nav items + long brand "Avishka Madushan" are too wide at the default
+   0.95rem horizontal padding. Tighten everything so the row never wraps.
+════════════════════════════════════════ */
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Reduce nav-link horizontal padding so all 8 items fit in one row */
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.78rem !important;
+    padding: 0.4rem 0.55rem !important;
+    letter-spacing: 0px !important;
+    margin: 0 !important;
+  }
+
+  /* Slightly smaller brand text to reclaim space */
+  .ftco-navbar-light .navbar-brand {
+    font-size: 0.88rem !important;
+    letter-spacing: 0.2px !important;
+    gap: 7px !important;
+  }
+
+  /* Hard guarantee: nav list never wraps */
+  .ftco-navbar-light .navbar-nav {
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+  }
+
+  .ftco-navbar-light .navbar-nav > .nav-item {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Container: use full viewport width minus minimal padding */
+  .ftco-navbar-light .container {
+    max-width: 100% !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
+/* ════════════════════════════════════════
+   LARGE DESKTOP  (1200px – 1399px)
+   Give back a bit of padding at wider viewports.
+   NOTE: must also use :not(.scrolled) selectors here — the top-state rule at
+   line ~208 has specificity (0,4,0) which beats the generic (0,3,0) rules below,
+   so without matching selectors the 1rem/1.1rem top-state padding wins and
+   Contact wraps to a second row.
+════════════════════════════════════════ */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.84rem !important;
+    padding: 0.42rem 0.75rem !important;
+    margin: 0 !important;
+  }
+
+  /* Match :not(.scrolled) specificity (0,4,0) so these values win over the
+     top-state 1rem/1.1rem defaults via later source order */
+  .ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.84rem !important;
+    padding: 0.42rem 0.75rem !important;
+    margin: 0 !important;
+    letter-spacing: 0px !important;
+  }
+  .ftco-navbar-light:not(.scrolled) .navbar-brand {
+    font-size: 1.05rem !important;
+    letter-spacing: 0.2px !important;
+    gap: 8px !important;
+  }
+
+  .ftco-navbar-light .navbar-nav {
+    flex-wrap: nowrap !important;
+  }
+}
+
+/* ════════════════════════════════════════
+   WIDE DESKTOP (≥ 1600px)
+   Container reverts to style.css 1110px max-width — tight with 1rem nav links.
+   Scale links down slightly so nothing wraps.
+════════════════════════════════════════ */
+@media (min-width: 1600px) {
+  .ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.9rem !important;
+    padding: 0.55rem 0.85rem !important;
+    margin: 0 !important;
+  }
+  .ftco-navbar-light .navbar-nav {
+    flex-wrap: nowrap !important;
+  }
+}
+
+/* ════════════════════════════════════════
+   BELT-AND-SUSPENDERS — ID specificity (1,0,0)
+   Beats every class-based rule. Permanently prevents any future wrapping
+   regardless of font-size changes or new breakpoints added later.
+════════════════════════════════════════ */
+@media (min-width: 992px) {
+  #ftco-navbar .navbar-nav {
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  #ftco-navbar .navbar-nav > .nav-item {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+  #ftco-navbar > .container {
+    flex-wrap: nowrap !important;
+  }
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    HERO — Floating Shapes
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
