@@ -1127,6 +1127,27 @@ html { scroll-behavior: smooth; }
     border-top: 1px solid rgba(249, 109, 0, 0.12) !important;
     margin-top: 0.4rem !important;
   }
+
+  /* ── Nav list: vertical column on mobile (ID beats the global row override in style.css) ── */
+  #ftco-navbar .navbar-nav {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+  #ftco-navbar .navbar-nav > .nav-item {
+    width: 100% !important;
+    white-space: normal !important;
+    flex-shrink: 1 !important;
+  }
+  #ftco-navbar .navbar-nav > .nav-item > .nav-link {
+    display: block !important;
+    width: 100% !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+    margin: 1px 0 !important;
+  }
 }
 
 /* ── Extra-small phones: shrink brand text to fit ── */
