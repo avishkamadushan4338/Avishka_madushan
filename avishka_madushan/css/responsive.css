@@ -1,0 +1,91 @@
+/* Responsive & accessibility helpers — additive only.
+   Intentionally does NOT touch colors, backgrounds, .container, headings,
+   project cards/modal, or footer layout: those are already tuned (with
+   !important) in premium.css/style.css. Overriding them here without
+   !important silently wins the cascade (loaded last) and breaks the theme
+   (e.g. white splash screen, invisible dark-on-dark body text). */
+
+:root {
+  --focus-color: 56 189 248; /* sky-400, keyboard focus ring only */
+}
+
+/* Fluid body copy size — theme's own color/background are left alone */
+body {
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
+/* Guarantee a 44x44px minimum hit area on real interactive controls (WCAG 2.5.8).
+   Excludes decorative micro-controls (Owl Carousel's pagination dots are real
+   <button> elements ~10px by design) and .navbar-toggler: Bootstrap shows/hides
+   that one with `display: none/inline-block` at the 992px breakpoint, and a
+   forced `display: inline-flex` here (no !important) would win the cascade and
+   keep the hamburger button visible even on desktop alongside the full menu. */
+button:not(.owl-dot):not(.owl-carousel button):not(.navbar-toggler) {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+a.btn,
+.modal-btn {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ftco-footer-social a,
+.pf-footer-socials a {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+input[type="text"],
+textarea,
+.contact-form .form-control {
+  min-height: 44px;
+  padding: 0.6rem;
+  border-radius: 8px;
+}
+
+/* Keyboard focus visibility (WCAG 2.4.7) — invisible to mouse/touch users */
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid rgba(var(--focus-color), 0.6);
+  box-shadow: 0 0 0 4px rgba(var(--focus-color), 0.25);
+  border-radius: 8px;
+}
+
+/* Respect the OS-level reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Extra breathing room on very small phones (below the 320px+ baseline) */
+@media (max-width: 360px) {
+  .container { padding-left: 12px; padding-right: 12px; }
+}
+
+/* Floor so the hero image panel never collapses to 0 height on odd aspect ratios */
+.home-slider .slider-item .one-third.img,
+.one-third.js-fullheight.img {
+  min-height: 220px;
+}
+
+/* Screen-reader-only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

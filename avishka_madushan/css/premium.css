@@ -9,10 +9,95 @@
   --p-orange-dim: rgba(249, 109, 0, 0.18);
   --p-orange-lo:  rgba(249, 109, 0, 0.06);
   --p-dark:       #08080f;
+
+  --font-display: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-splash:  'Poppins', Arial, sans-serif;
 }
 
 /* ── Global Smooth Scroll ── */
 html { scroll-behavior: smooth; }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SECTION RHYTHM
+   style.css's base .ftco-section padding (7em/6em top+bottom) means two
+   adjacent plain sections stack 224px/192px of empty space between their
+   content with nothing in it — reads as broken layout, not breathing room.
+   Tightened here rather than edited in style.css directly, consistent with
+   how the rest of this file overrides the base template.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ftco-section {
+  padding: 4.5em 0 !important;
+}
+@media (max-width: 767.98px) {
+  .ftco-section {
+    padding: 3.5em 0 !important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TYPOGRAPHY SYSTEM
+   One coherent technical superfamily rather than several
+   unrelated fonts stitched together:
+   · IBM Plex Sans — headings AND body (weight does the
+     hierarchy work). Designed by IBM for technical/engineering
+     products, so it reads as software engineering credibility
+     rather than marketing-site polish.
+   · IBM Plex Mono — tags, dates, badges, meta labels. Same
+     type family as the Sans, so the "developer" accent feels
+     like one system instead of a bolted-on third font.
+   Applies to both themes equally — this is typography, not
+   theme color, so dark mode gets the same system.
+   The splash screen is intentionally excluded — it keeps its
+   original Poppins treatment untouched in both themes (see
+   the SPLASH SCREEN section below).
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand,
+.slider-text h1, .slider-text h2,
+.heading-section h2,
+.blog-entry h3,
+.resume-wrap h2,
+.services-1 .desc h3,
+.progress-wrap h3,
+.pf-footer-logo,
+.modal-title, #vlog-modal-title,
+.project-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.slider-text h1,
+.heading-section h1.big {
+  letter-spacing: -0.02em;
+}
+
+.subheading,
+.blog-entry .meta,
+.resume-wrap .position, .resume-wrap .date,
+.project-badge, .tech-tag,
+.pf-footer-col h4,
+.progress-bar span,
+.ftco_navbar .navbar-toggler,
+.counter-wrap .number {
+  font-family: var(--font-mono);
+}
+
+/* Splash screen keeps its original Poppins treatment, unaffected by the
+   typography system above and by the theme toggle — it's a fixed brand
+   moment, not page chrome that should re-skin itself. */
+#splash-screen,
+.splash-logo,
+.splash-name,
+.splash-tagline,
+.splash-hint {
+  font-family: var(--font-splash) !important;
+}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SPLASH SCREEN
@@ -319,6 +404,41 @@ html { scroll-behavior: smooth; }
 }
 
 /* ════════════════════════════════════════
+   THEME TOGGLE BUTTON
+   Orange-accented on both themes, so it needs no light/dark variant —
+   only css/theme-light.css touches colors elsewhere.
+════════════════════════════════════════ */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 0.6rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(249, 109, 0, 0.4);
+  background: rgba(249, 109, 0, 0.08);
+  color: var(--p-orange);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .3s, border-color .3s, transform .35s, box-shadow .3s;
+}
+.theme-toggle-btn:hover {
+  background: rgba(249, 109, 0, 0.18);
+  border-color: var(--p-orange);
+  box-shadow: 0 0 14px rgba(249, 109, 0, 0.25);
+  transform: rotate(20deg);
+}
+.theme-toggle-btn:active { transform: rotate(20deg) scale(0.9); }
+.theme-toggle-btn i { pointer-events: none; }
+
+@media (max-width: 380px) {
+  .theme-toggle-btn { width: 34px; height: 34px; font-size: 0.9rem; margin-left: 0.4rem; }
+}
+
+/* ════════════════════════════════════════
    MOBILE  (< 992px)
 ════════════════════════════════════════ */
 @media (max-width: 991.98px) {
@@ -355,19 +475,36 @@ html { scroll-behavior: smooth; }
    0.95rem horizontal padding. Tighten everything so the row never wraps.
 ════════════════════════════════════════ */
 @media (min-width: 992px) and (max-width: 1199px) {
-  /* Reduce nav-link horizontal padding so all 8 items fit in one row */
-  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-    font-size: 0.78rem !important;
-    padding: 0.4rem 0.55rem !important;
+  /* Reduce nav-link horizontal padding so all 8 items fit in one row.
+     Space Grotesk measures wider than Poppins at the same size (esp. bold),
+     so this needs to run tighter than it did under the old font.
+     NOTE: must also target :not(.scrolled) here — that top-state selector
+     has specificity (0,4,0), which beats the plain (0,3,0) rule below, so
+     on initial load (before any scroll) the 1rem/1.1rem top-state values
+     would win instead and the row overflows regardless of the fix here. */
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link,
+  .ftco-navbar-light:not(.scrolled) .navbar-nav > .nav-item > .nav-link {
+    font-size: 0.6rem !important;
+    padding: 0.3rem 0.18rem !important;
     letter-spacing: 0px !important;
     margin: 0 !important;
   }
 
   /* Slightly smaller brand text to reclaim space */
-  .ftco-navbar-light .navbar-brand {
-    font-size: 0.88rem !important;
-    letter-spacing: 0.2px !important;
-    gap: 7px !important;
+  .ftco-navbar-light .navbar-brand,
+  .ftco-navbar-light:not(.scrolled) .navbar-brand {
+    font-size: 0.62rem !important;
+    letter-spacing: 0px !important;
+    gap: 4px !important;
+  }
+
+  /* The theme toggle button didn't exist when this breakpoint was last
+     tuned — it needs to give back space here too or the row overflows. */
+  .theme-toggle-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.7rem !important;
+    margin-left: 0.15rem !important;
   }
 
   /* Hard guarantee: nav list never wraps */
@@ -384,8 +521,8 @@ html { scroll-behavior: smooth; }
   /* Container: use full viewport width minus minimal padding */
   .ftco-navbar-light .container {
     max-width: 100% !important;
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
   }
 }
 
@@ -722,31 +859,123 @@ html { scroll-behavior: smooth; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONTACT — Glass Cards Enhanced
+   CONTACT SECTION — Rebuilt
+   Orange-branded from the ground up in both themes, rather
+   than the old glass-card look that only really worked dark.
+   Structural rules + dark-theme surface colors live here;
+   the light-theme surface swap is in theme-light.css.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.glass-card {
-  background: rgba(255,255,255,.03) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  border-radius: 20px !important;
-  transition: transform .4s ease, box-shadow .4s, border-color .4s !important;
-  position: relative;
-  overflow: hidden;
+#contact-section .heading-section .subheading {
+  color: var(--p-orange);
+  font-family: var(--font-mono);
 }
-.glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -130%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(249,109,0,.05), transparent);
-  transition: left .5s ease;
+
+.contact-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin: 0 0 3rem;
 }
-.glass-card:hover::before { left: 160%; }
-.glass-card:hover {
-  transform: translateY(-9px) !important;
-  box-shadow: 0 22px 52px rgba(249,109,0,.15), 0 0 0 1px rgba(249,109,0,.2) !important;
-  border-color: rgba(249,109,0,.2) !important;
+@media (max-width: 767.98px) {
+  .contact-cards-row { grid-template-columns: 1fr; }
+}
+
+.contact-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.75rem 2rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none !important;
+  color: inherit;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.contact-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 52px rgba(249, 109, 0, .15), 0 0 0 1px rgba(249, 109, 0, .2);
+  border-color: rgba(249, 109, 0, .3);
+}
+
+.contact-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin-bottom: 1.4rem;
+  font-size: 1.5rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--p-orange) 0%, #FFA94D 100%);
+  box-shadow: 0 10px 28px rgba(249, 109, 0, .35);
+  transition: transform .4s cubic-bezier(.175, .885, .32, 1.275);
+}
+.contact-card:hover .contact-card-icon { transform: scale(1.1) rotate(-6deg); }
+
+.contact-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 .6rem;
+}
+
+.contact-card-value {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 .35rem;
+  word-break: break-word;
+  transition: color .3s ease;
+}
+.contact-card-link:hover .contact-card-value { color: var(--p-orange); }
+
+.contact-card-note {
+  display: block;
+  font-size: .8rem;
+  font-family: var(--font-mono);
+  opacity: .55;
+}
+
+.contact-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 3rem 3.5rem;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(249, 109, 0, .12), rgba(249, 109, 0, .03));
+  border: 1px solid rgba(249, 109, 0, .18);
+}
+.contact-cta-text h3 {
+  margin: 0 0 .5rem;
+  font-size: 1.5rem;
+}
+.contact-cta-text p {
+  margin: 0;
+  opacity: .7;
+  font-size: .95rem;
+}
+.contact-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  white-space: nowrap;
+}
+.contact-cta .btn i { transition: transform .3s ease; }
+.contact-cta .btn:hover i { transform: translateX(4px); }
+
+@media (max-width: 767.98px) {
+  .contact-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 2.5rem 1.75rem;
+  }
+  .contact-card { padding: 2.25rem 1.5rem; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1083,7 +1312,7 @@ html { scroll-behavior: smooth; }
     display: flex !important;
     flex-wrap: wrap !important;   /* wrap allows collapse to go onto its own row */
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important; /* toggler's auto margin does the right-alignment */
   }
 
   /* ── Brand: keep the orange dot ::before visible, no clipping ── */
@@ -1094,17 +1323,21 @@ html { scroll-behavior: smooth; }
     white-space: nowrap !important;
     font-size: 0.82rem !important;
     letter-spacing: 0.2px !important;
-    max-width: calc(100% - 100px) !important; /* leave room for toggler */
+    max-width: calc(100% - 150px) !important; /* leave room for toggler + theme button */
   }
 
-  /* ── Toggler: pinned right, visible color on dark background ── */
+  /* ── Toggler: pushed to the right edge; theme button clusters right after it ── */
   .ftco_navbar .navbar-toggler,
   .ftco-navbar-light .navbar-toggler,
   .ftco-navbar-light.scrolled .navbar-toggler {
     flex: 0 0 auto !important;
-    margin-left: 0.5rem !important;
+    margin-left: auto !important;
     color: #F96D00 !important;          /* orange — visible on dark bg */
     border-color: rgba(249, 109, 0, 0.5) !important;
+  }
+
+  .ftco-navbar-light .theme-toggle-btn {
+    flex: 0 0 auto !important;
   }
 
   /* style.css sets nav-link text to dark #0F0A1F when scrolled — fix for mobile */
@@ -1291,31 +1524,6 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* ── Contact cards: equal spacing on small screens ── */
-@media (max-width: 767.98px) {
-  .premium-contact-row .col-md-6 {
-    margin-bottom: 1rem;
-  }
-  .glass-card {
-    width: 100% !important;
-  }
-
-  /* Center Contact heading on mobile */
-  #contact-section .col-md-7 {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-    text-align: center !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-  #contact-section .heading-section h2,
-  #contact-section .heading-section p {
-    text-align: center !important;
-    width: 100%;
-  }
-}
-
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    ABOUT SECTION — FIXES & PREMIUM MOBILE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -1412,33 +1620,7 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* ── Fix: services heading row has py-5 mt-5 = 6 rem of top space on mobile ── */
-@media (max-width: 767.98px) {
-  #services-section .row.py-5.mt-5 {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    margin-top: 0.5rem !important;
-  }
-}
 
-/* ── Fix: contact cards — 3 equal columns at medium screens ── */
-@media (min-width: 576px) and (max-width: 991.98px) {
-  .premium-contact-row .col-md-6 {
-    flex: 0 0 calc(33.333% - 1.5rem) !important;
-    max-width: calc(33.333% - 1.5rem) !important;
-  }
-}
-@media (max-width: 575.98px) {
-  .premium-contact-row .col-md-6 {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-  }
-  .premium-contact-row .glass-card {
-    min-width: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-}
 
 /* ── Fix: footer nav columns — 2-col grid with 3 items leaves orphan at 480–767px ── */
 @media (max-width: 767.98px) {
@@ -1522,12 +1704,6 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* ── Fix: contact section heading center alignment on small phones ── */
-@media (max-width: 575.98px) {
-  #contact-section .heading-section h2 {
-    font-size: 1.7rem !important;
-  }
-}
 
 /* ── Fix: social icons in hero not overflowing on small screens ── */
 @media (max-width: 380px) {
