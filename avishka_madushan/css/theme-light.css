@@ -108,11 +108,13 @@ html[data-theme="light"] .ftco-navbar-light.scrolled .nav-item > .nav-link.activ
   html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .subheading {
     color: var(--tl-orange-text) !important;
   }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1 {
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1,
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
     color: var(--tl-text) !important;
   }
   html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1 span,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2 {
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span,
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
     color: var(--tl-orange-text) !important;
   }
   html[data-theme="light"] .btn.btn-white.btn-outline-white {
@@ -152,10 +154,10 @@ html[data-theme="light"] .btn.btn-primary:hover {
    premium/editorial rather than "every heading is a crayon." */
 html[data-theme="light"] .heading-section h2 { color: var(--tl-text) !important; }
 html[data-theme="light"] .heading-section p { color: var(--tl-text-soft) !important; }
-html[data-theme="light"] h1.big { color: rgba(15, 23, 42, 0.04) !important; }
+html[data-theme="light"] h2.big { color: rgba(15, 23, 42, 0.04) !important; }
 /* #resume-section has its own ID-scoped !important heading colors in style.css
    (higher specificity than a plain .heading-section rule) — match them here. */
-html[data-theme="light"] #resume-section .heading-section h1.big,
+html[data-theme="light"] #resume-section .heading-section h2.big,
 html[data-theme="light"] #resume-section .heading-section h2 { color: var(--tl-text) !important; }
 html[data-theme="light"] #resume-section .heading-section p { color: var(--tl-text-soft) !important; }
 

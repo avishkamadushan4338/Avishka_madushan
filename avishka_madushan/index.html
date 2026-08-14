@@ -43,34 +43,62 @@
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
-		"@type": "Person",
-		"name": "W.G. Avishka Madushan",
-		"alternateName": "Avishka Madushan",
-		"url": "https://www.avishkamadushan.lk/",
-		"image": "https://www.avishkamadushan.lk/images/about.png",
-		"jobTitle": "IT Student & Software Developer",
-		"description": "IT student and software developer from Sri Lanka, specialising in web development, Java, Python, and mobile applications.",
-		"email": "avishkamadushan4338@gmail.com",
-		"telephone": "+94713316679",
-		"address": {
-			"@type": "PostalAddress",
-			"addressRegion": "Southern Province",
-			"addressCountry": "LK"
-		},
-		"sameAs": [
-			"https://www.linkedin.com/in/avishka-madushan-2a5027353/",
-			"https://github.com/avishkamadushan4338",
-			"https://www.facebook.com/share/1EXFtjEHPi/",
-			"https://www.instagram.com/_avishka_madushan"
-		],
-		"alumniOf": {
-			"@type": "EducationalOrganization",
-			"name": "Informatics Institute of Technology",
-			"url": "https://www.iit.ac.lk/"
-		},
-		"knowsAbout": [
-			"Web Development", "Backend Development", "Mobile App Development",
-			"Java", "Python", "JavaScript", "HTML", "CSS", "MongoDB", "SQL"
+		"@graph": [
+			{
+				"@type": "Person",
+				"@id": "https://www.avishkamadushan.lk/#person",
+				"name": "W.G. Avishka Madushan",
+				"alternateName": "Avishka Madushan",
+				"url": "https://www.avishkamadushan.lk/",
+				"image": "https://www.avishkamadushan.lk/images/about.webp",
+				"jobTitle": "IT Student & Software Developer",
+				"description": "IT student and software developer from Sri Lanka, specialising in web development, Java, Python, and mobile applications.",
+				"disambiguatingDescription": "W.G. Avishka Madushan, a BSc (Hons) Computer Science undergraduate at the Informatics Institute of Technology (IIT), Sri Lanka — not to be confused with other individuals sharing a similar name.",
+				"email": "avishkamadushan4338@gmail.com",
+				"telephone": "+94713316679",
+				"nationality": {
+					"@type": "Country",
+					"name": "Sri Lanka"
+				},
+				"address": {
+					"@type": "PostalAddress",
+					"addressRegion": "Southern Province",
+					"addressCountry": "LK"
+				},
+				"sameAs": [
+					"https://www.linkedin.com/in/avishka-madushan-2a5027353/",
+					"https://github.com/avishkamadushan4338",
+					"https://www.facebook.com/share/1EXFtjEHPi/",
+					"https://www.instagram.com/_avishka_madushan"
+				],
+				"alumniOf": {
+					"@type": "EducationalOrganization",
+					"name": "Informatics Institute of Technology",
+					"url": "https://www.iit.ac.lk/"
+				},
+				"knowsAbout": [
+					"Web Development", "Backend Development", "Mobile App Development",
+					"Java", "Python", "JavaScript", "HTML", "CSS", "MongoDB", "SQL"
+				]
+			},
+			{
+				"@type": "WebSite",
+				"@id": "https://www.avishkamadushan.lk/#website",
+				"url": "https://www.avishkamadushan.lk/",
+				"name": "Avishka Madushan Portfolio",
+				"description": "Portfolio of Avishka Madushan – IT student and software developer from Sri Lanka.",
+				"publisher": { "@id": "https://www.avishkamadushan.lk/#person" },
+				"inLanguage": "en"
+			},
+			{
+				"@type": "ProfilePage",
+				"@id": "https://www.avishkamadushan.lk/#profilepage",
+				"url": "https://www.avishkamadushan.lk/",
+				"name": "Avishka Madushan | IT Student & Software Developer Portfolio – Sri Lanka",
+				"isPartOf": { "@id": "https://www.avishkamadushan.lk/#website" },
+				"mainEntity": { "@id": "https://www.avishkamadushan.lk/#person" },
+				"inLanguage": "en"
+			}
 		]
 	}
 	</script>
@@ -79,9 +107,13 @@
 	<link rel="me" href="https://www.linkedin.com/in/avishka-madushan-2a5027353/">
 	<link rel="me" href="https://github.com/avishkamadushan4338">
 
+	<!-- ═══ AI CRAWLER MANIFEST (llms.txt convention) ═══ -->
+	<link rel="llms.txt" href="/llms.txt" title="Plain-language summary for AI assistants">
+
 	<!-- ═══ FAVICONS ═══ -->
-	<link rel="icon" type="image/png" href="images/bg_1.png">
-	<link rel="apple-touch-icon" href="images/bg_1.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
 	<!-- ═══ PERFORMANCE: preconnect third-party origins ═══ -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -167,7 +199,7 @@
 					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end"
 						data-scrollax-parent="true">
 						<div class="one-third js-fullheight order-md-last img"
-							style="background-image:url(images/about.png);"
+							style="background-image:url(images/about.webp);"
 							role="img" aria-label="Avishka Madushan – IT Student and Software Developer portrait">
 							<div class="overlay"></div>
 						</div>
@@ -199,7 +231,7 @@
 					<div class="row d-flex no-gutters slider-text align-items-end justify-content-end"
 						data-scrollax-parent="true">
 						<div class="one-third js-fullheight order-md-last img"
-							style="background-image:url(images/bg_2.png);"
+							style="background-image:url(images/bg_2.webp);"
 							role="img" aria-label="Avishka Madushan – Web Designer based in Sri Lanka">
 							<div class="overlay"></div>
 						</div>
@@ -207,7 +239,7 @@
 							data-scrollax=" properties: { translateY: '70%' }">
 							<div class="text">
 								<span class="subheading">Hello!</span>
-								<h1 class="mb-4 mt-3">I'm a <span>Web Designer</span> based in Sri Lanka</h1>
+								<h2 class="mb-4 mt-3 slide-heading">I'm a <span>Web Designer</span> based in Sri Lanka</h2>
 								<p><a href="https://www.linkedin.com/in/avishka-madushan-2a5027353/" target="_blank" rel="me noopener noreferrer"
 										class="btn btn-primary py-3 px-4">Hire me</a> <a
 										href="https://github.com/avishkamadushan4338" target="_blank" rel="me noopener noreferrer"
@@ -229,7 +261,7 @@
 		<div class="container">
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2 d-none d-md-block">Blog</h1>
+					<h2 class="big big-2 d-none d-md-block">Blog</h2>
 					<h2 class="mb-4">My Blog</h2>
 					<p>Insights, tutorials, and tech experiences</p>
 				</div>
@@ -238,13 +270,14 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/project-5.jpg')"
+							style="background-image:url('images/project-5.webp')"
 							role="img" aria-label="Screenshot of Avishka Madushan's portfolio website"></div>
 						<div class="text p-4">
 							<h3 class="mb-2"><a href="#">How I Built My Portfolio Website</a></h3>
 							<div class="meta mb-2"><span>Feb 2026</span> | <span>Web Development</span></div>
 							<p>Step-by-step guide to designing and launching a modern, recruiter-friendly portfolio
 								using HTML, CSS, and JavaScript.</p>
+							<div class="sr-only">Building my own portfolio website was one of the most rewarding projects I have undertaken as a Computer Science undergraduate. This site is more than just a webpage — it is a reflection of my skills, personality, and growth as a developer. I started by planning the structure and sections I wanted to showcase: a hero introduction, blog, about me, resume, services, skills, projects, and a contact section. For the technology stack, I chose HTML5, CSS3, and JavaScript — the core web technologies I am most comfortable with, integrating Bootstrap, Owl Carousel, and AOS for animations. The Projects section features a dynamic modal system with tech stack, duration, features, and links to GitHub and live demos. The site is deployed and hosted on GitHub Pages.</div>
 							<button class="btn btn-primary py-2 px-4 vlog-readmore" data-index="0">Read More</button>
 						</div>
 					</div>
@@ -252,12 +285,13 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/image_2.jpeg')"
+							style="background-image:url('images/image_2.webp')"
 							role="img" aria-label="Industry visit to IFS Orion City campus"></div>
 						<div class="text p-4">
 							<h3 class="mb-2"><a href="#">Industry Visit to IFS Experience</a></h3>
 							<div class="meta mb-2"><span>March 2026</span> | <span>Career</span></div>
 							<p>Great opportunity to meet industry experts. Learned about real software development environments. Valuable experience for my future IT career. </p>
+							<div class="sr-only">I had the opportunity to participate in an Industry Visit to the IFS office located at Orion City, organized for students of the Informatics Institute of Technology as part of professional development exposure to the IT industry. During the session, I interacted with industry experts, explored the company environment, and learned about real-world software development practices, career paths, industry expectations, and the skills required to succeed in the modern IT workplace. This experience helped bridge the gap between academic learning and real industry practices as I prepare for my future career in the IT industry.</div>
 							<button class="btn btn-primary py-2 px-4 vlog-readmore" data-index="1">Read More</button>
 						</div>
 					</div>
@@ -265,12 +299,13 @@
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<div class="blog-img"
-							style="background-image:url('images/image_3.png')"
+							style="background-image:url('images/image_3.webp')"
 							role="img" aria-label="IIT Career Day 2026 – A Step Towards My Professional Journey"></div>
 						<div class="text p-4">
 							<h3 class="mb-2"><a href="#">IIT Career Day 2026</a></h3>
 							<div class="meta mb-2"><span>Apr 2026</span> | <span>Career</span> | <span>Experience</span></div>
 							<p>Stepping into the IIT Career Day 2026 was more than just attending an event it was a defining moment in my journey.</p>
+							<div class="sr-only">Stepping into the IIT Career Day 2026 was more than just attending an event — it was a defining moment in my journey as an aspiring software engineer. This event brought together leading companies, industry professionals, and ambitious students, creating an environment filled with opportunities, innovation, and inspiration. During the career day, I engaged directly with industry professionals, showcased my skills and academic projects, understood real-world expectations in the tech industry, and experienced real interview scenarios. One of the most exciting moments was being interviewed by the Amana Bank hiring team for a Project Management Intern role.</div>
 							<button class="btn btn-primary py-2 px-4 vlog-readmore" data-index="2">Read More</button>
 						</div>
 					</div>
@@ -325,7 +360,7 @@
 					<div class="img-about img d-flex align-items-stretch">
 						<div class="overlay"></div>
 						<div class="img d-flex align-self-stretch align-items-center"
-							style="background-image:url(images/bg_1.png);"
+							style="background-image:url(images/bg_1.webp);"
 							role="img" aria-label="Avishka Madushan profile photo">
 						</div>
 					</div>
@@ -336,7 +371,7 @@
 					<div class="row justify-content-start pb-3">
 						<div class="col-md-12 heading-section ftco-animate">
 							<!-- Desktop-only heading (hidden on mobile) -->
-							<h1 class="big d-none d-md-block">About</h1>
+							<h2 class="big d-none d-md-block">About</h2>
 							<h2 class="mb-4 d-none d-md-block">About Me</h2>
 							<p>Passionate and results-driven software developer dedicated to building innovative,
 								scalable, and user focused digital solutions that solve real world problems efficiently.
@@ -370,7 +405,7 @@
 		<div class="container">
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-10 heading-section text-center ftco-animate">
-					<!-- <h1 class="big big-2">Resume</h1> -->
+					<!-- <h2 class="big big-2">Resume</h2> -->
 					<h2 class="mb-4">Resume</h2>
 					<p>Academic background, professional experience, and technical achievements summarized clearly.</p>
 				</div>
@@ -426,7 +461,7 @@
 		<div class="container">
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Services</h1>
+					<h2 class="big big-2">Services</h2>
 					<h2 class="mb-4">Services</h2>
 					<p>Delivering reliable and scalable tech solutions</p>
 				</div>
@@ -502,7 +537,7 @@
 		<div class="container">
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2 d-none d-md-block">Tech Skills</h1>
+					<h2 class="big big-2 d-none d-md-block">Tech Skills</h2>
 					<h2 class="mb-4">My Skills</h2>
 					<p>Modern tools, frameworks, and technologies expertise</p>
 				</div>
@@ -590,7 +625,7 @@
 	<div class="container mt-5">
 		<div class="row justify-content-center pb-3">
 			<div class="col-md-12 heading-section text-center ftco-animate">
-				<h1 class="big big-2 d-none d-md-block">Soft Skills</h1>
+				<h2 class="big big-2 d-none d-md-block">Soft Skills</h2>
 				<h2 class="mb-4">Soft Skills</h2>
 				<p>Strong communication, teamwork, leadership, adaptability, and problem-solving skills.</p>
 			</div>
@@ -614,7 +649,7 @@
 		<div class="container">
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2 d-none d-md-block">Projects</h1>
+					<h2 class="big big-2 d-none d-md-block">Projects</h2>
 					<h2 class="mb-4">My Projects</h2>
 					<p>Real-world applications built with creativity</p>
 				</div>
@@ -622,28 +657,31 @@
 			<div class="projects-grid">
 				<!-- Example Project Card -->
 				<div class="project-card" onclick="showProjectModal('ravana')">
-					<div class="project-img" style="background-image:url('images/project-4.jpg');"
+					<div class="project-img" style="background-image:url('images/project-4.webp');"
 						role="img" aria-label="Ravana 2.0 Lakwedha – Ayurvedic healthcare platform project screenshot"></div>
 					<div class="project-content">
 						<div class="project-title">Ravana 2.0 – Lakwedha</div>
 						<span class="project-badge group">Group Project</span>
 					</div>
+					<div class="sr-only">Led a 6-member team in developing Sri Lanka's first integrated Ayurvedic healthcare platform (2025/9 – 2026/3). Engineered verified practitioner booking, QR-authenticated herbal marketplace, and encrypted electronic medical records system. Built with Flutter, React, Node.js, MongoDB.</div>
 				</div>
 				<div class="project-card" onclick="showProjectModal('portfolio')">
-					<div class="project-img" style="background-image:url('images/project-5.jpg');"
+					<div class="project-img" style="background-image:url('images/project-5.webp');"
 						role="img" aria-label="Personal portfolio website – built with HTML, CSS and JavaScript"></div>
 					<div class="project-content">
 						<div class="project-title">Personal Portfolio Website</div>
 						<span class="project-badge individual">Individual Project</span>
 					</div>
+					<div class="sr-only">A modern, responsive portfolio website (2026/1 – 2026/2) showcasing skills, projects, and experience. Built with HTML, CSS, JavaScript, deployed on GitHub Pages. Features responsive design, animated sections, and SEO optimization.</div>
 				</div>
 				<div class="project-card" onclick="showProjectModal('mathgenios')">
-					<div class="project-img" style="background-image:url('images/project-3.jpg');"
+					<div class="project-img" style="background-image:url('images/project-3.webp');"
 						role="img" aria-label="MathGenios – interactive kids multiplication game screenshot"></div>
 					<div class="project-content">
 						<div class="project-title">MathGenios</div>
 						<span class="project-badge individual">Individual Project</span>
 					</div>
+					<div class="sr-only">An interactive educational math game (2026/2 – Present) helping kids improve multiplication skills. Built with JavaScript, HTML5, CSS3. Features timed quizzes, score tracking, and multiple difficulty levels.</div>
 				</div>
 			</div>
 
@@ -664,7 +702,7 @@
 				type: 'Group Project',
 				badgeClass: 'group',
 				duration: '2025/9 – 2026/3',
-				image: 'images/project-4.jpg',
+				image: 'images/project-4.webp',
 				tech: ['Flutter', 'React', 'Node.js', 'MongoDB'],
 				description: `Led a 6-member team in developing Sri Lanka\'s first integrated Ayurvedic healthcare platform. Engineered verified practitioner booking, QR-authenticated herbal marketplace, and encrypted electronic medical records system. Delivered a full-stack solution enhancing trust and digital access in traditional healthcare.`,
 				features: [
@@ -681,7 +719,7 @@
 				type: 'Individual Project',
 				badgeClass: 'individual',
 				duration: '2026/1 – 2026/2',
-				image: 'images/project-5.jpg',
+				image: 'images/project-5.webp',
 				tech: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
 				description: `A modern, responsive portfolio website to showcase my skills, projects, and experience. Developed using HTML, CSS, JavaScript, and deployed on GitHub Pages.`,
 				features: [
@@ -698,7 +736,7 @@
 				type: 'Individual Project',
 				badgeClass: 'individual',
 				duration: '2026/2 – Present',
-				image: 'images/project-3.jpg',
+				image: 'images/project-3.webp',
 				tech: ['JavaScript', 'HTML5', 'CSS3'],
 				description: `An interactive educational math game designed to help kids improve their multiplication skills in a fun and engaging way. Features include timed quizzes, score tracking, and difficulty levels to enhance learning.`,
 				features: [
@@ -906,7 +944,7 @@
 		// Vlog data structure for modal system
 		const vlogArticles = [
 			{
-				image: 'images/project-5.jpg',
+				image: 'images/project-5.webp',
 				title: 'How I Built My Portfolio Website',
 				date: 'Feb 2026',
 				category: 'Web Development',
@@ -914,7 +952,7 @@
 				full: 'Building my own portfolio website was one of the most rewarding projects I have undertaken as a Computer Science undergraduate. This site is more than just a webpage — it is a reflection of my skills, personality, and growth as a developer.\n\nI started by planning the structure and sections I wanted to showcase: a hero introduction, blog, about me, resume, services, skills, projects, and a contact section. Each section was designed to give visitors a clear picture of who I am and what I can do.\n\nFor the technology stack, I chose HTML5, CSS3, and JavaScript — the core web technologies I am most comfortable with. I integrated Bootstrap for responsive layout, Owl Carousel for the hero slider, and AOS for scroll animations. I also built a custom premium layer with glassmorphism effects, animated cursor, scroll progress bar, particle network, and typing animation to give the site a modern and polished look.\n\nOne of the biggest challenges was making the site fully responsive across all screen sizes — from large desktop monitors to small mobile screens. I spent a significant amount of time fine-tuning CSS media queries, font sizes, padding, and layout to ensure every section looks great on any device.\n\nThe Projects section features a dynamic modal system that displays detailed information about each project including tech stack, duration, features, and links to GitHub and live demos. The Blog section uses a similar modal approach, allowing visitors to read full articles without leaving the page.\n\nFinally, the site is deployed and hosted on GitHub Pages, making it publicly accessible. This project taught me a great deal about UI/UX design principles, performance optimization, cross-browser compatibility, and the importance of clean, maintainable code.\n\nThis portfolio is a living project — I continue to update it as I complete new projects, earn certifications, and grow as a developer.'
 			},
 			{
-				image: 'images/image_2.jpeg',
+				image: 'images/image_2.webp',
 				title: 'Industry Visit to IFS Experience',
 				date: 'March 2026',
 				category: 'Career',
@@ -922,7 +960,7 @@
 				full: 'Today I had the opportunity to participate in an Industry Visit to the IFS office located at Orion City. This visit was organized for students of the Informatics Institute of Technology as part of our professional development exposure to the IT industry.\n\nDuring the session, we had the chance to interact with industry experts, explore the company environment, and learn about real-world software development practices. The professionals shared valuable insights about career paths in the technology sector, industry expectations, and the skills required to succeed in the modern IT workplace.\n\nOne of the most interesting parts of the visit was understanding how a global enterprise software company like IFS operates, including their work culture, innovation process, and the technologies used in modern enterprise solutions.\n\nThis experience helped bridge the gap between academic learning and real industry practices, giving us a clearer vision of how our knowledge and skills can be applied in professional environments.\n\nOverall, it was a valuable and inspiring experience that motivated me to continue improving my technical skills, problem-solving abilities, and professional mindset as I prepare for my future career in the IT industry.'
 			},
 			{
-				image: 'images/image_3.png',
+				image: 'images/image_3.webp',
 				title: 'IIT Career Day 2026',
 				date: 'Apr 2026',
 				category: 'Career',

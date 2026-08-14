@@ -73,8 +73,35 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .slider-text h1,
-.heading-section h1.big {
+.heading-section h2.big {
   letter-spacing: -0.02em;
+}
+
+/* Second hero slide's headline is a semantic h2 (only one h1 per page for SEO)
+   but must keep the same large visual treatment as the h1 slide headline. */
+.owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
+  font-size: 60px;
+  font-weight: 800;
+  color: #F8F6FB;
+  line-height: 1.2;
+}
+
+.owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span {
+  font-weight: 800;
+  color: #A855F7;
+}
+
+@media (max-width: 991.98px) {
+  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
+    font-size: 50px;
+    color: #F8F6FB;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
+    font-size: 40px;
+  }
 }
 
 .subheading,
@@ -1540,8 +1567,8 @@ h1, h2, h3, h4, h5, h6,
     text-align: center;
     padding-bottom: 0.5rem;
   }
-  /* Decorative watermark h1.big doesn't scale to mobile — hide it */
-  #about-section .d-md-none .heading-section h1.big {
+  /* Decorative watermark h2.big doesn't scale to mobile — hide it */
+  #about-section .d-md-none .heading-section h2.big {
     display: none !important;
   }
   #about-section .d-md-none .heading-section h2 {
@@ -1781,13 +1808,24 @@ h1, h2, h3, h4, h5, h6,
     text-shadow: none !important;
   }
 
-  /* H2: softer, elegant */
-  .owl-carousel.home-slider .slider-item .slider-text h2 {
+  /* H2: softer, elegant (genuine subheading, e.g. "An Undergraduate") */
+  .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
     font-size: 0.95rem !important;
     font-weight: 400 !important;
     letter-spacing: 0.06em !important;
     margin-bottom: 1.2rem !important;
     opacity: 0.88 !important;
+    text-shadow: none !important;
+  }
+
+  /* Slide 2's headline is a semantic h2 but visually matches h1 */
+  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 0.4rem !important;
+    opacity: 1 !important;
     text-shadow: none !important;
   }
 

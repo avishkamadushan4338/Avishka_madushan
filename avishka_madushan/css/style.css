@@ -11511,7 +11511,7 @@ a.text-dark:focus {
   }
 }
 
-#resume-section .heading-section h1.big,
+#resume-section .heading-section h2.big,
 #resume-section .heading-section h2 {
   color: #A855F7 !important;
   text-shadow: 0 2px 12px rgba(34, 211, 238, 0.25), 0 1px 0 #0F0A1F;
@@ -23722,7 +23722,7 @@ textarea.form-control {
   letter-spacing: 3px;
 }
 
-.heading-section h1.big {
+.heading-section h2.big {
   position: absolute;
   top: 0px;
   left: 0;
@@ -23732,7 +23732,7 @@ textarea.form-control {
   font-weight: 900;
 }
 
-.heading-section h1.big.big-2 {
+.heading-section h2.big.big-2 {
   right: 0;
 }
 
