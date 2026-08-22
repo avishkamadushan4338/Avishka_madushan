@@ -234,7 +234,7 @@
     /* ── HERO: Typing Effect ── */
     const heroH2 = document.querySelector('.owl-item:not(.cloned) .slider-item h2.mb-4');
     if (heroH2) {
-      const texts = ['An Undergraduate', 'A Web Developer', 'A Problem Solver', 'A Creative Coder'];
+      const texts = ['An Undergraduate', 'A Full Stack Developer', 'A Problem Solver', 'A Creative Coder'];
       let ti = 0, ci = 0, deleting = false;
 
       const tSpan = document.createElement('span');
@@ -289,7 +289,7 @@
 
     /* ── MAGNETIC BUTTONS ── */
     if (!IS_TOUCH) {
-      document.querySelectorAll('.btn-primary, .btn-white').forEach(btn => {
+      document.querySelectorAll('.btn-primary, .btn-white, .contact-cta-btn').forEach(btn => {
         btn.addEventListener('mousemove', e => {
           const r  = btn.getBoundingClientRect();
           const dx = e.clientX - r.left - r.width  / 2;
@@ -302,6 +302,20 @@
           setTimeout(() => { btn.style.transition = ''; }, 450);
         });
       });
+    }
+
+    /* ── SERVICES: reveal-on-scroll for the premium bento cards ── */
+    const serviceCards = document.querySelectorAll('.services-1');
+    if (serviceCards.length) {
+      const svcObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('services-in-view');
+            svcObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      serviceCards.forEach(card => svcObs.observe(card));
     }
 
     /* ── COUNTER ENTRANCE ANIMATION ── */

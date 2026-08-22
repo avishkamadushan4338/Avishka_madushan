@@ -21,13 +21,20 @@
 	}
 
 
+	// Desktop only: below 992px, premium.css drives .js-fullheight's height
+	// via 100dvh/100svh/100vh, which tracks mobile browser-chrome changes
+	// live. window.height() is a one-time snapshot that goes stale on
+	// mobile (address bar show/hide) and was fighting the CSS height,
+	// leaving a gap above the hero portrait — so don't set it there.
 	var fullHeight = function() {
+		if ($(window).width() < 992) {
+			$('.js-fullheight').css('height', '');
+			return;
+		}
 		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
 	};
 	fullHeight();
+	$(window).resize(fullHeight);
 
 	// ─── ENHANCED LOADING SCREEN ───
 	var initLoadingScreen = function() {

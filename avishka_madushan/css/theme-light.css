@@ -47,6 +47,28 @@ html[data-theme="light"] {
   --tl-orange-tint: rgba(249, 109, 0, 0.10);
 }
 
+/* ── Scrollbars ── */
+html[data-theme="light"] {
+  scrollbar-color: var(--tl-orange-text) var(--tl-surface-2);
+}
+html[data-theme="light"] .vlog-modal-scroll,
+html[data-theme="light"] .project-modal-content,
+html[data-theme="light"] .modal-desc {
+  scrollbar-color: var(--tl-orange-text) var(--tl-surface-2);
+}
+html[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--tl-surface-2) !important;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background-color: rgba(194, 65, 12, 0.45) !important; /* --tl-orange-text at reduced opacity */
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(194, 65, 12, 0.7) !important;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:active {
+  background-color: var(--tl-orange-text) !important;
+}
+
 /* ── Base page ── */
 html[data-theme="light"] body {
   background: var(--tl-bg) !important;
@@ -97,13 +119,84 @@ html[data-theme="light"] .ftco-navbar-light.scrolled .nav-item > .nav-link.activ
   }
 }
 
-/* ── Hero (desktop only) ──
-   Below 992px the hero keeps its permanent dark photo-overlay scrim
-   (premium.css, unconditional) so white text is already correct there
-   in both themes. At ≥992px the two-column layout puts the text
-   column directly on the page background with no scrim, so it needs
-   its own light-theme colors. The name gets the brand orange — one
-   deliberate, bold use of it, right where a portfolio wants it. */
+/* ── Hero — mobile (<992px) ──
+   BUGFIX v1: this block didn't exist, so below 992px the hero ran 100%
+   dark-theme rules regardless of [data-theme="light"] — a no-op.
+   BUGFIX v2 (reverted): tried a dark scrim-card floating on an
+   untouched dark photo. Visually that read as "still the dark theme"
+   — only ~10% of the screen (navbar sliver) actually looked light,
+   so toggling felt broken even though the code was doing something.
+   v3: commit fully — re-tint the photo gradient light like the rest
+   of the page, text sits directly on it (same structural approach as
+   the ≥992px desktop rule below), no separate card. Buttons and social
+   icons get solid, opaque light-theme fills (not transparent/outline —
+   style.css's .btn-outline-white and premium.css's frosted-glass
+   social icons are both built assuming a dark backdrop; on light they
+   need real fill or they wash out to near-invisible, as seen earlier). */
+@media (max-width: 991.98px) {
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item {
+    background-color: var(--tl-bg) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
+    background: linear-gradient(
+      to top,
+      var(--tl-bg) 0%,
+      rgba(248, 250, 252, 0.92) 25%,
+      rgba(248, 250, 252, 0.55) 55%,
+      rgba(248, 250, 252, 0.12) 80%,
+      rgba(248, 250, 252, 0.00) 100%
+    ) !important;
+    opacity: 1 !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+    padding-bottom: 3.5rem !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .subheading {
+    color: var(--tl-orange-text) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1,
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2 {
+    color: var(--tl-text) !important;
+    text-shadow: 0 1px 12px rgba(248, 250, 252, 0.8) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1 span,
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span,
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
+    color: var(--tl-orange-text) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
+    opacity: 1 !important;
+    color: var(--tl-text-soft) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .btn.btn-white.btn-outline-white {
+    background: var(--tl-surface) !important;
+    border-color: var(--tl-border-firm) !important;
+    color: var(--tl-text) !important;
+    box-shadow: var(--tl-shadow-lift) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .btn.btn-white.btn-outline-white:hover {
+    border-color: transparent !important;
+    background: var(--tl-orange) !important;
+    color: #fff !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a {
+    background: var(--tl-surface) !important;
+    border-color: var(--tl-border-firm) !important;
+    color: var(--tl-text-soft) !important;
+    box-shadow: var(--tl-shadow-lift) !important;
+  }
+  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a:hover {
+    background: var(--tl-orange) !important;
+    border-color: var(--tl-orange) !important;
+    color: #fff !important;
+  }
+}
+
+/* ── Hero (desktop) ──
+   At ≥992px the two-column layout puts the text column directly on the
+   page background with no scrim, so it needs its own light-theme colors.
+   The name gets the brand orange — one deliberate, bold use of it,
+   right where a portfolio wants it. */
 @media (min-width: 992px) {
   html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .subheading {
     color: var(--tl-orange-text) !important;
@@ -172,6 +265,11 @@ html[data-theme="light"] .blog-entry h3 a { color: var(--tl-text) !important; }
 html[data-theme="light"] .blog-entry h3 a:hover { color: var(--tl-orange-text) !important; }
 html[data-theme="light"] .blog-entry .meta,
 html[data-theme="light"] .blog-entry .meta span { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .blog-entry .meta i { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .blog-entry .text p { color: var(--tl-text-soft) !important; }
+html[data-theme="light"] .blog-readmore-link { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .blog-readmore-link:hover,
+html[data-theme="light"] .blog-readmore-link:focus-visible { color: var(--tl-text) !important; }
 
 /* ── About ── */
 html[data-theme="light"] .about-info li span:first-child,
@@ -203,14 +301,59 @@ html[data-theme="light"] .resume-wrap .date,
 html[data-theme="light"] #resume-section .resume-wrap .position,
 html[data-theme="light"] #resume-section .resume-wrap .date { color: var(--tl-text-mute) !important; }
 
-/* .services-1 card itself is already white/theme-neutral, but its icon
-   badge is a hardcoded purple-blue gradient (#6a11cb→#2575fc) — off-brand
-   now that the rest of the page speaks in orange. Re-tint it to match. */
+/* ── Services (premium bento grid) ── */
+html[data-theme="light"] .services-eyebrow { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .services-premium .heading-section p { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .services-group-label {
+  color: var(--tl-text-mute) !important;
+}
+html[data-theme="light"] .services-group-label .services-group-line {
+  background: linear-gradient(90deg, var(--tl-orange), transparent) !important;
+}
+
+html[data-theme="light"] #services-section .services-1 {
+  background: linear-gradient(180deg, #FFFFFF, var(--tl-surface-2)) !important;
+  border: 1px solid var(--tl-border) !important;
+  box-shadow: var(--tl-shadow-lift) !important;
+  backdrop-filter: none !important;
+}
+html[data-theme="light"] #services-section .services-1:hover {
+  border-color: rgba(249,109,0,.35) !important;
+  box-shadow: 0 20px 46px rgba(15,23,42,.14), 0 0 0 1px rgba(249,109,0,.2) !important;
+}
+html[data-theme="light"] #services-section .services-1::after {
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(249,109,0,.12) 0%, transparent 70%) !important;
+}
+html[data-theme="light"] #services-section .services-index {
+  color: rgba(15,23,42,.07) !important;
+}
+html[data-theme="light"] #services-section .services-1:hover .services-index {
+  color: rgba(249,109,0,.28) !important;
+}
 html[data-theme="light"] #services-section .services-1 .icon {
   background: linear-gradient(135deg, #F96D00 0%, #FFA94D 100%) !important;
+  box-shadow: 0 8px 20px rgba(249,109,0,.22) !important;
 }
-html[data-theme="light"] .services-1 .desc h3:after {
+html[data-theme="light"] #services-section .services-1 .icon i {
+  color: #fff !important;
+}
+html[data-theme="light"] #services-section .services-1 .desc h3 {
+  color: var(--tl-text) !important;
+}
+html[data-theme="light"] #services-section .services-1 .desc p {
+  color: var(--tl-text-mute) !important;
+}
+html[data-theme="light"] #services-section .services-stack {
+  color: var(--tl-orange-text) !important;
+}
+html[data-theme="light"] #services-section .services-arrow {
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text-mute) !important;
+}
+html[data-theme="light"] #services-section .services-1:hover .services-arrow {
   background: var(--tl-orange) !important;
+  border-color: var(--tl-orange) !important;
+  color: #fff !important;
 }
 
 
@@ -232,22 +375,18 @@ html[data-theme="light"] .project-card {
 }
 html[data-theme="light"] .project-title { color: var(--tl-text) !important; }
 
-html[data-theme="light"] .project-modal-content,
-html[data-theme="light"] .vlog-modal-content {
+html[data-theme="light"] .project-modal-content {
   background: rgba(255, 255, 255, 0.98) !important;
   color: var(--tl-text-soft) !important;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18) !important;
 }
-html[data-theme="light"] .modal-title,
-html[data-theme="light"] #vlog-modal-title {
+html[data-theme="light"] .modal-title {
   color: var(--tl-text) !important;
 }
-html[data-theme="light"] .modal-duration,
-html[data-theme="light"] .vlog-modal-meta {
+html[data-theme="light"] .modal-duration {
   color: var(--tl-text-mute) !important;
 }
-html[data-theme="light"] .modal-desc,
-html[data-theme="light"] .vlog-modal-description {
+html[data-theme="light"] .modal-desc {
   color: var(--tl-text-soft) !important;
 }
 html[data-theme="light"] .tech-tag {
@@ -258,12 +397,10 @@ html[data-theme="light"] .tech-tag:hover {
   background: var(--tl-orange) !important;
   color: #fff !important;
 }
-html[data-theme="light"] .close-modal,
-html[data-theme="light"] .vlog-modal-close {
+html[data-theme="light"] .close-modal {
   color: var(--tl-text-mute) !important;
 }
-html[data-theme="light"] .close-modal:hover,
-html[data-theme="light"] .vlog-modal-close:hover {
+html[data-theme="light"] .close-modal:hover {
   color: var(--tl-orange-text) !important;
 }
 html[data-theme="light"] .modal-btn.github {
@@ -296,12 +433,38 @@ html[data-theme="light"] .contact-card-value { color: var(--tl-text) !important;
 html[data-theme="light"] .contact-card-link:hover .contact-card-value { color: var(--tl-orange-text) !important; }
 html[data-theme="light"] .contact-card-note { color: var(--tl-text-mute) !important; }
 
+/* Same "boldest surface on the page" principle as dark mode, adapted for
+   light: a saturated orange panel (not a dark void) so it reads as a
+   confident stage rather than clashing with the rest of the light page. */
 html[data-theme="light"] .contact-cta {
-  background: linear-gradient(135deg, rgba(249, 109, 0, .08), rgba(249, 109, 0, .02)) !important;
-  border-color: rgba(249, 109, 0, .22) !important;
+  background:
+    radial-gradient(120% 160% at 100% 0%, rgba(255, 214, 168, .55) 0%, transparent 55%),
+    linear-gradient(120deg, #FF8A3D 0%, var(--tl-orange) 55%, #C2410C 100%) !important;
+  border-color: rgba(194, 65, 12, .35) !important;
+  box-shadow: 0 30px 70px -24px rgba(194, 65, 12, .38), inset 0 1px 0 rgba(255,255,255,.35) !important;
 }
-html[data-theme="light"] .contact-cta-text h3 { color: var(--tl-text) !important; }
-html[data-theme="light"] .contact-cta-text p { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .contact-cta-orb {
+  background: radial-gradient(circle, rgba(255, 255, 255, .5) 0%, transparent 70%) !important;
+}
+html[data-theme="light"] .contact-cta::after {
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.08) 0 1px, transparent 1px 26px) !important;
+}
+html[data-theme="light"] .contact-cta-status {
+  color: #FFF3E6 !important;
+  background: rgba(255, 255, 255, .16) !important;
+  border-color: rgba(255, 255, 255, .35) !important;
+}
+html[data-theme="light"] .contact-cta-text h3 { color: #FFFFFF !important; }
+html[data-theme="light"] .contact-cta-text p { color: rgba(255, 255, 255, .88) !important; }
+html[data-theme="light"] .contact-cta-btn {
+  background: #FFFFFF !important;
+  color: var(--tl-orange-text) !important;
+  box-shadow: 0 14px 34px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.6) !important;
+}
+html[data-theme="light"] .contact-cta-btn:hover {
+  color: var(--tl-orange-text) !important;
+  box-shadow: 0 20px 44px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.7) !important;
+}
 
 /* ── Footer ──
    Kept light for full-page consistency (rather than a permanently-dark
@@ -338,3 +501,47 @@ html[data-theme="light"] .pf-footer-bottom-tag strong { color: var(--tl-orange-t
    any surface — theme-neutral, no override. Same for the custom cursor,
    ambient glows, project/soft-skill badge gradients, and splash progress
    bar (all brand-orange or multi-color decoration, not page chrome). ── */
+
+/* ── Blog article panel (slide-in reader) ── */
+html[data-theme="light"] .vlog-modal-backdrop {
+  background: rgba(15, 23, 42, 0.45) !important;
+}
+html[data-theme="light"] .vlog-modal-content {
+  background: var(--tl-surface) !important;
+  color: var(--tl-text-soft) !important;
+  box-shadow: -24px 0 60px rgba(15, 23, 42, 0.18) !important;
+}
+html[data-theme="light"] .vlog-modal-progress { background: var(--tl-border) !important; }
+html[data-theme="light"] .vlog-modal-topbar {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: var(--tl-border) !important;
+}
+html[data-theme="light"] .vlog-modal-brand { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .vlog-modal-close {
+  background: var(--tl-surface-2) !important;
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text) !important;
+}
+html[data-theme="light"] .vlog-modal-close:hover,
+html[data-theme="light"] .vlog-modal-close:focus-visible {
+  background: var(--tl-orange-tint) !important;
+  border-color: var(--tl-orange) !important;
+  color: var(--tl-orange-text) !important;
+}
+html[data-theme="light"] .vlog-modal-image::after {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 55%, rgba(255,255,255,.98) 100%) !important;
+}
+html[data-theme="light"] #vlog-modal-title { color: var(--tl-text) !important; }
+html[data-theme="light"] .vlog-modal-meta {
+  color: var(--tl-text-mute) !important;
+  border-bottom-color: var(--tl-border) !important;
+}
+html[data-theme="light"] .vlog-modal-description { color: var(--tl-text-soft) !important; }
+html[data-theme="light"] .vlog-modal-footer { border-top-color: var(--tl-border) !important; }
+html[data-theme="light"] .vlog-modal-author-text strong { color: var(--tl-text) !important; }
+html[data-theme="light"] .vlog-modal-author-text small { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .vlog-modal-social-label { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .vlog-share-btn {
+  background: var(--tl-surface-2) !important;
+  color: var(--tl-text-soft) !important;
+}
