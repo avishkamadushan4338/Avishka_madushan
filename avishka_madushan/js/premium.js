@@ -103,7 +103,7 @@
       requestAnimationFrame(animateRing);
     })();
 
-    const hoverSel = 'a, button, .btn, .project-card, .services-1, .glass-card, .blog-entry, .soft-skills-list li, .p-top-btn';
+    const hoverSel = 'a, button, .btn, .project-card, .services-1, .glass-card, .blog-entry, .skill-card, .skill-tags li, .skill-chip[data-projects], .p-top-btn';
     document.querySelectorAll(hoverSel).forEach(el => {
       el.addEventListener('mouseenter', () => { dot.classList.add('hovered'); ring.classList.add('hovered'); });
       el.addEventListener('mouseleave', () => { dot.classList.remove('hovered'); ring.classList.remove('hovered'); });
@@ -337,4 +337,64 @@
   /* Run init after Owl Carousel & other libs have initialized */
   setTimeout(init, 450);
 
+})();
+
+/* ── SKILLS SECTION: accordion categories + skill-to-project linking ── */
+(function () {
+  const groups = document.querySelectorAll('.skills-group');
+  if (!groups.length) return;
+
+  groups.forEach(group => {
+    const trigger = group.querySelector('.skills-group-title');
+    const panel = group.querySelector('.skills-grid');
+    if (!trigger || !panel) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = group.classList.contains('is-open');
+
+      groups.forEach(g => {
+        g.classList.remove('is-open');
+        const t = g.querySelector('.skills-group-title');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        group.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  const chips = document.querySelectorAll('.skill-chip[data-projects]');
+  chips.forEach(chip => {
+    chip.setAttribute('tabindex', '0');
+    chip.setAttribute('role', 'button');
+
+    const activate = () => {
+      const keys = chip.getAttribute('data-projects').split(',').map(k => k.trim()).filter(Boolean);
+      if (!keys.length) return;
+
+      document.querySelectorAll('.project-card.is-skill-match').forEach(el => el.classList.remove('is-skill-match'));
+
+      const cards = keys
+        .map(key => document.querySelector(`.project-card[data-project="${key}"]`))
+        .filter(Boolean);
+      if (!cards.length) return;
+
+      cards.forEach(card => card.classList.add('is-skill-match'));
+      cards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      setTimeout(() => {
+        cards.forEach(card => card.classList.remove('is-skill-match'));
+      }, 3200);
+    };
+
+    chip.addEventListener('click', activate);
+    chip.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate();
+      }
+    });
+  });
 })();

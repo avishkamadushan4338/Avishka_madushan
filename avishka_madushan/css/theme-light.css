@@ -52,8 +52,7 @@ html[data-theme="light"] {
   scrollbar-color: var(--tl-orange-text) var(--tl-surface-2);
 }
 html[data-theme="light"] .vlog-modal-scroll,
-html[data-theme="light"] .project-modal-content,
-html[data-theme="light"] .modal-desc {
+html[data-theme="light"] .pm-modal-scroll {
   scrollbar-color: var(--tl-orange-text) var(--tl-surface-2);
 }
 html[data-theme="light"] ::-webkit-scrollbar-track {
@@ -248,11 +247,6 @@ html[data-theme="light"] .btn.btn-primary:hover {
 html[data-theme="light"] .heading-section h2 { color: var(--tl-text) !important; }
 html[data-theme="light"] .heading-section p { color: var(--tl-text-soft) !important; }
 html[data-theme="light"] h2.big { color: rgba(15, 23, 42, 0.04) !important; }
-/* #resume-section has its own ID-scoped !important heading colors in style.css
-   (higher specificity than a plain .heading-section rule) — match them here. */
-html[data-theme="light"] #resume-section .heading-section h2.big,
-html[data-theme="light"] #resume-section .heading-section h2 { color: var(--tl-text) !important; }
-html[data-theme="light"] #resume-section .heading-section p { color: var(--tl-text-soft) !important; }
 
 /* ── Blog cards ── */
 html[data-theme="light"] .blog-entry {
@@ -286,20 +280,62 @@ html[data-theme="light"] .counter-wrap .text p span:last-child { color: var(--tl
    AA even for large text on a light bg, so the numeral gets the text-safe shade */
 html[data-theme="light"] .counter-wrap .number { color: var(--tl-orange-text) !important; }
 
-/* ── Resume ── */
-html[data-theme="light"] .resume-wrap,
-html[data-theme="light"] #resume-section .resume-wrap {
-  background: var(--tl-surface) !important;
-  border-left: 4px solid var(--tl-orange) !important;
-  color: var(--tl-text) !important;
-  box-shadow: var(--tl-shadow-lift) !important;
+/* ── Education (vertical timeline) ──
+   The spine is drawn per-row by .edu-rail::before (solid 2px line) and
+   .edu-rail::after (blurred glow duplicate) — .edu-timeline::before matches
+   nothing, so this never actually applied and the line kept its dark-theme
+   colors/glow, which read as a messy doubled edge against light cards. */
+html[data-theme="light"] .edu-rail::before {
+  background: var(--tl-orange) !important;
+  opacity: .85;
 }
-html[data-theme="light"] .resume-wrap h2,
-html[data-theme="light"] #resume-section .resume-wrap h2 { color: var(--tl-text) !important; }
-html[data-theme="light"] .resume-wrap .position,
-html[data-theme="light"] .resume-wrap .date,
-html[data-theme="light"] #resume-section .resume-wrap .position,
-html[data-theme="light"] #resume-section .resume-wrap .date { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .edu-rail::after {
+  background: rgba(249,109,0,.35) !important;
+  opacity: .35 !important;
+}
+/* Opaque solid base (--tl-surface) under the tinted gradient — the previous
+   rgba-only fill was translucent, so the timeline line behind it bled
+   straight through the icon instead of appearing to stop at its edge. */
+html[data-theme="light"] .edu-icon {
+  background: linear-gradient(135deg, rgba(249,109,0,.14), rgba(249,109,0,.03)) var(--tl-surface) !important;
+  border-color: rgba(249,109,0,.3) !important;
+  box-shadow: 0 0 0 6px var(--tl-bg), 0 8px 16px rgba(15,23,42,.1) !important;
+}
+html[data-theme="light"] .edu-icon i { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .edu-item.is-current .edu-icon {
+  background: linear-gradient(135deg, var(--tl-orange) 0%, #FFA94D 100%) !important;
+  border-color: var(--tl-orange) !important;
+  box-shadow: 0 0 0 6px var(--tl-bg), 0 0 0 4px rgba(249,109,0,.16), 0 8px 20px rgba(249,109,0,.25) !important;
+}
+html[data-theme="light"] .edu-item.is-current .edu-icon i { color: #fff !important; }
+
+html[data-theme="light"] .edu-card {
+  background: linear-gradient(180deg, #FFFFFF, var(--tl-surface-2)) !important;
+  border: 1px solid var(--tl-border) !important;
+  box-shadow: var(--tl-shadow-lift) !important;
+  backdrop-filter: none !important;
+}
+html[data-theme="light"] .edu-item.is-current .edu-card {
+  border-color: rgba(249,109,0,.3) !important;
+  box-shadow: 0 0 0 1px rgba(249,109,0,.1), 0 16px 34px rgba(15,23,42,.1) !important;
+}
+html[data-theme="light"] .edu-card:hover {
+  border-color: rgba(249,109,0,.3) !important;
+  box-shadow: 0 20px 40px rgba(15,23,42,.12), 0 0 0 1px rgba(249,109,0,.18) !important;
+}
+html[data-theme="light"] .edu-date { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .edu-status {
+  color: var(--tl-text-mute) !important;
+  border-color: var(--tl-border-firm) !important;
+}
+html[data-theme="light"] .edu-status--current {
+  color: #fff !important;
+  background: var(--tl-orange) !important;
+  border-color: var(--tl-orange) !important;
+}
+html[data-theme="light"] .edu-card h3 { color: var(--tl-text) !important; }
+html[data-theme="light"] .edu-org { color: var(--tl-text-soft) !important; }
+html[data-theme="light"] .edu-org i { color: var(--tl-orange-text) !important; }
 
 /* ── Services (premium bento grid) ── */
 html[data-theme="light"] .services-eyebrow { color: var(--tl-orange-text) !important; }
@@ -358,15 +394,43 @@ html[data-theme="light"] #services-section .services-1:hover .services-arrow {
 
 
 /* ── Skills ── */
-html[data-theme="light"] .progress-wrap h3 { color: var(--tl-text) !important; }
-html[data-theme="light"] .progress { background: var(--tl-surface-2) !important; }
-html[data-theme="light"] .progress-bar { background: var(--tl-orange) !important; }
-/* progress-bar label text (e.g. "90%") stays the existing dark ink — already
-   reads fine against the orange fill, no change needed */
+html[data-theme="light"] .skill-card {
+  background: var(--tl-surface) !important;
+  border-color: var(--tl-border) !important;
+  box-shadow: var(--tl-shadow-lift) !important;
+}
+html[data-theme="light"] .skill-card:hover {
+  border-color: var(--tl-orange) !important;
+}
+html[data-theme="light"] .skill-card-head h3 { color: var(--tl-text) !important; }
+html[data-theme="light"] .skill-card-tagline { color: var(--tl-text-mute) !important; opacity: 1 !important; }
+html[data-theme="light"] .skill-tags li {
+  background: var(--tl-surface-2) !important;
+  border-color: var(--tl-border) !important;
+  color: var(--tl-text-soft) !important;
+}
+html[data-theme="light"] .skill-tags li:hover {
+  background: var(--tl-orange-lo, rgba(249,109,0,.08)) !important;
+  border-color: var(--tl-orange) !important;
+}
 
-/* soft-skills-list pills are colorful gradients with white text — theme-neutral, no override */
+/* ── Projects — filter pills, cards ── */
+html[data-theme="light"] .pm-filter-pill {
+  background: var(--tl-surface) !important;
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text-soft) !important;
+}
+html[data-theme="light"] .pm-filter-pill:hover {
+  border-color: var(--tl-orange) !important;
+  color: var(--tl-text) !important;
+}
+html[data-theme="light"] .pm-filter-pill.is-active {
+  background: var(--tl-orange) !important;
+  border-color: var(--tl-orange) !important;
+  color: #fff !important;
+}
+html[data-theme="light"] .pm-empty-state { color: var(--tl-text-mute) !important; }
 
-/* ── Projects ── */
 html[data-theme="light"] .project-card {
   background: var(--tl-surface) !important;
   border-color: var(--tl-border) !important;
@@ -374,21 +438,11 @@ html[data-theme="light"] .project-card {
   color: var(--tl-text-soft) !important;
 }
 html[data-theme="light"] .project-title { color: var(--tl-text) !important; }
+html[data-theme="light"] .project-summary { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .project-card-footer { border-top-color: var(--tl-border) !important; }
+html[data-theme="light"] .project-badge { color: var(--tl-text) !important; }
+html[data-theme="light"] .pm-card-flag { color: var(--tl-orange-text) !important; }
 
-html[data-theme="light"] .project-modal-content {
-  background: rgba(255, 255, 255, 0.98) !important;
-  color: var(--tl-text-soft) !important;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18) !important;
-}
-html[data-theme="light"] .modal-title {
-  color: var(--tl-text) !important;
-}
-html[data-theme="light"] .modal-duration {
-  color: var(--tl-text-mute) !important;
-}
-html[data-theme="light"] .modal-desc {
-  color: var(--tl-text-soft) !important;
-}
 html[data-theme="light"] .tech-tag {
   background: var(--tl-orange-tint) !important;
   color: var(--tl-orange-text) !important;
@@ -397,19 +451,83 @@ html[data-theme="light"] .tech-tag:hover {
   background: var(--tl-orange) !important;
   color: #fff !important;
 }
-html[data-theme="light"] .close-modal {
-  color: var(--tl-text-mute) !important;
+
+/* ── Project case-study panel (.pm-modal — mirrors .vlog-modal below) ── */
+html[data-theme="light"] .pm-modal-backdrop {
+  background: rgba(15, 23, 42, 0.45) !important;
 }
-html[data-theme="light"] .close-modal:hover {
-  color: var(--tl-orange-text) !important;
+html[data-theme="light"] .pm-modal-content {
+  background: var(--tl-surface) !important;
+  color: var(--tl-text-soft) !important;
+  box-shadow: -24px 0 60px rgba(15, 23, 42, 0.18) !important;
 }
-html[data-theme="light"] .modal-btn.github {
-  background: var(--tl-text) !important;
+html[data-theme="light"] .pm-modal-progress { background: var(--tl-border) !important; }
+html[data-theme="light"] .pm-modal-topbar {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: var(--tl-border) !important;
 }
-html[data-theme="light"] .modal-btn.demo {
+html[data-theme="light"] .pm-modal-brand { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-modal-close {
+  background: var(--tl-surface-2) !important;
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text) !important;
+}
+html[data-theme="light"] .pm-modal-close:hover,
+html[data-theme="light"] .pm-modal-close:focus-visible {
   background: var(--tl-orange-tint) !important;
+  border-color: var(--tl-orange) !important;
   color: var(--tl-orange-text) !important;
-  border-color: rgba(249, 109, 0, 0.25) !important;
+}
+html[data-theme="light"] .pm-modal-image::after {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 55%, rgba(255,255,255,.98) 100%) !important;
+}
+html[data-theme="light"] #pm-modal-title { color: var(--tl-text) !important; }
+html[data-theme="light"] .pm-modal-meta { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-modal-summary {
+  color: var(--tl-text-soft) !important;
+  border-bottom-color: var(--tl-border) !important;
+}
+html[data-theme="light"] .pm-modal-tag { color: var(--tl-text) !important; }
+
+html[data-theme="light"] .pm-modal-tabs { border-bottom-color: var(--tl-border) !important; }
+html[data-theme="light"] .pm-tab { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-tab:hover { color: var(--tl-text) !important; }
+html[data-theme="light"] .pm-tab.is-active { color: var(--tl-orange-text) !important; }
+
+html[data-theme="light"] .pm-panel-heading { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-modal-description { color: var(--tl-text-soft) !important; }
+html[data-theme="light"] .pm-modal-features li { color: var(--tl-text-soft) !important; }
+html[data-theme="light"] .pm-modal-features li::before { color: var(--tl-orange-text) !important; }
+
+html[data-theme="light"] .pm-gallery-item { border-color: var(--tl-border) !important; }
+
+html[data-theme="light"] .pm-posts-empty { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-post {
+  background: var(--tl-surface-2) !important;
+  border-color: var(--tl-border) !important;
+}
+html[data-theme="light"] .pm-post.is-open,
+html[data-theme="light"] .pm-post:hover { border-color: var(--tl-orange) !important; }
+html[data-theme="light"] .pm-post-title { color: var(--tl-text) !important; }
+html[data-theme="light"] .pm-post-date { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .pm-post-chevron { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .pm-post-body > p { color: var(--tl-text-soft) !important; }
+
+html[data-theme="light"] .pm-modal-footer { border-top-color: var(--tl-border) !important; }
+html[data-theme="light"] .pm-action-btn {
+  background: var(--tl-surface-2) !important;
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text) !important;
+}
+html[data-theme="light"] .pm-action-btn.pm-action-demo {
+  background: var(--tl-orange) !important;
+  border-color: var(--tl-orange) !important;
+  color: #fff !important;
+}
+html[data-theme="light"] .pm-action-btn.pm-action-pdf {
+  background: var(--tl-orange-tint) !important;
+  border-color: rgba(249, 109, 0, 0.3) !important;
+  color: var(--tl-orange-text) !important;
 }
 
 /* Kicker uses pure brand orange in premium.css (fine on the dark bg there,
