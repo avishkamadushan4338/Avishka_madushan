@@ -36,8 +36,7 @@ html {
   scrollbar-color: rgba(249, 109, 0, 0.55) rgba(255, 255, 255, 0.04);
 }
 .vlog-modal-scroll,
-.project-modal-content,
-.modal-desc,
+.pm-modal-scroll,
 pre {
   scrollbar-width: thin;
   scrollbar-color: rgba(249, 109, 0, 0.55) rgba(255, 255, 255, 0.06);
@@ -75,7 +74,7 @@ pre {
 /* Scoped surfaces get a slightly denser track so the thumb reads
    clearly against card/modal backgrounds rather than the page bg. */
 .vlog-modal-scroll::-webkit-scrollbar-track,
-.project-modal-content::-webkit-scrollbar-track {
+.pm-modal-scroll::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -122,11 +121,11 @@ h1, h2, h3, h4, h5, h6,
 .slider-text h1, .slider-text h2,
 .heading-section h2,
 .blog-entry h3,
-.resume-wrap h2,
+.edu-card h3,
 .services-1 .desc h3,
-.progress-wrap h3,
+.skill-card-head h3,
 .pf-footer-logo,
-.modal-title, #vlog-modal-title,
+#vlog-modal-title, #pm-modal-title,
 .project-title {
   font-family: var(--font-display);
   letter-spacing: -0.01em;
@@ -166,10 +165,10 @@ h1, h2, h3, h4, h5, h6,
 
 .subheading,
 .blog-entry .meta,
-.resume-wrap .position, .resume-wrap .date,
+.edu-date, .edu-org, .edu-status, .edu-tags span,
 .project-badge, .tech-tag,
 .pf-footer-col h4,
-.progress-bar span,
+.skill-card-tagline,
 .ftco_navbar .navbar-toggler,
 .counter-wrap .number {
   font-family: var(--font-mono);
@@ -779,13 +778,263 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RESUME — Timeline Glow + Slide
+   EDUCATION — Centered Zigzag Timeline
+   Single spine timeline (education-only, per site owner —
+   this section is not used for job history). Desktop: a
+   3-column grid (card / spine / card) per row — the icon and
+   its card share the same grid row, so row height is driven
+   only by that row's own card, never by the opposite empty
+   side. That's what a flex "shove card to 50%+gutter" layout
+   couldn't guarantee — this removes the dead-space risk while
+   still alternating left/right, roughly halving the section's
+   height vs. a single column. Collapses to a left-rail single
+   column under 900px. Cards mirror the Services bento cards'
+   glass language so the page reads as one system.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.resume-wrap { transition: transform .3s ease !important; }
-.resume-wrap:hover { transform: translateX(8px) !important; }
-.resume-wrap::before {
-  background: var(--p-orange) !important;
-  box-shadow: 0 0 12px rgba(249,109,0,.4) !important;
+.edu-timeline {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.edu-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
+  margin-bottom: 3.4rem;
+}
+.edu-item:last-child { margin-bottom: 0; }
+
+/* Odd items (1st, 3rd…): card in the left column, right column empty.
+   Even items: flip — card in the right column, left column empty.
+   grid-row: 1 on both is required — without it, auto-placement's cursor
+   (which only moves forward) jumps to column 3 for the card first, then
+   can't backtrack to place the rail at column 2 in the same row, so the
+   rail silently drops to an implicit row 2. That's what was collapsing
+   the rail to just the icon's own height and breaking both the icon's
+   vertical centering against its card and the connecting line. */
+.edu-item .edu-card { grid-column: 1; grid-row: 1; }
+.edu-item:nth-child(even) .edu-card { grid-column: 3; }
+
+/* Rail + node always sit in the fixed center column regardless of side.
+   grid-row: 1 pins it to the same row as its card (see the grid-row note
+   above); align-items: center then centers the icon vertically within
+   that stretched row so it lines up with the card's own center. */
+.edu-rail {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Line spans the full row height (edge-to-edge) instead of a short
+   +/-1.7rem stub around the icon, so consecutive rows' lines butt up
+   against each other exactly at the margin gap with no visible break.
+   Flat color, not a top-to-bottom gradient — each row draws its own
+   independent segment, so a fading gradient meant every segment's dim
+   bottom (55% opacity) butted against the next segment's bright top
+   (100%), producing a visible dark seam/dot at every join. Flat color
+   makes consecutive segments pixel-identical at the seam. */
+.edu-rail::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * 1.7rem);
+  bottom: calc(-1 * 1.7rem);
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: var(--p-orange);
+}
+.edu-item:first-child .edu-rail::before { top: 50%; }
+.edu-item:last-child .edu-rail::before { bottom: 50%; }
+
+/* Soft ambient glow duplicate — a flat 2px line reads as a plain <hr>;
+   a wide blurred copy underneath makes it feel like a lit conduit.
+   Flat color for the same reason as ::before above. */
+.edu-rail::after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * 1.7rem);
+  bottom: calc(-1 * 1.7rem);
+  left: 50%;
+  width: 10px;
+  transform: translateX(-50%);
+  background: rgba(249,109,0,.35);
+  filter: blur(7px);
+  opacity: .5;
+  pointer-events: none;
+}
+.edu-item:first-child .edu-rail::after { top: 50%; }
+.edu-item:last-child .edu-rail::after { bottom: 50%; }
+
+.edu-icon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(249,109,0,.22), rgba(249,109,0,.05) 70%), #0d0d16;
+  border: 1px solid rgba(249,109,0,.4);
+  box-shadow: 0 0 0 5px rgba(8,8,15,1), 0 0 16px rgba(249,109,0,.18), 0 8px 18px rgba(0,0,0,.4);
+  z-index: 1;
+}
+.edu-icon i {
+  font-size: 1.05rem;
+  color: var(--p-orange);
+}
+.edu-item.is-current .edu-icon {
+  background: linear-gradient(135deg, var(--p-orange) 0%, #ff9a4d 100%);
+  border-color: var(--p-orange);
+  box-shadow: 0 0 0 5px rgba(8,8,15,1), 0 0 0 4px rgba(249,109,0,.2), 0 0 22px rgba(249,109,0,.5), 0 8px 20px rgba(249,109,0,.3);
+  animation: eduPulse 2.4s ease-in-out infinite;
+}
+.edu-item.is-current .edu-icon i { color: #08080f; }
+
+@keyframes eduPulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(8,8,15,1), 0 0 0 4px rgba(249,109,0,.2), 0 0 22px rgba(249,109,0,.5), 0 8px 20px rgba(249,109,0,.3); }
+  50%      { box-shadow: 0 0 0 5px rgba(8,8,15,1), 0 0 0 7px rgba(249,109,0,.12), 0 0 30px rgba(249,109,0,.65), 0 8px 20px rgba(249,109,0,.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .edu-item.is-current .edu-icon { animation: none; }
+}
+
+.edu-card {
+  position: relative;
+  padding: 1.4rem 1.6rem;
+  border-radius: 1.1rem;
+  /* Stronger than the Services card recipe it was cloned from — Services
+     cards sit in a dense grid where neighbors give the faint glass fill
+     visual contrast; these sit alone in open timeline space, so the same
+     1.5–4.5% wash read as "no card at all" against the page background.
+     Solid (opaque) fill instead of a translucent + backdrop-filter blur —
+     the blur sampled the page behind the rounded corners inconsistently
+     on some Windows/Chromium GPU drivers, producing a visible horizontal
+     seam partway down the card. A flat opaque color gives the same "lit
+     panel" read without depending on GPU-specific blur compositing. */
+  background: #14141f;
+  border: 1px solid rgba(248,246,251,.16);
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+  transition: transform .4s cubic-bezier(.175,.885,.32,1.275), box-shadow .4s ease, border-color .4s ease;
+}
+.edu-item.is-current .edu-card {
+  border-color: rgba(249,109,0,.35);
+  box-shadow: 0 0 0 1px rgba(249,109,0,.12), 0 16px 40px rgba(249,109,0,.1);
+}
+.edu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(0,0,0,.32), 0 0 0 1px rgba(249,109,0,.22);
+  border-color: rgba(249,109,0,.28);
+}
+
+.edu-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-bottom: .55rem;
+}
+.edu-date {
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: rgba(249,109,0,.85);
+}
+.edu-status {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .26rem .6rem;
+  border-radius: 100px;
+  color: rgba(248,246,251,.55);
+  border: 1px solid rgba(248,246,251,.14);
+}
+.edu-status--current {
+  color: #08080f;
+  background: var(--p-orange);
+  border-color: var(--p-orange);
+}
+
+.edu-card h3 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: #F8F6FB;
+  margin-bottom: .35rem;
+  line-height: 1.3;
+}
+
+.edu-org {
+  display: flex;
+  align-items: flex-start;
+  gap: .45rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(248,246,251,.6);
+  margin-bottom: 0;
+}
+.edu-org i {
+  color: rgba(249,109,0,.75);
+  margin-top: .2em;
+  flex-shrink: 0;
+}
+
+/* Below 900px there isn't enough width for two card columns either side of
+   a centered spine without cramping the text — collapse to a left-rail
+   single column, same visual language, just no alternation. */
+@media (max-width: 899.98px) {
+  .edu-timeline { padding-left: 52px; }
+  .edu-item {
+    display: block;
+    padding-left: 0;
+  }
+  .edu-item .edu-card,
+  .edu-item:nth-child(even) .edu-card {
+    grid-column: auto;
+  }
+  .edu-rail {
+    position: absolute;
+    top: 0;
+    bottom: -1.6rem;
+    left: -52px;
+    width: 44px;
+  }
+  .edu-item:last-child .edu-rail { bottom: 0; }
+  .edu-rail::before,
+  .edu-rail::after {
+    top: 0;
+    bottom: -1.6rem;
+    left: 50%;
+  }
+  .edu-item:first-child .edu-rail::before,
+  .edu-item:first-child .edu-rail::after { top: 0; }
+  .edu-item:last-child .edu-rail::before,
+  .edu-item:last-child .edu-rail::after { bottom: 50%; }
+}
+
+@media (max-width: 767.98px) {
+  .edu-timeline { padding-left: 46px; }
+  .edu-rail { left: -46px; width: 38px; }
+  .edu-icon { width: 38px; height: 38px; }
+  .edu-icon i { font-size: .95rem; }
+  .edu-card { padding: 1.3rem 1.2rem; }
+  .edu-card h3 { font-size: 1.05rem; }
+  /* Keeps the BSc entry's affiliation line to its intended 3 lines —
+     at .76rem "Informatics Institute of Technology" alone wraps to a
+     4th line on narrow phones. */
+  .edu-org { font-size: .7rem; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -997,81 +1246,714 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SKILLS — Shimmer Progress Bars
+   SKILLS — Category Card Grid
+   Replaces the old percentage progress-bars: unverifiable
+   numbers ("GitHub 40%") read as a weakness to recruiters/ATS
+   scanners. A grouped, scannable grid of real competencies
+   (grouped by role-relevant category) is the pattern used by
+   senior engineers' portfolios — no invented metrics, same
+   glass-card language as the rest of this site (contact cards,
+   blog entries, project cards).
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.progress {
-  border-radius: 50px !important;
-  background: rgba(255,255,255,.06) !important;
-  overflow: hidden;
-}
-.progress-bar {
-  border-radius: 50px !important;
+.skills-grid {
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
 }
-.progress-bar::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
-  animation: pShimmer 2.5s ease-in-out infinite;
+@media (max-width: 991.98px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@keyframes pShimmer { to { left: 200%; } }
+@media (max-width: 575.98px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+.skill-card {
+  padding: 2rem 1.9rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.skill-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 52px rgba(249, 109, 0, .15), 0 0 0 1px rgba(249, 109, 0, .2);
+  border-color: rgba(249, 109, 0, .3);
+}
+
+.skill-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+.skill-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--p-orange) 0%, #FFA94D 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(249, 109, 0, .32);
+  transition: transform .4s cubic-bezier(.175, .885, .32, 1.275);
+}
+.skill-card-icon svg { width: 22px; height: 22px; }
+.skill-card:hover .skill-card-icon { transform: scale(1.08) rotate(-4deg); }
+
+.skill-card-head h3 {
+  font-size: 1.08rem;
+  margin: 0 0 .3rem;
+}
+.skill-card-tagline {
+  margin: 0;
+  font-size: .85rem;
+  font-family: var(--font-mono);
+  opacity: .6;
+  line-height: 1.4;
+}
+
+.skill-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: 0;
+  padding: 0;
+}
+.skill-tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .9rem;
+  border-radius: 100px;
+  font-size: .85rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.skill-tags li:hover {
+  transform: translateY(-3px);
+  background: rgba(249, 109, 0, .1);
+  border-color: rgba(249, 109, 0, .35);
+}
+.skill-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SOFT SKILLS — Bounce Hover
+   PROJECTS — Premium Case-Study System
+   Filter pills + redesigned cards feed a right-side drawer
+   modal (.pm-modal) cloned from the .vlog-modal pattern below
+   so the two flagship interactive surfaces on the site read as
+   one system. Tabs (Overview/Gallery/Posts) keep the modal from
+   becoming an unscrollable wall now that each project carries
+   more content (gallery, posts, optional PDF).
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.soft-skills-list {
-  list-style: none;
-  padding: 0;
+
+/* ── Filter pills ── */
+.pm-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: .6rem;
+  margin-bottom: 2.6rem;
 }
-.soft-skills-list li {
-  padding: 0.75rem 2rem;
-  border-radius: 2rem;
-  font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 1px;
+.pm-filter-pill {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  padding: .55rem 1.3rem;
+  border-radius: 100px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  color: rgba(248,246,251,.65);
+  cursor: none;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
+}
+.pm-filter-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(249,109,0,.35);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(60, 60, 120, 0.12);
-  transition: transform .3s cubic-bezier(.175,.885,.32,1.275), box-shadow .3s !important;
 }
-.soft-skills-list li:hover {
-  transform: translateY(-8px) scale(1.07) !important;
-  box-shadow: 0 16px 38px rgba(0,0,0,.32) !important;
+.pm-filter-pill.is-active {
+  background: var(--p-orange);
+  border-color: var(--p-orange);
+  color: #08080f;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(249,109,0,.32);
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PROJECT CARDS — 3D Tilt + Spotlight + Image Zoom
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.pm-empty-state {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: .9rem;
+  color: rgba(248,246,251,.45);
+  padding: 3rem 0;
+}
+
+/* ── Project grid + cards ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1.75rem !important;
+}
+@media (max-width: 991.98px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 639.98px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}
+
 .project-card {
   border: 1px solid rgba(249,109,0,.1) !important;
   border-radius: 16px !important;
   overflow: hidden;
-  transition: box-shadow .4s ease !important;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(249,109,0,.08) 0%, transparent 60%);
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(249,109,0,.08) 0%, transparent 60%) #12121c;
+  transition: box-shadow .4s ease, opacity .35s ease, transform .35s ease !important;
   will-change: transform;
+  outline: none;
 }
-.project-card:hover {
+.project-card:hover,
+.project-card:focus-visible {
   box-shadow: 0 28px 68px rgba(0,0,0,.55), 0 0 0 1px rgba(249,109,0,.3) !important;
 }
+.project-card:focus-visible {
+  box-shadow: 0 28px 68px rgba(0,0,0,.55), 0 0 0 2px var(--p-orange) !important;
+}
+.project-card.is-hidden {
+  display: none !important;
+}
+
 .project-card .project-img {
+  width: 100%;
+  height: 190px;
+  background-size: cover;
+  background-position: center;
   transition: transform .6s cubic-bezier(.25,.46,.45,.94) !important;
 }
 .project-card:hover .project-img { transform: scale(1.09) !important; }
 
-/* Badge pulse — orange for both types */
+.project-content {
+  padding: 1.5rem 1.5rem 1.4rem !important;
+  text-align: left !important;
+}
+.project-title {
+  font-weight: 700;
+  font-size: 1.12rem;
+  color: #fff;
+  margin-bottom: .5rem;
+  letter-spacing: -.01em;
+}
+.project-summary {
+  font-size: .88rem;
+  line-height: 1.55;
+  color: rgba(248,246,251,.55);
+  margin-bottom: .9rem;
+}
+.project-tech-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: 1.1rem;
+}
+
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.project-badge,
 .project-badge.group,
 .project-badge.individual {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: .3rem .75rem;
+  border-radius: 100px;
+  color: #08080f;
+  background: var(--p-orange);
+  box-shadow: none;
   animation: pBadgePulse 2s ease infinite alternate;
 }
 @keyframes pBadgePulse {
   from { box-shadow: 0 0 6px rgba(249,109,0,.2); }
   to   { box-shadow: 0 0 20px rgba(249,109,0,.55); }
+}
+
+.pm-card-flags {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.pm-card-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: rgba(249,109,0,.85);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PM-MODAL — Project Case-Study Panel
+   Same right-side drawer / mobile full-sheet mechanics as
+   .vlog-modal (see VLOG ARTICLE PANEL section below) — kept as
+   a parallel class tree (.pm-*) rather than reusing .vlog-modal
+   directly since the content shape differs (tabs, gallery,
+   posts, tech chips) but the container behavior is identical.
+   ═══════════════════════════════════════════════════════════ */
+.pm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+  pointer-events: none;
+}
+.pm-modal.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.pm-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 15, .72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.pm-modal.is-open .pm-modal-backdrop { opacity: 1; }
+
+.pm-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  height: 100%;
+  background: #0d0d17;
+  color: #e5e5f0;
+  box-shadow: -24px 0 60px rgba(0,0,0,.45);
+  transform: translateX(100%);
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pm-modal.is-open .pm-modal-content { transform: translateX(0); }
+
+.pm-modal-progress {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(255,255,255,.06);
+  z-index: 5;
+}
+.pm-modal-progress span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--p-orange), #ffb066);
+  transition: width .1s linear;
+}
+
+.pm-modal-topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: rgba(13,13,23,.9);
+  backdrop-filter: blur(10px);
+}
+.pm-modal-brand {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(229,229,240,.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pm-modal-brand i { color: var(--p-orange); }
+
+.pm-modal-close {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04);
+  color: #e5e5f0;
+  font-size: .95rem;
+  cursor: none;
+  outline: none;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease, box-shadow .2s ease;
+}
+.pm-modal-close:hover,
+.pm-modal-close:focus-visible {
+  background: rgba(249,109,0,.16);
+  border-color: rgba(249,109,0,.4);
+  color: var(--p-orange);
+  transform: rotate(90deg);
+}
+.pm-modal-close:focus-visible {
+  box-shadow: 0 0 0 3px rgba(249, 109, 0, 0.35);
+}
+
+.pm-modal-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.pm-modal-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.pm-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pm-modal-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13,13,23,0) 55%, rgba(13,13,23,.95) 100%);
+}
+
+.pm-modal-body {
+  padding: 1.6rem 1.75rem 2.5rem;
+  margin-top: -3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.pm-modal-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #08080f;
+  background: var(--p-orange);
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: .9rem;
+  box-shadow: 0 6px 18px rgba(249,109,0,.35);
+}
+
+#pm-modal-title {
+  font-size: 1.7rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: .6rem;
+}
+
+.pm-modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  color: rgba(229,229,240,.5);
+  margin-bottom: .9rem;
+}
+.pm-modal-meta i { color: var(--p-orange); margin-right: 4px; }
+
+.pm-modal-summary {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(229,229,240,.8);
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* Tabs */
+.pm-modal-tabs {
+  display: flex;
+  gap: .4rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.pm-tab {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: rgba(229,229,240,.5);
+  background: none;
+  border: none;
+  padding: .7rem .3rem;
+  margin-right: 1.1rem;
+  position: relative;
+  cursor: none;
+  transition: color .25s ease;
+}
+.pm-tab::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--p-orange);
+  transform: scaleX(0);
+  transition: transform .25s ease;
+}
+.pm-tab:hover { color: #fff; }
+.pm-tab.is-active { color: var(--p-orange); }
+.pm-tab.is-active::after { transform: scaleX(1); }
+.pm-tab[hidden] { display: none; }
+
+.pm-tab-panel { display: none; }
+.pm-tab-panel.is-active { display: block; animation: pmPanelIn .35s ease; }
+@keyframes pmPanelIn {
+  from { opacity: 0; translate: 0 8px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+.pm-panel-heading {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(229,229,240,.45);
+  margin: 1.6rem 0 .8rem;
+}
+.pm-tab-panel[data-panel="overview"] .pm-panel-heading:first-of-type { margin-top: 0; }
+
+.pm-modal-description {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(229,229,240,.85);
+}
+.pm-modal-description p { margin-bottom: 0; }
+
+.pm-modal-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pm-modal-features li {
+  position: relative;
+  padding-left: 1.6em;
+  font-size: .95rem;
+  line-height: 1.7;
+  color: rgba(229,229,240,.82);
+}
+.pm-modal-features li::before {
+  content: '\f26e';
+  font-family: 'bootstrap-icons';
+  position: absolute;
+  left: 0; top: .1em;
+  color: var(--p-orange);
+  font-size: .85em;
+}
+
+.pm-modal-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* Gallery tab */
+.pm-modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .8rem;
+}
+.pm-gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.pm-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.pm-gallery-item:hover img { transform: scale(1.06); }
+
+/* Posts tab */
+.pm-modal-posts {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+.pm-posts-empty {
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  color: rgba(229,229,240,.45);
+}
+.pm-post {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255,255,255,.02);
+  transition: border-color .25s ease;
+}
+.pm-post.is-open,
+.pm-post:hover { border-color: rgba(249,109,0,.28); }
+
+.pm-post-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .9rem 1.1rem;
+  background: none;
+  border: none;
+  cursor: none;
+  text-align: left;
+  color: inherit;
+}
+.pm-post-title {
+  flex: 1 1 auto;
+  font-size: .92rem;
+  font-weight: 600;
+  color: #fff;
+}
+.pm-post-date {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  color: rgba(249,109,0,.85);
+  white-space: nowrap;
+}
+.pm-post-chevron {
+  color: rgba(229,229,240,.4);
+  transition: transform .3s ease;
+}
+.pm-post.is-open .pm-post-chevron { transform: rotate(180deg); }
+
+.pm-post-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .3s ease;
+}
+.pm-post-body > p {
+  overflow: hidden;
+  margin: 0;
+  padding: 0 1.1rem;
+  font-size: .88rem;
+  line-height: 1.65;
+  color: rgba(229,229,240,.72);
+}
+.pm-post.is-open .pm-post-body { grid-template-rows: 1fr; }
+.pm-post.is-open .pm-post-body > p { padding-bottom: 1rem; }
+
+/* Footer actions */
+.pm-modal-footer {
+  margin-top: 2.2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.pm-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.pm-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  font-weight: 600;
+  padding: .7rem 1.2rem;
+  border-radius: 100px;
+  color: #fff !important;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  text-decoration: none !important;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.pm-action-btn:hover {
+  transform: translateY(-2px);
+}
+.pm-action-btn.pm-action-github:hover {
+  border-color: rgba(255,255,255,.35);
+}
+.pm-action-btn.pm-action-demo {
+  background: var(--p-orange);
+  border-color: var(--p-orange);
+  color: #08080f !important;
+  box-shadow: 0 8px 20px rgba(249,109,0,.3);
+}
+.pm-action-btn.pm-action-demo:hover {
+  box-shadow: 0 12px 26px rgba(249,109,0,.45);
+}
+.pm-action-btn.pm-action-pdf {
+  background: rgba(249,109,0,.12);
+  border-color: rgba(249,109,0,.4);
+  color: var(--p-orange) !important;
+}
+.pm-action-btn.pm-action-pdf:hover {
+  background: rgba(249,109,0,.2);
+}
+
+body.pm-modal-open { overflow: hidden; }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .pm-modal-content { max-width: 82vw; }
+  .pm-modal-gallery { grid-template-columns: 1fr; }
+}
+
+/* Mobile: full-screen sheet, slides up */
+@media (max-width: 767.98px) {
+  .pm-modal { align-items: flex-end; }
+  .pm-modal-content {
+    max-width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+    transform: translateY(100%);
+    box-shadow: none;
+  }
+  .pm-modal.is-open .pm-modal-content { transform: translateY(0); }
+  .pm-modal-topbar { padding: .85rem 1.1rem; }
+  .pm-modal-body { padding: 1.3rem 1.15rem 2.2rem; margin-top: -2.2rem; }
+  #pm-modal-title { font-size: 1.35rem; }
+  .pm-modal-gallery { grid-template-columns: 1fr; }
+  .pm-modal-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 380px) {
+  .pm-modal-close { width: 34px; height: 34px; font-size: .85rem; }
+  #pm-modal-title { font-size: 1.2rem; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1762,63 +2644,10 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
-/* ── Project Modal: proper responsive sizing (overrides inline styles on the div) ── */
-.project-modal-content {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  overflow-y: auto !important;
-  max-height: 90vh !important;
-  min-height: 220px !important;
-  margin: auto !important;
-  max-width: 560px !important;
-  width: calc(100% - 32px) !important;
-  padding: 2.5rem 2rem 2rem !important;
-  background: rgba(30, 41, 59, 0.98) !important;
-  border-radius: 1.2rem !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
-  position: relative !important;
-  text-align: center !important;
-  color: #e0e7ef !important;
-}
-
-@media (max-width: 576px) {
-  .project-modal-content {
-    width: calc(100% - 16px) !important;
-    padding: 2.5rem 1rem 1.5rem !important;
-    max-height: 92vh !important;
-    border-radius: 1rem !important;
-  }
-  .modal-title {
-    font-size: 1.2rem !important;
-    line-height: 1.3 !important;
-  }
-  .modal-actions {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.5rem !important;
-  }
-  .modal-btn {
-    text-align: center !important;
-    padding: 0.65rem 1rem !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .modal-features {
-    text-align: left !important;
-    width: 100% !important;
-  }
-  .tech-tag {
-    font-size: 0.82rem !important;
-    padding: 0.22rem 0.7rem !important;
-  }
-  .close-modal {
-    top: 0.6rem !important;
-    right: 0.8rem !important;
-    font-size: 1.7rem !important;
-    color: #38bdf8 !important;
-  }
-}
+/* Project case-study modal responsive sizing now lives in the
+   PM-MODAL section above (.pm-modal-content) — the old centered
+   popup (.project-modal-content, .modal-*, .tech-tag, .close-modal)
+   no longer exists in the markup. */
 
 /* ── Blog section: cards stack with breathing room ── */
 @media (max-width: 767.98px) {
@@ -1847,14 +2676,17 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
-/* ── Soft skills list: wrap cleanly on small screens ── */
+/* ── Skill cards: tighten padding/gap on small screens ── */
 @media (max-width: 576px) {
-  .soft-skills-list {
-    gap: 0.8rem !important;
+  .skill-card {
+    padding: 1.6rem 1.4rem !important;
   }
-  .soft-skills-list li {
-    font-size: 0.95rem !important;
-    padding: 0.55rem 1.2rem !important;
+  .skill-tags {
+    gap: 0.4rem !important;
+  }
+  .skill-tags li {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.75rem !important;
   }
 }
 
@@ -1989,19 +2821,6 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
-/* ── Fix: resume headings too large on very small phones ── */
-@media (max-width: 576px) {
-  .resume-wrap h2 {
-    font-size: 1.05rem !important;
-    margin-bottom: 0.4rem !important;
-    line-height: 1.35 !important;
-  }
-  .resume-wrap .date,
-  .resume-wrap .position {
-    font-size: 0.85rem !important;
-  }
-}
-
 /* ── Fix: project grid gap too large on small phones ── */
 @media (max-width: 576px) {
   .projects-grid {
@@ -2012,17 +2831,6 @@ h1, h2, h3, h4, h5, h6,
   }
   .project-title {
     font-size: 1.05rem !important;
-  }
-}
-
-/* ── Fix: skills progress bars label overflow on mobile ── */
-@media (max-width: 576px) {
-  .progress-wrap h3 {
-    font-size: 0.95rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-  .progress {
-    margin-bottom: 1rem !important;
   }
 }
 
@@ -2326,10 +3134,10 @@ body {
   }
 }
 
-/* ── Project modal: prevent it from being too tall on short MacBook screens ── */
+/* ── Project modal: the drawer already fills 100dvh via .pm-modal-content;
+   short MacBook viewports just need the inner scroll area confirmed. ── */
 @media (min-height: 600px) and (max-height: 900px) and (min-width: 992px) {
-  .project-modal-content {
-    max-height: 80vh !important;
+  .pm-modal-scroll {
     overflow-y: auto !important;
   }
 }
