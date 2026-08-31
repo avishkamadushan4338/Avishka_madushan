@@ -745,28 +745,31 @@
 	<script>
 		const projectData = {
 			ravana: {
-				title: 'Ravana 2.0 – Lakwedha',
+				title: 'Lakwedha – Ravana 2.0',
 				type: 'Group Project',
 				badgeClass: 'group',
 				category: ['group', 'web', 'mobile'],
-				duration: '2025/9 – 2026/3',
+				duration: '2025/9 – 2026/4',
 				image: 'images/project-4.webp',
 				gallery: ['images/project-4.webp'],
-				summary: 'Sri Lanka\'s first integrated Ayurvedic healthcare platform, built with a 6-member team.',
-				tech: ['Flutter', 'React', 'Node.js', 'MongoDB'],
-				description: `Led a 6-member team in developing Sri Lanka's first integrated Ayurvedic healthcare platform. Engineered verified practitioner booking, QR-authenticated herbal marketplace, and encrypted electronic medical records system. Delivered a full-stack solution enhancing trust and digital access in traditional healthcare.`,
+				summary: 'A digital Ayurvedic doctor-channeling platform connecting patients with government-verified practitioners built across a Flutter app, Node.js API, and two React/Next.js web portals.',
+				tech: ['Flutter', 'React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+				description: `Full-stack lead on a 6-member team building Lakwedha, an end-to-end Ayurvedic healthcare platform for Sri Lanka. The system spans four coordinated codebases sharing one Node.js/Express API: a Flutter patient app, a React doctor portal, a Next.js admin panel, and the backend itself.<br><br>I owned the doctor-channeling sub-system — OTP-based patient registration, JWT auth, doctor availability search, appointment booking, and a notification pipeline that alerts patients automatically when a doctor cancels a session. The API is versioned and namespaced (/api/v1/) across auth, doctor-channeling, channeling-sessions, patient-notifications, and dashboard modules, backed by MongoDB Atlas.`,
 				features: [
-					'Verified Doctor Booking',
-					'QR Authenticated Marketplace',
-					'Encrypted EMR System',
-					'Admin Dashboard'
+					'OTP-verified patient registration & JWT authentication',
+					'Doctor search with real-time availability & slot booking',
+					'Automated patient notifications on session cancellation',
+					'Doctor portal for managing sessions & appointments',
+					'Admin dashboard for platform oversight',
+					'Versioned REST API (/api/v1/) across 8+ route groups'
 				],
 				github: 'https://github.com/GovinduDandeniya/Lakwedha.git',
 				demo: 'https://www.youtube.com/watch?v=WdzU5EfEHGE&feature=youtu.be',
-				pdf: null,
+				pdf: 'cv/lakwedha.lk.pdf',
 				posts: [
-					{ title: 'Team kickoff & system architecture', date: 'Sep 2025', excerpt: 'Formed the 6-member team, mapped out the booking, marketplace, and EMR modules, and settled on Flutter + Node.js + MongoDB as the stack.' },
-					{ title: 'Encrypted EMR module shipped', date: 'Jan 2026', excerpt: 'Delivered the encrypted electronic medical records system, the most sensitive part of the platform, with QR-authenticated access control.' }
+					{ title: 'Team kickoff & system architecture', date: 'Sep 2025', excerpt: 'Formed the 6-member team and scoped a 4-part architecture — Flutter patient app, Node.js/Express API, React doctor portal, and Next.js admin panel — sharing one MongoDB-backed backend.' },
+					{ title: 'Doctor-channeling & booking flow shipped', date: 'Jan 2026', excerpt: 'Delivered the doctor-channeling sub-system end to end: availability search, appointment booking, and appointment history, exposed under a versioned /api/v1/ namespace.' },
+					{ title: 'Notification pipeline & doctor portal integration', date: 'Mar 2026', excerpt: 'Wired up automatic patient notifications for doctor-initiated cancellations, plus mark-as-read endpoints, and integrated the flow into the React doctor portal dashboard.' }
 				]
 			},
 			portfolio: {
