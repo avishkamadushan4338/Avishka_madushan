@@ -836,7 +836,6 @@
 
 		Object.keys(projectData).forEach(id => {
 			const p = projectData[id];
-			const techPreview = p.tech.slice(0, 3).map(t => `<span class='tech-tag'>${t}</span>`).join('');
 			const card = document.createElement('div');
 			card.className = 'project-card';
 			card.dataset.project = id;
@@ -849,7 +848,6 @@
 				<div class="project-content">
 					<div class="project-title">${p.title}</div>
 					<p class="project-summary">${p.summary}</p>
-					<div class="project-tech-preview">${techPreview}</div>
 					<div class="project-card-footer">
 						<span class="project-badge ${p.badgeClass}">${p.type}</span>
 						<span class="pm-card-flags">${badgeIconRow(p)}</span>
