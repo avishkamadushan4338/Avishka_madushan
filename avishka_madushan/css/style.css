@@ -22340,7 +22340,7 @@ h5,
 }
 
 .owl-carousel.home-slider .slider-item .slider-text h1 {
-  font-size: 60px;
+  font-size: clamp(60px, 3.6vw, 84px);
   color: #F8F6FB;
   line-height: 1.2;
   font-weight: 800;

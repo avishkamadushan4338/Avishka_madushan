@@ -66,6 +66,23 @@ textarea,
   }
 }
 
+/* Windows High Contrast / forced-colors mode: buttons and interactive
+   controls that rely on background-color alone (theme toggle, filter
+   pills, nav toggler) need an explicit border so their boundary and
+   pressed/active state stay perceivable once the OS strips custom colors. */
+@media (forced-colors: active) {
+  .theme-toggle-btn,
+  .pm-filter-pill,
+  .navbar-toggler,
+  a.btn,
+  .modal-btn {
+    border: 1px solid ButtonText;
+  }
+  .pm-filter-pill.is-active {
+    outline: 2px solid Highlight;
+  }
+}
+
 /* Extra breathing room on very small phones (below the 320px+ baseline) */
 @media (max-width: 360px) {
   .container { padding-left: 12px; padding-right: 12px; }
