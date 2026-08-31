@@ -28,7 +28,7 @@ Web Development, Backend Development, Mobile App Development, Java, Python, Java
 
 - Ravana 2.0 – Lakwedha: Sri Lanka's first integrated Ayurvedic healthcare platform (group project). Built with Flutter, React, Node.js, MongoDB. Repo: https://github.com/GovinduDandeniya/Lakwedha
 - Personal Portfolio Website: this site, built with HTML, CSS, JavaScript, hosted on GitHub Pages/custom domain.
-- MathGenios: an interactive kids' multiplication learning game built with JavaScript, HTML5, CSS3.
+- Mathify: a gamified cross-platform math learning app (Flutter + Node.js/MongoDB) that builds multiplication fluency in kids aged 7+ through adaptive lessons, achievements, and rankings.
 
 ## Pages
 
