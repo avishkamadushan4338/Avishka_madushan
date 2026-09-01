@@ -21,13 +21,14 @@ Current featured projects:
 ## Features
 
 - Animated splash/loading screen with particle canvas and progress bar
+- **Home** — full-bleed split hero with animated mesh background, rotating role word, and social links
 - Responsive navigation with smooth scroll to sections
 - Light/dark theme toggle with persisted preference and forced-colors (Windows High Contrast) support
 - **Blog** — articles and vlogs (IFS industry visit, IIT Career Day, portfolio build)
-- **About** — personal introduction and background
+- **About** — editorial split-bento layout: photo card with floating education/location info cards, narrative bio, animated stat counters, and dual CTAs
 - **Resume** — education history and certifications
 - **Services** — Backend Development, Web Development, Mobile App Development, Photography, Videography, Teaching
-- **Skills** — HTML, CSS, JavaScript, Python, Java, GitHub, SQL/MongoDB with progress bars
+- **Skills** — category-grouped skill cards (Languages, Frontend & UI, Backend & APIs, Databases, Tools & Workflow, Professional Skills)
 - **Projects** — filterable card grid (All / Group / Individual / Web / Mobile) with a modal detail view showing tech stack, features, timeline, GitHub link, demo link, downloadable PDF report, and update history per project
 - **Contact** — location, phone, email, and website details
 - SEO-optimised with Open Graph, Twitter Card, and JSON-LD structured data
@@ -40,10 +41,10 @@ Current featured projects:
 | Layer | Technology |
 |-------|-----------|
 | Markup | HTML5 |
-| Styling | CSS3 (fluid grids, `clamp()` typography), Bootstrap, Animate.css, AOS |
+| Styling | CSS3 (fluid grids, `clamp()` typography, glassmorphism), Bootstrap, Animate.css, AOS |
 | Scripts | Vanilla JS, jQuery, Owl Carousel, Magnific Popup, Scrollax |
 | Icons | Bootstrap Icons, IcoMoon, Ionicons |
-| Fonts | Poppins (Google Fonts) |
+| Fonts | IBM Plex Sans & IBM Plex Mono (headings/body/meta), Poppins (splash screen only) — Google Fonts |
 
 ---
 
@@ -53,14 +54,16 @@ Current featured projects:
 avishka_madushan/
 ├── index.html          # Main single-page application (content, projects/blog data, scripts)
 ├── css/
-│   ├── style.css       # Core styles
-│   ├── premium.css     # Custom premium styles (theme, grids, cards, modal)
-│   ├── responsive.css  # Breakpoints and accessibility (forced-colors) overrides
-│   └── ...             # Third-party CSS libraries
+│   ├── style.css        # Core template styles
+│   ├── premium.css      # Custom premium styles (About/Services/Skills/Projects, glassmorphism, animations)
+│   ├── hero.css         # Standalone home/hero section module
+│   ├── responsive.css   # Breakpoints and accessibility (forced-colors, reduced-motion) overrides
+│   ├── theme-light.css  # Opt-in light theme, activated via [data-theme="light"]
+│   └── ...              # Third-party CSS libraries
 ├── js/
-│   ├── main.js         # Custom JavaScript
-│   ├── premium.js      # Splash screen & animations
-│   └── ...             # Third-party JS libraries
+│   ├── main.js          # Custom JavaScript
+│   ├── premium.js       # Splash screen, card interactions & scroll animations
+│   └── ...              # Third-party JS libraries
 ├── images/             # Portfolio images and project screenshots
 ├── fonts/              # Icon font files
 ├── cv/                 # Downloadable CV/resume PDF
