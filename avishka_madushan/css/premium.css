@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5, h6,
 .pf-footer-col h4,
 .skill-card-tagline,
 .ftco_navbar .navbar-toggler,
-.counter-wrap .number {
+.about-2030__stat-num {
   font-family: var(--font-mono);
 }
 
@@ -722,41 +722,6 @@ h1, h2, h3, h4, h5, h6,
   animation: pBlink .75s step-end infinite;
 }
 @keyframes pBlink { 50% { opacity: 0; } }
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ABOUT — Image Glow + Info Hover
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.img-about .img {
-  border-radius: 18px !important;
-  box-shadow: 0 0 0 3px var(--p-orange-dim), 0 24px 64px rgba(0,0,0,.45) !important;
-  transition: box-shadow .45s ease !important;
-}
-.img-about:hover .img {
-  box-shadow: 0 0 0 3px rgba(249,109,0,.45), 0 0 45px rgba(249,109,0,.18), 0 24px 64px rgba(0,0,0,.45) !important;
-}
-
-.about-info li {
-  transition: transform .3s ease !important;
-  border-bottom: 1px solid rgba(255,255,255,.05);
-  padding: 8px 0;
-}
-.about-info li:hover { transform: translateX(10px) !important; }
-.about-info li > span:first-child {
-  color: var(--p-orange);
-  font-weight: 600;
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   COUNTER — Large Orange Number
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.counter-wrap .number {
-  font-size: 6rem !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  color: var(--p-orange) !important;
-  filter: drop-shadow(0 0 20px rgba(249,109,0,.35));
-  display: block !important;
-}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    EDUCATION — Centered Zigzag Timeline
@@ -2635,88 +2600,9 @@ body.pm-modal-open { overflow: hidden; }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ABOUT SECTION — FIXES & PREMIUM MOBILE
+   ABOUT SECTION — see "ABOUT 2030" module near the end
+   of this file for the full editorial split-bento rebuild.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-/* Fix bottom shadow clipping (overflow:hidden + ftco-no-pb) */
-#about-section {
-  padding-bottom: 3rem !important;
-}
-
-@media (max-width: 767.98px) {
-
-  /* ── Mobile heading row ── */
-  #about-section .d-md-none .heading-section {
-    text-align: center;
-    padding-bottom: 0.5rem;
-  }
-  /* Decorative watermark h2.big doesn't scale to mobile — hide it */
-  #about-section .d-md-none .heading-section h2.big {
-    display: none !important;
-  }
-  #about-section .d-md-none .heading-section h2 {
-    font-size: 1.8rem !important;
-    margin-bottom: 0 !important;
-    position: relative !important;
-  }
-
-  /* ── Premium image on mobile ── */
-  .ftco-about .img-about {
-    min-height: 360px !important;
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-    border-radius: 20px !important;
-    overflow: hidden !important;
-    box-shadow:
-      0 0 0 3px rgba(249, 109, 0, 0.5),
-      0 0 40px rgba(249, 109, 0, 0.2),
-      0 20px 60px rgba(0, 0, 0, 0.5) !important;
-  }
-  .ftco-about .img-about .img {
-    min-height: 360px !important;
-    background-size: cover !important;
-    background-position: center top !important;
-    border-radius: 20px !important;
-  }
-
-  /* ── About-info list: fix email wrapping to 2 lines ── */
-  .ftco-about ul.about-info li {
-    flex-wrap: nowrap !important;
-    align-items: baseline !important;
-    gap: 0 8px !important;
-  }
-  /* Label: natural width, never shrink, never wrap */
-  .ftco-about ul.about-info li span:first-child {
-    width: auto !important;
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-    font-size: 0.82rem !important;
-  }
-  /* Value: override style.css width:calc(100%-130px) — use flex-grow instead */
-  .ftco-about ul.about-info li span:last-child {
-    width: 0 !important;         /* kills style.css calc() */
-    flex: 1 1 0% !important;     /* grow to fill all remaining space */
-    min-width: 0 !important;
-    font-size: 0.82rem !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-all !important;
-  }
-
-  /* ── Counter: scale down the giant number ── */
-  .counter-wrap .number {
-    font-size: 4rem !important;
-  }
-  .counter-wrap {
-    justify-content: center !important;
-    text-align: center !important;
-  }
-
-  /* ── Download CV button: full width ── */
-  .counter-wrap .btn {
-    width: 100% !important;
-    text-align: center !important;
-  }
-}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    PREMIUM MOBILE — ADDITIONAL COMPREHENSIVE FIXES
@@ -2840,13 +2726,6 @@ body {
     max-width: 1320px !important;
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
-  }
-}
-
-/* ── About section image: on MacBook it can be clipped at 760-900px heights ── */
-@media (min-width: 992px) and (max-width: 1280px) {
-  .ftco-about .img-about .img {
-    min-height: 460px !important;
   }
 }
 
@@ -3325,5 +3204,274 @@ body.vlog-modal-open {
   #vlog-modal-title {
     font-size: 1.2rem;
   }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ABOUT 2030 — Editorial Split-Bento
+   Photo card (animated glow ring + floating fact cards) paired
+   with a narrative column (headline, bio, fact chips, animated
+   stat row, focus tags, dual CTA). Fluid clamp()-driven sizing
+   throughout — no fixed breakpoint rewrites needed for most
+   viewports; only the grid stacking direction changes at 991px.
+   Reuses .services-eyebrow / .heading-section / .btn primitives
+   so it reads as the same design system as Services & Skills.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.about-2030 { position: relative; }
+
+.about-2030__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 991.98px) {
+  .about-2030__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* ── Media column ── */
+.about-2030__media {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  padding: clamp(2.75rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.25rem) clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.about-2030__photo-frame {
+  position: relative;
+  border-radius: 1.75rem;
+  padding: 3px;
+  aspect-ratio: 4 / 5;
+  background: conic-gradient(from var(--about-angle, 0deg),
+    var(--p-orange), #ff9a4d, rgba(249,109,0,.15) 35%, rgba(249,109,0,.15) 60%, var(--p-orange));
+  animation: aboutRingSpin 8s linear infinite;
+  box-shadow: 0 30px 80px rgba(0,0,0,.5);
+}
+@keyframes aboutRingSpin {
+  to { --about-angle: 360deg; }
+}
+@property --about-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-2030__photo-frame { animation: none; }
+}
+
+.about-2030__photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(1.75rem - 3px);
+  background-size: cover;
+  background-position: center top;
+  background-color: #12121c;
+  overflow: hidden;
+}
+.about-2030__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(8,8,15,.75) 100%);
+}
+
+.about-2030__float-card {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .8rem 1.1rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(20,20,30,.92), rgba(14,14,22,.92));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  animation: aboutFloat 5s ease-in-out infinite;
+}
+.about-2030__float-card--top {
+  top: -0.5rem;
+  right: -1rem;
+  animation-delay: -1.5s;
+}
+.about-2030__float-card--bottom {
+  bottom: 0.5rem;
+  left: -1.25rem;
+}
+@keyframes aboutFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-2030__float-card { animation: none; }
+}
+.about-2030__float-card i {
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  color: var(--p-orange);
+}
+.about-2030__float-card strong {
+  display: block;
+  font-size: .82rem;
+  font-weight: 700;
+  color: #F8F6FB;
+  line-height: 1.3;
+}
+.about-2030__float-card span {
+  display: block;
+  font-size: .72rem;
+  color: rgba(248,246,251,.55);
+  line-height: 1.3;
+}
+@media (max-width: 575.98px) {
+  .about-2030__float-card { display: none; }
+}
+
+/* ── Content column ── */
+.about-2030__content {
+  max-width: 640px;
+}
+@media (max-width: 991.98px) {
+  .about-2030__content { max-width: 560px; }
+}
+
+.about-2030__headline {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  color: #F8F6FB;
+  margin-bottom: 1.1rem;
+}
+.about-2030__headline span {
+  color: var(--p-orange);
+}
+
+.about-2030__bio {
+  font-size: clamp(.98rem, .9rem + .3vw, 1.08rem);
+  line-height: 1.75;
+  color: rgba(248,246,251,.68);
+  margin-bottom: 1.6rem;
+}
+
+.about-2030__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(.75rem, 2vw, 1.5rem);
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  max-width: 320px;
+}
+@media (max-width: 991.98px) {
+  .about-2030__stats { margin-inline: auto; }
+}
+.about-2030__stat { text-align: left; }
+@media (max-width: 991.98px) {
+  .about-2030__stat { text-align: center; }
+}
+.about-2030__stat-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem);
+  font-weight: 700;
+  color: var(--p-orange);
+  line-height: 1.1;
+  filter: drop-shadow(0 0 16px rgba(249,109,0,.3));
+}
+.about-2030__stat-label {
+  display: block;
+  margin-top: .3rem;
+  font-size: .74rem;
+  letter-spacing: .01em;
+  color: rgba(248,246,251,.5);
+}
+
+.about-2030__focus {
+  margin-bottom: 2.2rem;
+}
+.about-2030__focus-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(248,246,251,.45);
+  margin-bottom: .8rem;
+}
+.about-2030__focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+@media (max-width: 991.98px) {
+  .about-2030__focus-tags { justify-content: center; }
+}
+.about-2030__focus-tags span {
+  padding: .45rem .9rem;
+  border-radius: 8px;
+  background: rgba(249,109,0,.08);
+  border: 1px solid rgba(249,109,0,.22);
+  font-size: .8rem;
+  font-weight: 500;
+  color: #ffb877;
+}
+
+.about-2030__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+@media (max-width: 991.98px) {
+  .about-2030__cta { justify-content: center; }
+}
+@media (max-width: 575.98px) {
+  .about-2030__cta { flex-direction: column; }
+  .about-2030__cta .btn { width: 100%; text-align: center; }
+}
+
+/* CTA icons get their own circular badge instead of a bare glyph glued to
+   the label — matches the .services-arrow language used elsewhere on the
+   page so the button reads as a designed unit, not raw Bootstrap Icons. */
+.about-2030__cta-btn.btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .7rem !important;
+}
+@media (max-width: 575.98px) {
+  .about-2030__cta-btn.btn { justify-content: center !important; }
+}
+
+/* No badge shape — a plain circle just reads as template filler no matter
+   the color. Instead the arrow itself is oversized/bold and moves further
+   in its own direction on hover, so the motion carries the "premium"
+   feeling instead of a static icon container. */
+.about-2030__cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+  transition: transform .35s cubic-bezier(.175,.885,.32,1.275);
+}
+.about-2030__cta-icon svg {
+  width: 19px;
+  height: 19px;
+  color: currentColor;
+}
+
+.btn-primary:hover .about-2030__cta-icon {
+  transform: translateY(5px);
+}
+.btn-white.btn-outline-white:hover .about-2030__cta-icon {
+  transform: translate(5px, -5px);
 }
 

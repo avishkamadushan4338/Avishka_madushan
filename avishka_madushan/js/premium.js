@@ -294,18 +294,33 @@
       serviceCards.forEach(card => svcObs.observe(card));
     }
 
-    /* ── COUNTER ENTRANCE ANIMATION ── */
-    const numEl = document.querySelector('.counter-wrap .number');
-    if (numEl) {
-      const obs = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          numEl.style.animation = 'none';
-          void numEl.offsetWidth; /* reflow */
-          numEl.style.animation = 'pCounterPop .85s cubic-bezier(.22,1,.36,1) forwards';
-          obs.disconnect();
-        }
+    /* ── ABOUT 2030: stat count-up animation ── */
+    const aboutStats = document.querySelectorAll('.about-2030__stat-num');
+    if (aboutStats.length) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const runCountUp = el => {
+        const target = parseInt(el.dataset.count, 10) || 0;
+        const suffix = el.dataset.noPlus ? '' : '+';
+        if (reduceMotion) { el.textContent = target + suffix; return; }
+        const duration = 1200;
+        const start = performance.now();
+        const step = now => {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      const statsObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runCountUp(entry.target);
+            statsObs.unobserve(entry.target);
+          }
+        });
       }, { threshold: 0.6 });
-      obs.observe(numEl);
+      aboutStats.forEach(el => statsObs.observe(el));
     }
 
   } /* end init() */

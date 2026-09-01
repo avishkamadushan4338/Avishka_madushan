@@ -177,20 +177,35 @@ html[data-theme="light"] .blog-readmore-link { color: var(--tl-orange-text) !imp
 html[data-theme="light"] .blog-readmore-link:hover,
 html[data-theme="light"] .blog-readmore-link:focus-visible { color: var(--tl-text) !important; }
 
-/* ── About ── */
-html[data-theme="light"] .about-info li span:first-child,
-html[data-theme="light"] .ftco-about ul.about-info li span:first-child {
-  color: var(--tl-text) !important;
+/* ── About 2030 (editorial split-bento) ── */
+html[data-theme="light"] .about-2030__headline { color: var(--tl-text) !important; }
+html[data-theme="light"] .about-2030__headline span { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .about-2030__bio { color: var(--tl-text-soft) !important; }
+
+html[data-theme="light"] .about-2030__float-card {
+  background: linear-gradient(180deg, #FFFFFF, var(--tl-surface-2)) !important;
+  border-color: var(--tl-border) !important;
+  box-shadow: var(--tl-shadow-lift) !important;
 }
-html[data-theme="light"] .about-info li span:last-child,
-html[data-theme="light"] .ftco-about ul.about-info li span:last-child {
-  color: var(--tl-text-soft) !important;
+html[data-theme="light"] .about-2030__float-card i { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .about-2030__float-card strong { color: var(--tl-text) !important; }
+html[data-theme="light"] .about-2030__float-card span { color: var(--tl-text-mute) !important; }
+
+html[data-theme="light"] .about-2030__stats {
+  border-color: var(--tl-border) !important;
 }
-html[data-theme="light"] .about-info li { border-bottom-color: var(--tl-border) !important; }
-html[data-theme="light"] .counter-wrap .text p span:last-child { color: var(--tl-text) !important; }
-/* the big "3" counter numeral is brand orange at 6rem — pure --p-orange fails
-   AA even for large text on a light bg, so the numeral gets the text-safe shade */
-html[data-theme="light"] .counter-wrap .number { color: var(--tl-orange-text) !important; }
+/* stat numerals are brand orange at ~2rem — pure --p-orange fails AA even at
+   this size on a light bg, so they get the text-safe shade, same rule as
+   the old counter numeral this module replaces */
+html[data-theme="light"] .about-2030__stat-num { color: var(--tl-orange-text) !important; }
+html[data-theme="light"] .about-2030__stat-label { color: var(--tl-text-mute) !important; }
+
+html[data-theme="light"] .about-2030__focus-label { color: var(--tl-text-mute) !important; }
+html[data-theme="light"] .about-2030__focus-tags span {
+  background: var(--tl-orange-tint) !important;
+  border-color: rgba(249,109,0,.3) !important;
+  color: var(--tl-orange-text) !important;
+}
 
 /* ── Education (vertical timeline) ──
    The spine is drawn per-row by .edu-rail::before (solid 2px line) and
