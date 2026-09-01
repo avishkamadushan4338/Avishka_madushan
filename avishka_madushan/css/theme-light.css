@@ -118,109 +118,21 @@ html[data-theme="light"] .ftco-navbar-light.scrolled .nav-item > .nav-link.activ
   }
 }
 
-/* ── Hero — mobile (<992px) ──
-   BUGFIX v1: this block didn't exist, so below 992px the hero ran 100%
-   dark-theme rules regardless of [data-theme="light"] — a no-op.
-   BUGFIX v2 (reverted): tried a dark scrim-card floating on an
-   untouched dark photo. Visually that read as "still the dark theme"
-   — only ~10% of the screen (navbar sliver) actually looked light,
-   so toggling felt broken even though the code was doing something.
-   v3: commit fully — re-tint the photo gradient light like the rest
-   of the page, text sits directly on it (same structural approach as
-   the ≥992px desktop rule below), no separate card. Buttons and social
-   icons get solid, opaque light-theme fills (not transparent/outline —
-   style.css's .btn-outline-white and premium.css's frosted-glass
-   social icons are both built assuming a dark backdrop; on light they
-   need real fill or they wash out to near-invisible, as seen earlier). */
-@media (max-width: 991.98px) {
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item {
-    background-color: var(--tl-bg) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
-    background: linear-gradient(
-      to top,
-      var(--tl-bg) 0%,
-      rgba(248, 250, 252, 0.92) 25%,
-      rgba(248, 250, 252, 0.55) 55%,
-      rgba(248, 250, 252, 0.12) 80%,
-      rgba(248, 250, 252, 0.00) 100%
-    ) !important;
-    opacity: 1 !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .one-forth {
-    padding-bottom: 3.5rem !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    color: var(--tl-orange-text) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2 {
-    color: var(--tl-text) !important;
-    text-shadow: 0 1px 12px rgba(248, 250, 252, 0.8) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1 span,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
-    color: var(--tl-orange-text) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
-    opacity: 1 !important;
-    color: var(--tl-text-soft) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .btn.btn-white.btn-outline-white {
-    background: var(--tl-surface) !important;
-    border-color: var(--tl-border-firm) !important;
-    color: var(--tl-text) !important;
-    box-shadow: var(--tl-shadow-lift) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .btn.btn-white.btn-outline-white:hover {
-    border-color: transparent !important;
-    background: var(--tl-orange) !important;
-    color: #fff !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a {
-    background: var(--tl-surface) !important;
-    border-color: var(--tl-border-firm) !important;
-    color: var(--tl-text-soft) !important;
-    box-shadow: var(--tl-shadow-lift) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a:hover {
-    background: var(--tl-orange) !important;
-    border-color: var(--tl-orange) !important;
-    color: #fff !important;
-  }
+/* ── "My works" outline button — light theme (used in the hero and
+   elsewhere) — style.css's .btn-outline-white assumes a dark backdrop,
+   so on light it needs a real border/fill or it washes out to
+   near-invisible. Hero-specific light-theme rules now live in
+   css/hero.css alongside the rest of that component. */
+html[data-theme="light"] .btn.btn-white.btn-outline-white {
+  background: var(--tl-surface) !important;
+  border-color: var(--tl-border-firm) !important;
+  color: var(--tl-text) !important;
+  box-shadow: var(--tl-shadow-lift) !important;
 }
-
-/* ── Hero (desktop) ──
-   At ≥992px the two-column layout puts the text column directly on the
-   page background with no scrim, so it needs its own light-theme colors.
-   The name gets the brand orange — one deliberate, bold use of it,
-   right where a portfolio wants it. */
-@media (min-width: 992px) {
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    color: var(--tl-orange-text) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
-    color: var(--tl-text) !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h1 span,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span,
-  html[data-theme="light"] .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
-    color: var(--tl-orange-text) !important;
-  }
-  html[data-theme="light"] .btn.btn-white.btn-outline-white {
-    border-color: var(--tl-border-firm) !important;
-    color: var(--tl-text) !important;
-  }
-  html[data-theme="light"] .btn.btn-white.btn-outline-white:hover {
-    border-color: transparent !important;
-    background: var(--tl-orange) !important;
-    color: #fff !important;
-  }
-  html[data-theme="light"] .owl-carousel.home-slider .ftco-footer-social a {
-    color: var(--tl-text-soft) !important;
-  }
+html[data-theme="light"] .btn.btn-white.btn-outline-white:hover {
+  border-color: transparent !important;
+  background: var(--tl-orange) !important;
+  color: #fff !important;
 }
 
 /* ── Primary buttons (Hire me, Download CV, Read More…) ──

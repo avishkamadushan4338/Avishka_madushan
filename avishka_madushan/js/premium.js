@@ -88,11 +88,17 @@
     document.body.append(dot, ring);
 
     let mx = 0, my = 0, rx = 0, ry = 0;
+    let tracking = false;
 
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + 'px';
       dot.style.top  = my + 'px';
+      if (!tracking) {
+        tracking = true;
+        rx = mx; ry = my; /* snap the ring to the pointer instead of easing in from the corner */
+        document.documentElement.classList.add('p-cursor-ready'); /* only now hide the real OS cursor */
+      }
     });
 
     (function animateRing() {
@@ -231,40 +237,10 @@
       drawParticles();
     }
 
-    /* ── HERO: Typing Effect ── */
-    const heroH2 = document.querySelector('.owl-item:not(.cloned) .slider-item h2.mb-4');
-    if (heroH2) {
-      const texts = ['An Undergraduate', 'A Full Stack Developer', 'A Problem Solver', 'A Creative Coder'];
-      let ti = 0, ci = 0, deleting = false;
-
-      const tSpan = document.createElement('span');
-      const tCur  = document.createElement('span');
-      tCur.className = 'p-type-cursor';
-      heroH2.textContent = '';
-      heroH2.append(tSpan, tCur);
-
-      function type() {
-        const word = texts[ti];
-        tSpan.textContent = deleting ? word.slice(0, --ci) : word.slice(0, ++ci);
-        let delay = deleting ? 55 : 105;
-        if (!deleting && ci === word.length) { delay = 2200; deleting = true; }
-        else if (deleting && ci === 0)       { deleting = false; ti = (ti + 1) % texts.length; delay = 380; }
-        setTimeout(type, delay);
-      }
-      setTimeout(type, 1000);
-    }
-
-    /* ── HERO: Mouse Parallax on Image ── */
-    if (!IS_TOUCH && hero) {
-      const heroImg = hero.querySelector('.one-third.img');
-      if (heroImg) {
-        document.addEventListener('mousemove', e => {
-          const x = (e.clientX / window.innerWidth  - 0.5) * 14;
-          const y = (e.clientY / window.innerHeight - 0.5) * 14;
-          heroImg.style.transform = `translate(${x}px, ${y}px)`;
-        });
-      }
-    }
+    /* Hero role-word rotator and typing effect now live inline in
+       index.html (css/hero.css's .hero-2030__role-word) — the old
+       .slider-item/.one-third targets here were removed with the
+       owl-carousel hero markup. */
 
     /* ── 3D TILT + SPOTLIGHT on Cards ── */
     document.querySelectorAll('.project-card, .services-1').forEach(el => {
@@ -334,7 +310,7 @@
 
   } /* end init() */
 
-  /* Run init after Owl Carousel & other libs have initialized */
+  /* Small delay so init() runs after other page libs have settled */
   setTimeout(init, 450);
 
 })();

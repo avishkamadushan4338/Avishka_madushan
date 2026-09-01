@@ -118,7 +118,6 @@ body {
 
 h1, h2, h3, h4, h5, h6,
 .navbar-brand,
-.slider-text h1, .slider-text h2,
 .heading-section h2,
 .blog-entry h3,
 .edu-card h3,
@@ -131,36 +130,8 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: -0.01em;
 }
 
-.slider-text h1,
 .heading-section h2.big {
   letter-spacing: -0.02em;
-}
-
-/* Second hero slide's headline is a semantic h2 (only one h1 per page for SEO)
-   but must keep the same large visual treatment as the h1 slide headline. */
-.owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
-  font-size: clamp(60px, 3.6vw, 84px);
-  font-weight: 800;
-  color: #F8F6FB;
-  line-height: 1.2;
-}
-
-.owl-carousel.home-slider .slider-item .slider-text h2.slide-heading span {
-  font-weight: 800;
-  color: #A855F7;
-}
-
-@media (max-width: 991.98px) {
-  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
-    font-size: 50px;
-    color: #F8F6FB;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
-    font-size: 40px;
-  }
 }
 
 .subheading,
@@ -288,9 +259,15 @@ h1, h2, h3, h4, h5, h6,
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CUSTOM CURSOR  (pointer / desktop only)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+   The real OS cursor is only hidden once html.p-cursor-ready is set —
+   premium.js adds that class after the custom dot/ring has received its
+   first real mousemove coordinates. Without this gate, the dot/ring sit
+   at their CSS default (top:0;left:0, off in the corner) until the first
+   mouse move, while cursor:none had already hidden the real pointer
+   everywhere — leaving the user with no visible cursor at all until they
+   happened to move the mouse. */
 @media (pointer: fine) {
-  *, *::before, *::after { cursor: none !important; }
+  html.p-cursor-ready *, html.p-cursor-ready *::before, html.p-cursor-ready *::after { cursor: none !important; }
 }
 
 .p-cursor-dot {
@@ -509,6 +486,10 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1;
   cursor: pointer;
   flex-shrink: 0;
+  order: 3; /* sits before .navbar-collapse in the DOM (so it never gets pushed
+               onto a wrapped row when the mobile menu is open) — `order` puts
+               it back after the nav links visually on desktop, where
+               .navbar-collapse is `order: 2` by default. */
   transition: background .3s, border-color .3s, transform .35s, box-shadow .3s;
 }
 .theme-toggle-btn:hover {
@@ -1950,7 +1931,25 @@ body.pm-modal-open { overflow: hidden; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    BUTTONS — Ripple + Lift
+   style.css's `.btn.btn-primary` (higher specificity than the
+   `.btn-primary` rule below) hardcodes violet (#A855F7) as its own
+   theme customization — the orange glow this file already adds below
+   was fighting a fill color that was never actually orange. Brand
+   orange is the primary CTA color everywhere else on the page (hero,
+   splash, nav dot, scrollbar…), so make the fill match. Light theme
+   already does this correctly via theme-light.css.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.btn.btn-primary {
+  background: var(--p-orange) !important;
+  border-color: var(--p-orange) !important;
+  color: #fff !important;
+}
+.btn.btn-primary:hover {
+  background: #E05F00 !important;
+  border-color: #E05F00 !important;
+  color: #fff !important;
+}
+
 .btn-primary {
   position: relative;
   overflow: hidden;
@@ -2469,18 +2468,6 @@ body.pm-modal-open { overflow: hidden; }
     overflow-y: auto !important;
     overflow-x: hidden !important;
   }
-
-  /* Owl Carousel sets touch-action:none on its inner elements which blocks
-     the browser from handling vertical scroll. Override it so the browser
-     can scroll the page when the user swipes vertically on the hero. */
-  .home-slider,
-  .home-slider .owl-stage-outer,
-  .home-slider .owl-stage,
-  .home-slider .owl-item,
-  .home-slider .slider-item,
-  .home-slider .slider-text {
-    touch-action: pan-y !important;
-  }
 }
 
 /*
@@ -2559,6 +2546,10 @@ body.pm-modal-open { overflow: hidden; }
 
   .ftco-navbar-light .theme-toggle-btn {
     flex: 0 0 auto !important;
+    order: 0 !important; /* mobile: DOM order (toggler, then theme button) is
+                             already correct — desktop's `order: 3` reordering
+                             would otherwise push it past .navbar-collapse
+                             (order:2) onto its own wrapped row */
   }
 
   /* style.css sets nav-link text to dark #0F0A1F when scrolled — fix for mobile */
@@ -2626,26 +2617,6 @@ body.pm-modal-open { overflow: hidden; }
 @media (max-width: 767.98px) {
   .blog-entry {
     margin-bottom: 1.5rem !important;
-  }
-}
-
-/* ── Hero section: push text below the fixed navbar ── */
-@media (max-width: 991.98px) {
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
-    padding-top: 72px !important; /* clear the fixed navbar height */
-  }
-}
-
-@media (max-width: 576px) {
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
-    width: 100% !important;
-    padding: 72px 1rem 1.5rem !important; /* top clears navbar */
-  }
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text h1 {
-    font-size: 1.6rem !important;
-  }
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text h2 {
-    font-size: 1.1rem !important;
   }
 }
 
@@ -2751,16 +2722,6 @@ body.pm-modal-open { overflow: hidden; }
    PREMIUM MOBILE — ADDITIONAL COMPREHENSIVE FIXES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* ── Fix: hero <p> gets 23px on mobile from style.css — far too large ── */
-@media (max-width: 991.98px) {
-  .owl-carousel.home-slider .slider-item .slider-text p {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-  }
-}
-
-
-
 /* ── Fix: footer nav columns — 2-col grid with 3 items leaves orphan at 480–767px ── */
 @media (max-width: 767.98px) {
   .pf-footer-cols {
@@ -2808,203 +2769,9 @@ body.pm-modal-open { overflow: hidden; }
 }
 
 
-/* ── Fix: social icons in hero not overflowing on small screens ── */
-@media (max-width: 380px) {
-  .owl-carousel.home-slider .ftco-footer-social {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 0.4rem !important;
-    padding: 0 !important;
-  }
-  .owl-carousel.home-slider .ftco-footer-social li {
-    margin: 0 !important;
-  }
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MOBILE HERO — PREMIUM UI
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-@media (max-width: 991.98px) {
-
-  /* BUGFIX — large blank gap above the portrait/name on some phones:
-     main.js's fullHeight() sets an inline `height: <window.height()>px`
-     on .js-fullheight (.one-third, the image panel) via jQuery, while
-     .slider-text (its ancestor) is separately hardcoded to a fixed
-     height:750px in style.css. window.height() is measured once on
-     load and is unreliable on mobile (browser chrome collapsing,
-     address bar show/hide), so the two heights disagree — the image
-     panel ends up taller than the visible viewport, pushing the face/
-     name down and leaving dead space at the top.
-
-     IMPORTANT: only .slider-item and its own descendants are forced
-     here — NOT .owl-stage/.owl-stage-outer/.owl-item. Those three are
-     managed internally by Owl Carousel (it sizes .owl-stage-outer from
-     its items' natural height and toggles owl-animated-in/-out classes
-     with an opacity crossfade during transitions). An earlier version
-     of this fix also forced a height on those wrapper layers, which
-     fought Owl's own height bookkeeping and left the outgoing slide's
-     absolutely-positioned text stuck visible on top of the incoming
-     slide instead of Owl hiding it after the 1s fade — showing both
-     slides' headings overlapping. Constraining only .slider-item keeps
-     Owl's own layers untouched so its crossfade/cleanup works normally,
-     while still fixing the image-panel/text height mismatch. */
-  .owl-carousel.home-slider .slider-item,
-  .owl-carousel.home-slider .slider-item .slider-text,
-  .owl-carousel.home-slider .slider-item .slider-text .one-third.js-fullheight {
-    height: 100vh !important;
-    min-height: 480px !important;
-  }
-
-  /* Fill any corner gap with the same dark base */
-  .owl-carousel.home-slider .slider-item {
-    background-color: #08080f !important;
-  }
-
-  /* Hide unused flat overlay */
-  .owl-carousel.home-slider .slider-item > .overlay {
-    display: none !important;
-  }
-
-  /* Premium gradient: image fully visible at top, fades to dark at bottom for text */
-  .owl-carousel.home-slider .slider-item .slider-text .one-third .overlay {
-    background: linear-gradient(
-      to top,
-      rgba(8, 8, 15, 0.96) 0%,
-      rgba(8, 8, 15, 0.65) 30%,
-      rgba(8, 8, 15, 0.20) 60%,
-      rgba(8, 8, 15, 0.00) 100%
-    ) !important;
-    opacity: 1 !important;
-  }
-
-  /* Push text to the bottom of the hero where the gradient is darkest */
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth {
-    z-index: 2 !important;
-    align-items: flex-end !important;
-    padding-bottom: 6.5rem !important;
-  }
-
-  /* Left-align text block — premium portfolio look */
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text {
-    text-align: left !important;
-    padding: 0 1.4rem !important;
-    width: 100% !important;
-  }
-
-  /* Subheading: uppercase, wide letter-spacing */
-  .owl-carousel.home-slider .slider-item .slider-text .subheading {
-    display: block !important;
-    font-size: 0.72rem !important;
-    letter-spacing: 0.28em !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-    margin-bottom: 0.5rem !important;
-    text-shadow: none !important;
-  }
-
-  /* H1: large, bold, tight */
-  .owl-carousel.home-slider .slider-item .slider-text h1 {
-    font-size: 2rem !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.01em !important;
-    margin-bottom: 0.4rem !important;
-    text-shadow: none !important;
-  }
-
-  /* H2: softer, elegant (genuine subheading, e.g. "An Undergraduate") */
-  .owl-carousel.home-slider .slider-item .slider-text h2:not(.slide-heading) {
-    font-size: 0.95rem !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.06em !important;
-    margin-bottom: 1.2rem !important;
-    opacity: 0.88 !important;
-    text-shadow: none !important;
-  }
-
-  /* Slide 2's headline is a semantic h2 but visually matches h1 */
-  .owl-carousel.home-slider .slider-item .slider-text h2.slide-heading {
-    font-size: 2rem !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.01em !important;
-    margin-bottom: 0.4rem !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-  }
-
-  /* Buttons: compact and clean */
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth .text p {
-    margin-bottom: 1rem !important;
-  }
-
-  .owl-carousel.home-slider .slider-item .slider-text .one-forth .btn {
-    padding: 0.5rem 1.3rem !important;
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.05em !important;
-    border-radius: 4px !important;
-  }
-
-  /* Social icons: circular glass-style */
-  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 0.6rem !important;
-    margin-top: 0.8rem !important;
-    padding-left: 0 !important;
-    justify-content: flex-start !important;
-  }
-
-  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social li {
-    margin: 0 !important;
-    list-style: none !important;
-  }
-
-  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a {
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.10) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 1rem !important;
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
-    transition: background 0.25s, border-color 0.25s !important;
-  }
-
-  .owl-carousel.home-slider .slider-item .slider-text .ftco-footer-social a:hover {
-    background: rgba(255, 255, 255, 0.22) !important;
-    border-color: rgba(255, 255, 255, 0.45) !important;
-  }
-}
-
-/* dvh = "dynamic viewport height", recalculates live as mobile browser
-   chrome (address bar) shows/hides — the correct unit for a mobile hero.
-   svh is the Safari 16 equivalent. Layered as progressive enhancement
-   over the 100vh fallback above so older browsers still get a fix. */
-@supports (height: 100dvh) {
-  @media (max-width: 991.98px) {
-    .owl-carousel.home-slider .slider-item,
-    .owl-carousel.home-slider .slider-item .slider-text,
-    .owl-carousel.home-slider .slider-item .slider-text .one-third.js-fullheight {
-      height: 100dvh !important;
-    }
-  }
-}
-@supports (height: 100svh) and (not (height: 100dvh)) {
-  @media (max-width: 991.98px) {
-    .owl-carousel.home-slider .slider-item,
-    .owl-carousel.home-slider .slider-item .slider-text,
-    .owl-carousel.home-slider .slider-item .slider-text .one-third.js-fullheight {
-      height: 100svh !important;
-    }
-  }
-}
+/* Hero (#home-section) styling now lives entirely in css/hero.css —
+   the old owl-carousel .home-slider markup and its mobile/dvh/svh
+   height hacks were removed along with that markup. */
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SAFARI / WEBKIT — MacBook & General Safari Fixes
@@ -3061,19 +2828,6 @@ body {
     padding-right: 1.5rem !important;
   }
 
-  /* Hero: reduce the fixed 750px height so the section doesn't push
-     section headings below the fold on 800px-tall MacBook screens. */
-  .owl-carousel.home-slider,
-  .owl-carousel.home-slider .slider-item,
-  .owl-carousel.home-slider .slider-item .slider-text {
-    height: 680px !important;
-  }
-
-  /* Hero text: slightly tighter so it fits at 1280px without cramping */
-  .slider-text h1 {
-    font-size: 42px !important;
-  }
-
   /* Footer grid: tighten gap so 3-column nav and brand block don't overflow */
   .pf-footer-inner {
     gap: 2.5rem 3rem !important;
@@ -3086,17 +2840,6 @@ body {
     max-width: 1320px !important;
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
-  }
-}
-
-/* ── Hero height: use svh for Safari 16+ which correctly excludes browser chrome ── */
-@supports (height: 100svh) {
-  @media (min-width: 992px) and (max-width: 1399px) {
-    .owl-carousel.home-slider,
-    .owl-carousel.home-slider .slider-item,
-    .owl-carousel.home-slider .slider-item .slider-text {
-      height: min(680px, 90svh) !important;
-    }
   }
 }
 

@@ -7,35 +7,6 @@
 
 	"use strict";
 
-	// Stellar & Scrollax parallax — desktop only (mobile touch scroll must not be blocked)
-	if ($(window).width() >= 992) {
-		$(window).stellar({
-	    responsive: true,
-	    parallaxBackgrounds: true,
-	    parallaxElements: true,
-	    horizontalScrolling: false,
-	    hideDistantElements: false,
-	    scrollProperty: 'scroll'
-	  });
-	  $.Scrollax();
-	}
-
-
-	// Desktop only: below 992px, premium.css drives .js-fullheight's height
-	// via 100dvh/100svh/100vh, which tracks mobile browser-chrome changes
-	// live. window.height() is a one-time snapshot that goes stale on
-	// mobile (address bar show/hide) and was fighting the CSS height,
-	// leaving a gap above the hero portrait — so don't set it there.
-	var fullHeight = function() {
-		if ($(window).width() < 992) {
-			$('.js-fullheight').css('height', '');
-			return;
-		}
-		$('.js-fullheight').css('height', $(window).height());
-	};
-	fullHeight();
-	$(window).resize(fullHeight);
-
 	// ─── ENHANCED LOADING SCREEN ───
 	var initLoadingScreen = function() {
 		var splashScreen = $('#splash-screen');
@@ -197,35 +168,6 @@
 
 	onePageClick();
 	
-
-	var carousel = function() {
-		var isMobile = $(window).width() < 992;
-		$('.home-slider').owlCarousel({
-	    loop:true,
-	    autoplay: true,
-	    margin:0,
-	    animateOut: 'fadeOut',
-	    animateIn: 'fadeIn',
-	    nav:false,
-	    autoplayHoverPause: false,
-	    items: 1,
-	    touchDrag: !isMobile,   // disable on mobile so vertical scroll works
-	    mouseDrag: true,
-	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
-	    responsive:{
-	      0:{
-	        items:1
-	      },
-	      600:{
-	        items:1
-	      },
-	      1000:{
-	        items:1
-	      }
-	    }
-		});
-	};
-	carousel();
 
 	$('nav .dropdown').hover(function(){
 		var $this = $(this);

@@ -1,0 +1,468 @@
+/* ═══════════════════════════════════════════════════════════
+   HERO 2030 — standalone module
+   Replaces the old owl-carousel .home-slider hero. Pure CSS
+   height (100dvh chain, no JS-measured height), CSS Grid split
+   on desktop, fluid clamp() type throughout, mobile-first.
+   Reuses the site's existing tokens only — no new colors/fonts.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --hero-navbar-clearance: 76px; /* fixed navbar height + breathing room, mobile */
+}
+
+.hero-2030 {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--p-dark);
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-top: calc(var(--hero-navbar-clearance) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* ── Layered background: mesh + photo + scrim + grid texture ──
+   z-index:1 (not the usual 0) so the text-scrim's solid zone actually
+   covers premium.js's injected particle-network canvas (also z-index:1,
+   inserted as the hero's first DOM child) — otherwise its connection
+   lines bleed through the "solid" part of the scrim. Barely visible on
+   the dark theme's near-black background; clearly visible as clutter on
+   the light theme's pale one. */
+.hero-2030__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-2030__mesh {
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(38% 42% at 82% 12%, rgba(249, 109, 0, 0.28) 0%, transparent 70%),
+    radial-gradient(45% 50% at 8% 88%, rgba(249, 109, 0, 0.16) 0%, transparent 72%),
+    radial-gradient(60% 60% at 50% 50%, rgba(168, 85, 247, 0.10) 0%, transparent 70%);
+  filter: blur(20px);
+  animation: heroMeshDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heroMeshDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-2%, 2%, 0) scale(1.06); }
+}
+
+.hero-2030__photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 8%;
+  opacity: 0.85;
+}
+
+/* Faint overall tint so the photo never reads as fully raw against the
+   dark theme, independent of viewport height. */
+.hero-2030__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 15, 0.1);
+}
+
+/* Text sits in the bottom portion of the viewport (flex column,
+   justify-content:flex-end). Its scrim is sized from the bottom in a
+   capped viewport-relative unit (not a percentage of the full scrim) so
+   short phones — where the text block is a much bigger share of the
+   screen — get proportionally more coverage instead of the face bleeding
+   into the headline. Tall screens cap out at 480px so the face keeps
+   most of the frame. */
+.hero-2030__text-scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: min(68vh, 540px);
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(8, 8, 15, 0.45) 12%,
+    rgba(8, 8, 15, 0.85) 34%,
+    var(--p-dark) 68%
+  );
+}
+
+/* ── Content ── */
+.hero-2030__container {
+  position: relative;
+  z-index: 2; /* above premium.js's injected particle canvas (z-index:1) and .p-float-wrap (z-index:0) */
+}
+
+.hero-2030__text {
+  max-width: 62ch;
+}
+
+.hero-2030__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 0.66rem + 0.25vw, 0.85rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--p-orange);
+  font-weight: 600;
+  margin-bottom: clamp(0.9rem, 0.7rem + 0.8vw, 1.4rem);
+  /* Independent contrast guarantee: the text-scrim's gradient boundary
+     shifts with viewport height and can land right on this line on short
+     screens, making it the first thing to lose legibility over the photo.
+     A shadow here doesn't depend on getting that boundary math exactly
+     right. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hero-2030__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: #fff;
+  margin: 0 0 clamp(0.7rem, 0.5rem + 0.8vw, 1.1rem);
+  font-size: clamp(2.6rem, 1.7rem + 5.2vw, 5.6rem);
+}
+
+.hero-2030__name span {
+  background: linear-gradient(100deg, var(--p-orange) 0%, #ffb26b 55%, var(--p-orange) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-2030__role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45em;
+  margin: 0 0 clamp(1rem, 0.8rem + 0.9vw, 1.6rem);
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.05rem, 0.9rem + 0.9vw, 1.5rem);
+}
+
+.hero-2030__role-rotator {
+  position: relative;
+  display: inline-block;
+  min-height: 1.3em;
+}
+
+.hero-2030__role-word {
+  display: inline-block;
+  color: #fff;
+  font-weight: 600;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hero-2030__role-word:not(.is-active) {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.hero-2030__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: clamp(1.6rem, 1.3rem + 1.3vw, 2.2rem);
+}
+
+.hero-2030__cta .btn {
+  white-space: nowrap;
+}
+
+.hero-2030__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 clamp(1.8rem, 1.4rem + 1.8vw, 2.8rem);
+  padding: 0;
+}
+
+.hero-2030__social li {
+  list-style: none;
+  margin: 0;
+}
+
+.hero-2030__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.hero-2030__social a:hover,
+.hero-2030__social a:focus-visible {
+  background: var(--p-orange);
+  border-color: var(--p-orange);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ── Scroll cue (desktop only — see below) ── */
+.hero-2030__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.1rem, 0.9rem + 1vw, 1.8rem);
+  transform: translateX(-50%);
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  transition: color 0.25s ease;
+}
+
+.hero-2030__scroll-cue:hover,
+.hero-2030__scroll-cue:focus-visible {
+  color: var(--p-orange);
+}
+
+.hero-2030__scroll-cue i {
+  animation: heroScrollBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BREAKPOINTS — mobile-first, fluid
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Small phones: tighten navbar clearance + side padding */
+@media (max-width: 359.98px) {
+  :root { --hero-navbar-clearance: 68px; }
+  .hero-2030__cta .btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+/* ≥576px: cta buttons no longer need to stretch full width */
+@media (min-width: 576px) {
+  .hero-2030__cta .btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* ≥768px: a touch more breathing room, larger photo visibility */
+@media (min-width: 768px) {
+  :root { --hero-navbar-clearance: 88px; }
+  .hero-2030__photo { opacity: 0.9; }
+}
+
+/* ≥992px: two-column grid — text left, photo right panel; scroll cue appears.
+   The navbar is `position:absolute` pre-scroll (overlaps the hero by design)
+   but that only reads safely against the dark theme's photo/scrim — on the
+   light theme (and on short viewports where centering doesn't push content
+   down far enough) the eyebrow/name collided with the nav. Reserve real
+   clearance instead of relying on `align-items:center` to happen to land
+   low enough. */
+@media (min-width: 992px) {
+  :root { --hero-navbar-clearance: 128px; }
+
+  .hero-2030 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: center;
+    padding-top: var(--hero-navbar-clearance);
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-2030__container.container {
+    grid-column: 1 / 2;
+    max-width: none;
+    padding-left: clamp(2rem, 1rem + 4vw, 6vw);
+    padding-right: 2rem;
+  }
+
+  .hero-2030__photo {
+    opacity: 1;
+    inset: 0 0 0 38%;
+    background-position: center 20%;
+  }
+
+  .hero-2030__scrim {
+    background:
+      linear-gradient(90deg, var(--p-dark) 0%, var(--p-dark) 30%, rgba(8, 8, 15, 0.85) 42%, rgba(8, 8, 15, 0.15) 65%, transparent 100%),
+      linear-gradient(180deg, rgba(8, 8, 15, 0.3) 0%, transparent 30%, rgba(8, 8, 15, 0.5) 100%);
+  }
+
+  /* Desktop is a left/right split (text column sits on the solid dark
+     side, not on top of the photo) — the bottom-anchored text scrim is
+     mobile/tablet-only and would otherwise needlessly darken the photo
+     panel's lower edge. */
+  .hero-2030__text-scrim {
+    display: none;
+  }
+
+  .hero-2030__scroll-cue {
+    display: flex;
+  }
+
+  .hero-2030__text {
+    max-width: 44ch;
+  }
+}
+
+/* ≥1200px: scale name up a touch more, widen lede */
+@media (min-width: 1200px) {
+  .hero-2030__text { max-width: 48ch; }
+}
+
+/* Ultra-wide / 4K–8K: cap content width so text doesn't stretch into an
+   unreadable line length and the split doesn't look empty at the edges */
+@media (min-width: 1920px) {
+  .hero-2030__container.container {
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-left: 4vw;
+  }
+  .hero-2030__text { max-width: 52ch; }
+}
+
+@media (min-width: 2560px) {
+  .hero-2030 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .hero-2030__container.container { max-width: 1800px; }
+  .hero-2030__name { font-size: clamp(5.6rem, 4rem + 3vw, 7.5rem); }
+}
+
+/* Foldables / small tablets in between 480–768: slightly larger tap targets already satisfied via 44px min */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOTION, CONTRAST & INPUT PREFERENCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-2030__mesh { animation: none; }
+  .hero-2030__scroll-cue i { animation: none; }
+  .hero-2030__role-word { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .hero-2030__social a,
+  .hero-2030__scroll-cue {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* Coarse pointer (touch): drop hover-only lift transform, keep color feedback */
+@media (hover: none) {
+  .hero-2030__social a:hover {
+    transform: none;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LIGHT THEME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+html[data-theme="light"] .hero-2030 {
+  background: var(--tl-bg);
+}
+
+html[data-theme="light"] .hero-2030__mesh {
+  background:
+    radial-gradient(38% 42% at 82% 12%, rgba(249, 109, 0, 0.16) 0%, transparent 70%),
+    radial-gradient(45% 50% at 8% 88%, rgba(249, 109, 0, 0.10) 0%, transparent 72%),
+    radial-gradient(60% 60% at 50% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 70%);
+}
+
+html[data-theme="light"] .hero-2030__photo {
+  opacity: 0.85;
+}
+
+html[data-theme="light"] .hero-2030__scrim {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Pure white (not --tl-bg's pale slate) so the text zone reads as a
+   decisive, high-contrast surface instead of a barely-there pastel wash
+   that blends into the photo's highlights. */
+html[data-theme="light"] .hero-2030__text-scrim {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.75) 8%,
+    rgba(255, 255, 255, 0.97) 26%,
+    #ffffff 52%
+  );
+}
+
+html[data-theme="light"] .hero-2030__eyebrow {
+  color: var(--tl-orange-text);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 1px 14px rgba(255, 255, 255, 0.7);
+}
+
+html[data-theme="light"] .hero-2030__name {
+  color: var(--tl-text);
+}
+
+html[data-theme="light"] .hero-2030__role {
+  color: var(--tl-text-soft);
+}
+
+html[data-theme="light"] .hero-2030__role-word {
+  color: var(--tl-text);
+}
+
+html[data-theme="light"] .hero-2030__social a {
+  background: var(--tl-surface);
+  border-color: var(--tl-border-firm);
+  color: var(--tl-text-soft);
+  box-shadow: var(--tl-shadow-lift);
+}
+
+html[data-theme="light"] .hero-2030__social a:hover,
+html[data-theme="light"] .hero-2030__social a:focus-visible {
+  background: var(--tl-orange);
+  border-color: var(--tl-orange);
+  color: #fff;
+}
+
+html[data-theme="light"] .hero-2030__scroll-cue {
+  color: var(--tl-text-mute);
+}
+
+html[data-theme="light"] .hero-2030__scroll-cue:hover,
+html[data-theme="light"] .hero-2030__scroll-cue:focus-visible {
+  color: var(--tl-orange-text);
+}
+
+@media (min-width: 992px) {
+  html[data-theme="light"] .hero-2030__photo {
+    opacity: 1;
+  }
+
+  html[data-theme="light"] .hero-2030__scrim {
+    background:
+      linear-gradient(90deg, var(--tl-bg) 0%, var(--tl-bg) 32%, rgba(248, 250, 252, 0.55) 38%, transparent 48%),
+      linear-gradient(180deg, transparent 0%, transparent 80%, rgba(248, 250, 252, 0.25) 100%);
+  }
+}

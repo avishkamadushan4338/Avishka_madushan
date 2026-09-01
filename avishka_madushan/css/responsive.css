@@ -88,12 +88,6 @@ textarea,
   .container { padding-left: 12px; padding-right: 12px; }
 }
 
-/* Floor so the hero image panel never collapses to 0 height on odd aspect ratios */
-.home-slider .slider-item .one-third.img,
-.one-third.js-fullheight.img {
-  min-height: 220px;
-}
-
 /* Screen-reader-only utility */
 .sr-only {
   position: absolute;
